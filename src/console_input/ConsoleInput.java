@@ -1,0 +1,37 @@
+package console_input;
+
+import java.util.Scanner;
+
+public class ConsoleInput {
+    private Scanner scanner;
+    private static ConsoleInput instance;
+
+    private ConsoleInput() {
+        scanner = new Scanner(System.in);
+    }
+
+    public static ConsoleInput getInstance() {
+        if (instance == null) instance = new ConsoleInput();
+        return instance;
+    }
+
+    public int getInt(Validator validator, String str) {
+        int res = -1;
+        do {
+            System.out.printf(str);
+            res = scanner.nextInt();
+            scanner.nextLine();
+        } while (validator.validateInt(res));
+        return res;
+    }
+
+    public int getIntInRange(int min, int max, String str) {
+        int res = min - 1;
+        do {
+            System.out.printf(str);
+            res = scanner.nextInt();
+            scanner.nextLine();
+        } while (res < min || res > max);
+        return res;
+    }
+}
