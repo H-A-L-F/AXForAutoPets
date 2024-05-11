@@ -2,21 +2,18 @@ package main;
 
 import constants.Event;
 import interfaces.EventListener;
+import models.Team;
 
 import java.util.HashMap;
 import java.util.Vector;
 
 public class EventManager {
     private HashMap<Event, EventListener> listeners;
-    private static EventManager instance;
+    private Team team;
 
-    private EventManager() {
+    public EventManager( Team team ) {
         listeners = new HashMap<>();
-    }
-
-    public static EventManager getInstance() {
-        if (instance == null) instance = new EventManager();
-        return instance;
+        this.team = team;
     }
 
     public void subscribe(EventListener listener, Event event) {
