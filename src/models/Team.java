@@ -13,5 +13,11 @@ public class Team {
         pets = new Vector<>(5);
     }
 
-    
+    public void roundStart() {
+        
+    }
+
+    public void roundEnd() {
+
+    }
 }
