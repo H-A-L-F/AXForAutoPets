@@ -40,4 +40,8 @@ public class Arena {
     public int battle() {
         return 0;
     }
+
+    private void getTeam() {
+
+    }
 }

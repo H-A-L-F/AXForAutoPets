@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class EventManager {
-    private HashMap<Event, EventListener>listeners;
+    private HashMap<Event, EventListener> listeners;
     private static EventManager instance;
 
     private EventManager() {
