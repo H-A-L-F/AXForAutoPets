@@ -3,6 +3,7 @@ package models;
 import constants.PetList;
 import constants.PetStatus;
 import interfaces.EventListener;
+import main.Arena;
 
 public abstract class Pet {
     private PetList name;
@@ -22,7 +23,15 @@ public abstract class Pet {
     public void onPurchase() {
     }
 
+    public void onSell() {
+        Arena.getInstance().incMoney(this.lv);
+    }
+
     public void onFaint() {
+    }
+
+    public void onLvUp() {
+        this.lv++;
     }
 
     public void buff(int atk, int hp) {

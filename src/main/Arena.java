@@ -52,4 +52,8 @@ public class Arena {
     private void getTeam() {
 
     }
+
+    public void incMoney(int amt) {
+        this.money += amt;
+    }
 }
