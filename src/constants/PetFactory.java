@@ -11,6 +11,7 @@ public class PetFactory {
     public Pet ant;
     public Pet pig;
     public Pet fish;
+    public Pet cricket;
     public Pet zombieCricket;
 
     // TIER 2
@@ -20,8 +21,8 @@ public class PetFactory {
 
         this.ant = new Pet(PetList.ANT, 1, 2, 2) {
             @Override
-            public void onFaint() {
-                super.onFaint();
+            public void onFaint(int pos) {
+                super.onFaint(pos);
                 team.getRandPet().buff(getLv(), getLv());
             }
         };
@@ -38,9 +39,19 @@ public class PetFactory {
             @Override
             public void onLvUp() {
                 super.onLvUp();
-                for(int i = 0; i < 2; i++) {
+                for (int i = 0; i < 2; i++) {
                     team.getRandPet().buff(getLv() - 1, getLv() - 1);
                 }
+            }
+        };
+
+        this.cricket = new Pet(PetList.CRICKET, 1, 1, 2) {
+            @Override
+            public void onFaint(int pos) {
+                super.onFaint(pos);
+                Pet temp = zombieCricket;
+                temp.setStats(getLv(), getLv());
+                team.addPet(temp, pos);
             }
         };
 

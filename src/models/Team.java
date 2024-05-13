@@ -33,4 +33,8 @@ public class Team {
         int idx = (int) (Math.random() * pets.size());
         return pets.get(idx);
     }
+
+    public void addPet(Pet pet, int pos) {
+        pets.insertElementAt(pet, pos);
+    }
 }

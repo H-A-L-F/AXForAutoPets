@@ -4,6 +4,7 @@ public enum PetList {
     ANT("Ant"),
     PIG("Pig"),
     FISH("Fish"),
+    CRICKET("Cricket"),
     ZOMBIE_CRICKET("ZombieCricket");
 
     private String name;

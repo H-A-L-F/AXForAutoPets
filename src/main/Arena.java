@@ -1,18 +1,20 @@
 package main;
 
 import models.Pet;
+import models.Team;
 
 import java.util.Vector;
 
 public class Arena {
-    private Vector<Pet> pets, enemy;
-    int round, win, life;
-    int money;
+    private Team pets;
+    private Team enemy;
+    private int round, win, life;
+    private int money;
     private static Arena instance;
 
     private Arena() {
-        pets = new Vector<>(5);
-        enemy = new Vector<>(5);
+        pets = new Team();
+        enemy = new Team();
         round = 0;
         win = 0;
         life = 5;
@@ -50,7 +52,10 @@ public class Arena {
     }
 
     private void getTeam() {
+    }
 
+    public Team getEnemy() {
+        return this.enemy;
     }
 
     public void incMoney(int amt) {
