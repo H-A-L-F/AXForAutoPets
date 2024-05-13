@@ -1,21 +1,35 @@
 package models;
 
+import constants.PetList;
 import constants.PetStatus;
-import interfaces.Ability;
+import interfaces.EventListener;
 
 public abstract class Pet {
-    private String name;
+    private PetList name;
     private int atk;
     private int hp;
-    private Ability ability;
+    private int lv;
     private PetStatus status;
 
-    public Pet(String name, int atk, int hp, Ability ability) {
+    public Pet(PetList name, int atk, int hp) {
         this.name = name;
         this.atk = atk;
         this.hp = hp;
-        this.ability = ability;
+        this.lv = 1;
     }
 
-    public abstract void move();
+    public void onPurchase() {
+    }
+
+    public void onFaint() {
+    }
+
+    public void buff(int atk, int hp) {
+        this.atk += atk;
+        this.hp += hp;
+    }
+
+    public int getLv() {
+        return lv;
+    }
 }

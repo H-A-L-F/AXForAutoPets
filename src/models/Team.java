@@ -14,10 +14,23 @@ public class Team {
     }
 
     public void roundStart() {
-        
+
     }
 
     public void roundEnd() {
 
+    }
+
+    public EventManager getEventManager() {
+        return this.eventManager;
+    }
+
+    public Vector<Pet> getPets() {
+        return this.pets;
+    }
+
+    public Pet getRandPet() {
+        int idx = (int) (Math.random() * pets.size());
+        return pets.get(idx);
     }
 }
