@@ -6,12 +6,13 @@ import interfaces.EventListener;
 
 public abstract class Pet {
     private PetList name;
+    private int tier;
     private int atk;
     private int hp;
     private int lv;
     private PetStatus status;
 
-    public Pet(PetList name, int atk, int hp) {
+    public Pet(PetList name, int tier, int atk, int hp) {
         this.name = name;
         this.atk = atk;
         this.hp = hp;

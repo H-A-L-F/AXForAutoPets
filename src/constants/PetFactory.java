@@ -6,11 +6,13 @@ import models.Team;
 public class PetFactory {
     private Team team;
     public Pet Ant;
+    public Pet Pig;
+    public Pet Fish;
 
     public PetFactory(Team team) {
         this.team = team;
 
-        this.Ant = new Pet(PetList.ANT, 2, 2) {
+        this.Ant = new Pet(PetList.ANT, 1, 2, 2) {
             @Override
             public void onFaint() {
                 switch (this.getLv()) {

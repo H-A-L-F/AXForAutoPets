@@ -7,13 +7,21 @@ import java.util.Vector;
 public class Arena {
     private Vector<Pet> pets, enemy;
     int round, win, life;
+    int money;
+    private static Arena instance;
 
-    public Arena() {
+    private Arena() {
         pets = new Vector<>(5);
         enemy = new Vector<>(5);
         round = 0;
         win = 0;
         life = 5;
+        money = 0;
+    }
+
+    public static Arena getInstance() {
+        if(instance == null) instance = new Arena();
+        return instance;
     }
 
     public void play() {
