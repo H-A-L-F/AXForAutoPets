@@ -3,7 +3,8 @@ package constants;
 public enum PetList {
     ANT("Ant"),
     PIG("Pig"),
-    FISH("Fish");
+    FISH("Fish"),
+    ZOMBIE_CRICKET("ZombieCricket");
 
     private String name;
 

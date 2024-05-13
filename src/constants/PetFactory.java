@@ -6,14 +6,19 @@ import models.Team;
 
 public class PetFactory {
     private Team team;
-    public Pet Ant;
-    public Pet Pig;
-    public Pet Fish;
+
+    // TIER 1
+    public Pet ant;
+    public Pet pig;
+    public Pet fish;
+    public Pet zombieCricket;
+
+    // TIER 2
 
     public PetFactory(Team team) {
         this.team = team;
 
-        this.Ant = new Pet(PetList.ANT, 1, 2, 2) {
+        this.ant = new Pet(PetList.ANT, 1, 2, 2) {
             @Override
             public void onFaint() {
                 super.onFaint();
@@ -21,7 +26,7 @@ public class PetFactory {
             }
         };
 
-        this.Pig = new Pet(PetList.PIG, 1, 4, 1) {
+        this.pig = new Pet(PetList.PIG, 1, 4, 1) {
             @Override
             public void onSell() {
                 super.onSell();
@@ -29,7 +34,7 @@ public class PetFactory {
             }
         };
 
-        this.Fish = new Pet(PetList.FISH, 1, 2, 3) {
+        this.fish = new Pet(PetList.FISH, 1, 2, 3) {
             @Override
             public void onLvUp() {
                 super.onLvUp();
@@ -37,6 +42,9 @@ public class PetFactory {
                     team.getRandPet().buff(getLv() - 1, getLv() - 1);
                 }
             }
+        };
+
+        this.zombieCricket = new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
         };
     }
 }
