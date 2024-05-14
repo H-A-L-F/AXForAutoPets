@@ -5,10 +5,14 @@ import models.Pet;
 import models.Team;
 
 public class PetFactory {
-    private Team team;
+    private Arena arena;
+    private Team pTeam;
+    private Team eTeam;
 
-    public PetFactory(Team team) {
-        this.team = team;
+    public PetFactory(Arena arena) {
+        this.arena = arena;
+        this.pTeam = arena.getPlayerTeam();
+        this.eTeam = arena.getEnmTeam();
     }
 
     public Pet getAnt() {
@@ -16,7 +20,7 @@ public class PetFactory {
             @Override
             public void onFaint(int pos) {
                 super.onFaint(pos);
-                team.getRandPet().buff(getLv(), getLv());
+                pTeam.getRandPet().buff(getLv(), getLv());
             }
         };
     }
@@ -37,7 +41,7 @@ public class PetFactory {
             public void onLvUp() {
                 super.onLvUp();
                 for (int i = 0; i < 2; i++) {
-                    team.getRandPet().buff(getLv() - 1, getLv() - 1);
+                    pTeam.getRandPet().buff(getLv() - 1, getLv() - 1);
                 }
             }
         };
@@ -50,7 +54,7 @@ public class PetFactory {
                 super.onFaint(pos);
                 Pet temp = getZombieCricket();
                 temp.setStats(getLv(), getLv());
-                team.addPet(temp, pos);
+                pTeam.addPet(temp, pos);
             }
         };
     }

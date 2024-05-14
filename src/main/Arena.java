@@ -1,24 +1,26 @@
 package main;
 
-import models.Pet;
+import constants.PetFactory;
 import models.Team;
 
-import java.util.Vector;
-
 public class Arena {
-    private Team pets;
-    private Team enemy;
+    private Team playerTeam;
+    private Team enmTeam;
     private int round, win, life;
     private int money;
     private static Arena instance;
 
+    private PetFactory petFactory;
+
     private Arena() {
-        pets = new Team();
-        enemy = new Team();
+        playerTeam = new Team();
+        enmTeam = new Team();
         round = 0;
         win = 0;
         life = 5;
         money = 0;
+
+        petFactory = new PetFactory(this);
     }
 
     public static Arena getInstance() {
@@ -54,11 +56,15 @@ public class Arena {
     private void getTeam() {
     }
 
-    public Team getEnemy() {
-        return this.enemy;
-    }
-
     public void incMoney(int amt) {
         this.money += amt;
+    }
+
+    public Team getPlayerTeam() {
+        return this.playerTeam;
+    }
+
+    public Team getEnmTeam() {
+        return this.enmTeam;
     }
 }
