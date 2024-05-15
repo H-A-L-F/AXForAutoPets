@@ -63,4 +63,14 @@ public class PetFactory {
         return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
         };
     }
+
+    public Pet getPet(PetList name) {
+        return switch (name) {
+            case ANT -> getAnt();
+            case PIG -> getPig();
+            case FISH -> getFish();
+            case CRICKET -> getCricket();
+            default -> null;
+        };
+    }
 }
