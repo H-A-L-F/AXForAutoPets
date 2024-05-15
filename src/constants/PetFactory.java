@@ -67,10 +67,70 @@ public class PetFactory {
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
-            case PIG -> getPig();
-            case FISH -> getFish();
+//            case BEAVER -> getBeaver();
             case CRICKET -> getCricket();
+//            case DUCK -> getDuck();
+            case FISH -> getFish();
+//            case HORSE -> getHorse();
+//            case MOSQUITO -> getMosquito();
+//            case OTTER -> getOtter();
+            case PIG -> getPig();
+//            case CRAB -> getCrab();
+//            case DODO -> getDodo();
+//            case ELEPHANT -> getElephant();
+//            case FLAMINGO -> getFlamingo();
+//            case HEDGEHOG -> getHedgehog();
+//            case PEACOCK -> getPeacock();
+//            case RAT -> getRat();
+//            case SHRIMP -> getShrimp();
+//            case SPIDER -> getSpider();
+//            case SWAN -> getSwan();
+//            case BADGER -> getBadger();
+//            case BLOWFISH -> getBlowfish();
+//            case CAMEL -> getCamel();
+//            case DOG -> getDog();
+//            case GIRAFFE -> getGiraffe();
+//            case KANGAROO -> getKangaroo();
+//            case OX -> getOx();
+//            case RABBIT -> getRabbit();
+//            case SHEEP -> getSheep();
+//            case SNAIL -> getSnail();
+//            case TURTLE -> getTurtle();
+//            case BISON -> getBison();
+//            case DEER -> getDeer();
+//            case DOLPHIN -> getDolphin();
+//            case HIPPO -> getHippo();
+//            case PARROT -> getParrot();
+//            case PENGUIN -> getPenguin();
+//            case ROOSTER -> getRooster();
+//            case SKUNK -> getSkunk();
+//            case SQUIRREL -> getSquirrel();
+//            case WHALE -> getWhale();
+//            case COW -> getCow();
+//            case CROCODILE -> getCrocodile();
+//            case MONKEY -> getMonkey();
+//            case RHINO -> getRhino();
+//            case SCORPION -> getScorpion();
+//            case SEAL -> getSeal();
+//            case SHARK -> getShark();
+//            case TURKEY -> getTurkey();
+//            case BOAR -> getBoar();
+//            case CAT -> getCat();
+//            case DRAGON -> getDragon();
+//            case FLY -> getFly();
+//            case GORILLA -> getGorilla();
+//            case LEOPARD -> getLeopard();
+//            case MAMMOTH -> getMammoth();
+//            case SNAKE -> getSnake();
+//            case TIGER -> getTiger();
+//            case BUS -> getBus();
+//            case CHICK -> getChick();
+            case ZOMBIE_CRICKET -> getZombieCricket();
             default -> null;
         };
+    }
+
+    public Pet getPet(int tier) {
+        return getPet(PetList.getRandPetByTier(tier));
     }
 }
