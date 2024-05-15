@@ -57,4 +57,16 @@ public abstract class Pet {
         this.atk = atk;
         this.hp = hp;
     }
+
+    public String getNameStr() {
+        return this.name.toString();
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public int getHp() {
+        return hp;
+    }
 }
