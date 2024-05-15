@@ -83,7 +83,7 @@ public enum PetList {
     ZOMBIE_CRICKET("ZombieCricket");
 
     private final String name;
-    
+
     // Tier 1
     private static final List<PetList> VALUES1 = Collections.unmodifiableList(Arrays.asList(
             ANT, BEAVER, CRICKET, DUCK, FISH, HORSE, MOSQUITO, OTTER, PIG
@@ -133,7 +133,31 @@ public enum PetList {
     }
 
     public PetList getRandTier1Pet() {
-        return VALUES.get(RANDOM.nextInt(SIZE));
+        return VALUES1.get(RANDOM.nextInt(SIZE1));
+    }
+
+    public PetList getRandTier2Pet() {
+        return VALUES2.get(RANDOM.nextInt(SIZE2));
+    }
+
+    public PetList getRandTier3Pet() {
+        return VALUES3.get(RANDOM.nextInt(SIZE3));
+    }
+
+    public PetList getRandTier4Pet() {
+        return VALUES4.get(RANDOM.nextInt(SIZE4));
+    }
+
+    public PetList getRandTier5Pet() {
+        return VALUES5.get(RANDOM.nextInt(SIZE5));
+    }
+
+    public PetList getRandTier6Pet() {
+        return VALUES6.get(RANDOM.nextInt(SIZE6));
+    }
+
+    public PetList getRandOtherPet() {
+        return VALUES_OTHER.get(RANDOM.nextInt(SIZE_OTHER));
     }
 
     public String getName() {
