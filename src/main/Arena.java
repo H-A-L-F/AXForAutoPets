@@ -1,7 +1,11 @@
 package main;
 
 import constants.PetFactory;
+import constants.ShopStat;
+import models.Pet;
 import models.Team;
+
+import java.util.Vector;
 
 public class Arena {
     private Team playerTeam;
@@ -10,6 +14,7 @@ public class Arena {
     private int money;
     private static Arena instance;
 
+    private ShopStat shopStat;
     private PetFactory petFactory;
 
     private Arena() {
@@ -20,6 +25,7 @@ public class Arena {
         life = 5;
         money = 0;
 
+        shopStat = ShopStat.TIER1;
         petFactory = new PetFactory(this);
     }
 
@@ -30,7 +36,7 @@ public class Arena {
 
     public void play() {
         while (life > 0) {
-            round++;
+            nextRound();
             shop();
             int res = battle();
             if (res == 0) {
@@ -46,11 +52,42 @@ public class Arena {
     }
 
     public void shop() {
+        printPTeam();
+        Vector<Pet> petSlot;
 
+    }
+
+    private void nextRound() {
+        round++;
+        switch (round) {
+            case 1:
+                shopStat = ShopStat.TIER1;
+                break;
+            case 3:
+                shopStat = ShopStat.TIER2;
+                break;
+            case 5:
+                shopStat = ShopStat.TIER3;
+                break;
+            case 7:
+                shopStat = ShopStat.TIER4;
+                break;
+            case 9:
+                shopStat = ShopStat.TIER5;
+                break;
+            case 11:
+                shopStat = ShopStat.TIER6;
+                break;
+        }
     }
 
     public int battle() {
         return 0;
+    }
+
+    private void printPTeam() {
+        System.out.println("Player Team:");
+        playerTeam.printTeam();
     }
 
     private void getTeam() {
