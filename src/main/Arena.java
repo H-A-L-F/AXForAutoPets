@@ -15,6 +15,7 @@ public class Arena {
     private static Arena instance;
 
     private ShopStat shopStat;
+    private Shop shop;
     private PetFactory petFactory;
 
     private Arena() {
@@ -27,6 +28,7 @@ public class Arena {
 
         shopStat = ShopStat.TIER1;
         petFactory = new PetFactory(this);
+        shop = new Shop(this.petFactory);
     }
 
     public static Arena getInstance() {
@@ -53,31 +55,11 @@ public class Arena {
 
     public void shop() {
         printPTeam();
-        Vector<Pet>
     }
 
     private void nextRound() {
         round++;
-        switch (round) {
-            case 1:
-                shopStat = ShopStat.TIER1;
-                break;
-            case 3:
-                shopStat = ShopStat.TIER2;
-                break;
-            case 5:
-                shopStat = ShopStat.TIER3;
-                break;
-            case 7:
-                shopStat = ShopStat.TIER4;
-                break;
-            case 9:
-                shopStat = ShopStat.TIER5;
-                break;
-            case 11:
-                shopStat = ShopStat.TIER6;
-                break;
-        }
+        shop.nextRound(round);
     }
 
     public int battle() {
