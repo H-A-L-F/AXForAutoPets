@@ -53,8 +53,7 @@ public class Arena {
 
     public void shop() {
         printPTeam();
-        Vector<Pet> petSlot;
-
+        Vector<Pet>
     }
 
     private void nextRound() {
