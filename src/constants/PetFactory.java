@@ -64,6 +64,11 @@ public class PetFactory {
         };
     }
 
+    public static Pet getBee() {
+        return new Pet(PetList.BEE, 1, 1, 1) {
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
@@ -125,6 +130,7 @@ public class PetFactory {
 //            case TIGER -> getTiger();
 //            case BUS -> getBus();
 //            case CHICK -> getChick();
+            case BEE -> getBee();
             case ZOMBIE_CRICKET -> getZombieCricket();
             default -> null;
         };

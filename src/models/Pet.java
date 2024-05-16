@@ -12,6 +12,7 @@ public abstract class Pet {
     private int hp;
     private int lv;
     private PetStatus status;
+    private Fruit fruit;
 
     public Pet(PetList name, int tier, int atk, int hp) {
         this.name = name;
@@ -28,6 +29,10 @@ public abstract class Pet {
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
+    }
+
+    public void eatFruit(Fruit fruit) {
+        this.fruit = fruit;
     }
 
     public void onPurchase() {
