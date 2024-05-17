@@ -1,5 +1,6 @@
 package main;
 
+import constants.FruitFactory;
 import constants.PetFactory;
 import constants.ShopStat;
 import models.Fruit;
@@ -17,6 +18,7 @@ public class Shop {
     private Vector<Fruit> frozenFruit;
 
     private PetFactory petFactory;
+    private FruitFactory fruitFactory;
 
     public Shop(PetFactory petFactory) {
         shopStat = ShopStat.TIER1;
@@ -27,6 +29,7 @@ public class Shop {
         frozenFruit = new Vector<>(shopStat.getFRUIT_SLOT());
 
         this.petFactory = petFactory;
+        this.fruitFactory = fruitFactory;
     }
 
     public void nextRound(int round) {
@@ -69,7 +72,11 @@ public class Shop {
 
     private void generateFruitShop() {
         for(int i = 0; i < shopStat.getFRUIT_SLOT(); i++) {
-
+            if(frozenFruit.get(i) != null) {
+                fruits.insertElementAt(frozenFruit.get(i), i);
+                continue;
+            }
+            fruitFactory.getFruit(shopStat.getTIER());
         }
     }
 }

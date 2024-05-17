@@ -35,7 +35,7 @@ public class FruitFactory {
         };
     }
 
-    public Fruit getFood(FruitList name) {
+    private Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
             case HONEY -> getHoney();
@@ -56,4 +56,7 @@ public class FruitFactory {
         };
     }
 
+    public Fruit getFruit(int tier) {
+        return getFruit(FruitList.getRandFoodByTier(tier));
+    }
 }
