@@ -69,7 +69,9 @@ public class Shop {
         System.out.println("1. Buy");
         System.out.println("2. Freeze");
         System.out.println("3. Roll");
-        System.out.println("4. Exit");
+        System.out.println("4. Arrange");
+        System.out.println("5. Sell");
+        System.out.println("6. Exit");
     }
 
     private void menuShop() {
@@ -77,9 +79,49 @@ public class Shop {
         int opt = 0;
         while (run) {
             optShop();
-            opt = in.getIntInRange(1, 4, ">> ");
+            opt = in.getIntInRange(1, 6, ">> ");
 
+            switch (opt) {
+                case 1:
+                    menuBuy();
+                    break;
+                case 2:
+                    menuFreeze();
+                    break;
+                case 3:
+                    menuRoll();
+                    break;
+                case 4:
+                    menuArrange();
+                    break;
+                case 5:
+                    menuSell();
+                    break;
+                case 6:
+                    run = false;
+                    break;
+            }
         }
+    }
+
+    private void menuBuy() {
+
+    }
+
+    private void menuFreeze() {
+
+    }
+
+    private void menuRoll() {
+
+    }
+
+    private void menuArrange() {
+
+    }
+
+    private void menuSell() {
+
     }
 
     public void showShop() {
