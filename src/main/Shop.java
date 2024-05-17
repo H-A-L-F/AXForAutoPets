@@ -105,6 +105,16 @@ public class Shop {
     }
 
     private void menuBuy() {
+        String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
+        if(type.equals("Pet")) menuBuyPet();
+        else if(type.equals("Food")) menuBuyFood();
+    }
+
+    private void menuBuyPet() {
+
+    }
+
+    private void menuBuyFood() {
 
     }
 

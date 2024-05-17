@@ -15,7 +15,7 @@ public class ConsoleInput {
         return instance;
     }
 
-    public int getInt(Validator validator, String str) {
+    public int getInt(ValidatorInt validator, String str) {
         int res = -1;
         do {
             System.out.printf(str);
@@ -32,6 +32,15 @@ public class ConsoleInput {
             res = scanner.nextInt();
             scanner.nextLine();
         } while (res < min || res > max);
+        return res;
+    }
+
+    public String getString(ValidatorString validator, String str) {
+        String res = "";
+        do {
+            System.out.printf(str);
+            res = scanner.nextLine();
+        } while(validator.validateStr(res));
         return res;
     }
 }
