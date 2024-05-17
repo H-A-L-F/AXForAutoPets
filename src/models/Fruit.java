@@ -16,4 +16,8 @@ public class Fruit {
 
     public void onFaint(int pos) {
     }
+
+    public String getName() {
+        return name.getName();
+    }
 }

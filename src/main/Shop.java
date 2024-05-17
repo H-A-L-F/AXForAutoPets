@@ -1,6 +1,8 @@
 package main;
 
+import console_input.ConsoleInput;
 import constants.FruitFactory;
+import constants.Lib;
 import constants.PetFactory;
 import constants.ShopStat;
 import models.Fruit;
@@ -20,7 +22,9 @@ public class Shop {
     private PetFactory petFactory;
     private FruitFactory fruitFactory;
 
-    public Shop(PetFactory petFactory) {
+    private ConsoleInput in;
+
+    public Shop(PetFactory petFactory, FruitFactory fruitFactory) {
         shopStat = ShopStat.TIER1;
 
         pets = new Vector<>(shopStat.getPET_SLOT());
@@ -30,6 +34,7 @@ public class Shop {
 
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
+        in = ConsoleInput.getInstance();
     }
 
     public void nextRound(int round) {
@@ -55,14 +60,47 @@ public class Shop {
         }
     }
 
+    public void startShop() {
+        showShop();
+        menuShop();
+    }
+
+    private void optShop() {
+        System.out.println("1. Buy");
+        System.out.println("2. Freeze");
+        System.out.println("3. Roll");
+        System.out.println("4. Exit");
+    }
+
+    private void menuShop() {
+        boolean run = true;
+        int opt = 0;
+        while (run) {
+            optShop();
+            opt = in.getIntInRange(1, 4, ">> ");
+
+        }
+    }
+
+    public void showShop() {
+        generateShop();
+        printShop();
+    }
+
+    private void printShop() {
+        System.out.println("Shop:");
+        Lib.printSlots(pets);
+        Lib.printFruits(fruits);
+    }
+
     private void generateShop() {
         generatePetShop();
         generateFruitShop();
     }
 
     private void generatePetShop() {
-        for(int i = 0; i < shopStat.getPET_SLOT(); i++) {
-            if(frozenPet.get(i) != null) {
+        for (int i = 0; i < shopStat.getPET_SLOT(); i++) {
+            if (frozenPet.get(i) != null) {
                 pets.insertElementAt(frozenPet.get(i), i);
                 continue;
             }
@@ -71,8 +109,8 @@ public class Shop {
     }
 
     private void generateFruitShop() {
-        for(int i = 0; i < shopStat.getFRUIT_SLOT(); i++) {
-            if(frozenFruit.get(i) != null) {
+        for (int i = 0; i < shopStat.getFRUIT_SLOT(); i++) {
+            if (frozenFruit.get(i) != null) {
                 fruits.insertElementAt(frozenFruit.get(i), i);
                 continue;
             }

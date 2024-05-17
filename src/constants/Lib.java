@@ -1,10 +1,12 @@
 package constants;
 
+import models.Fruit;
 import models.Pet;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 public class Lib {
 
@@ -25,20 +27,31 @@ public class Lib {
         return sb.toString();
     }
 
-    public static void printSlot(Pet pet) {
+    public static void printSlots(Vector<Pet> pets) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
-        if(pet == null) {
-            firstLn.append(String.format("[ %5s ]", ""));
-            secondLn.append(String.format("[ %d | %d ]", 0, 0));
-        } else {
-            String first = "[ " + pet.getNameStr() + " ]";
-            String second = pet.getAtk() + " | " + pet.getHp();
-            int len = firstLn.length();
-            String secondFormat = "[ $%-" + len + "s ]";
-            firstLn.append(first);
-            secondLn.append(String.format(secondFormat, center(second, len)));
+        for (Pet pet : pets) {
+            if(pet == null) {
+                firstLn.append(String.format("[ %5s ] ", ""));
+                secondLn.append(String.format("[ %d | %d ] ", 0, 0));
+            } else {
+                String first = "[ " + pet.getNameStr() + " ]";
+                String second = pet.getAtk() + " | " + pet.getHp();
+                int len = firstLn.length();
+                String secondFormat = "[ $%-" + len + "s ]";
+                firstLn.append(first).append(" ");
+                secondLn.append(String.format(secondFormat, center(second, len))).append(" ");
+            }
         }
+        System.out.println(firstLn.toString());
+        System.out.println(secondLn.toString());
+    }
+
+    public static void printFruits(Vector<Fruit> fruits) {
+        for (Fruit fruit : fruits) {
+            System.out.printf(fruit.getName() + " ");
+        }
+        System.out.println();
     }
 
     @SafeVarargs

@@ -1,5 +1,6 @@
 package main;
 
+import constants.FruitFactory;
 import constants.PetFactory;
 import constants.ShopStat;
 import models.Pet;
@@ -17,6 +18,7 @@ public class Arena {
     private ShopStat shopStat;
     private Shop shop;
     private PetFactory petFactory;
+    private FruitFactory fruitFactory;
 
     private Arena() {
         playerTeam = new Team();
@@ -28,7 +30,8 @@ public class Arena {
 
         shopStat = ShopStat.TIER1;
         petFactory = new PetFactory(this);
-        shop = new Shop(this.petFactory);
+        fruitFactory = new FruitFactory(this);
+        shop = new Shop(this.petFactory, this.fruitFactory);
     }
 
     public static Arena getInstance() {
@@ -55,6 +58,7 @@ public class Arena {
 
     public void shop() {
         printPTeam();
+        shop.startShop();
     }
 
     private void nextRound() {

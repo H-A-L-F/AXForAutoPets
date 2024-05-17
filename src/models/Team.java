@@ -18,7 +18,7 @@ public class Team {
     }
 
     public void printTeam() {
-        for (int i = 0; i < SIZE; i++) Lib.printSlot(pets.get(i));
+        Lib.printSlots(pets);
     }
 
     public void roundStart() {
