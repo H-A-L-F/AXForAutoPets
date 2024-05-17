@@ -6,8 +6,8 @@ import models.Team;
 
 public class PetFactory {
     private Arena arena;
-    private Team pTeam;
-    private Team eTeam;
+    private final Team pTeam;
+    private final Team eTeam;
 
     public PetFactory(Arena arena) {
         this.arena = arena;

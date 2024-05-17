@@ -7,7 +7,7 @@ import models.Team;
 
 public class FruitFactory {
     private Arena arena;
-    private Team pTeam;
+    private final Team pTeam;
 
     public FruitFactory(Arena arena) {
         this.arena = arena;
