@@ -34,4 +34,26 @@ public class FruitFactory {
             }
         };
     }
+
+    public Fruit getFood(FruitList name) {
+        return switch (name) {
+            case APPLE -> getApple();
+            case HONEY -> getHoney();
+//            case CUPCAKE -> getCupcake();
+//            case MEAT_BONE -> getMeatBone();
+//            case SALAD_BOWL -> getSaladBowl();
+//            case GARLIC -> getGarlic();
+//            case CANNED_FOOD -> getCannedFood();
+//            case PEAR -> getPear();
+//            case CHILI -> getChili();
+//            case CHOCOLATE -> getChocolate();
+//            case SUSHI -> getSushi();
+//            case MELON -> getMelon();
+//            case MUSHROOM -> getMushroom();
+//            case PIZZA -> getPizza();
+//            case STEAK -> getSteak();
+            default -> null;
+        };
+    }
+
 }

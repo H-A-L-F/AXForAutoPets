@@ -70,7 +70,6 @@ public class Shop {
     private void generateFruitShop() {
         for(int i = 0; i < shopStat.getFRUIT_SLOT(); i++) {
 
-
         }
     }
 }

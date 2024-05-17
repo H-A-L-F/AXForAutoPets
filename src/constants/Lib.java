@@ -2,6 +2,10 @@ package constants;
 
 import models.Pet;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Lib {
 
     public static String center(String s, int size) {
@@ -35,5 +39,14 @@ public class Lib {
             firstLn.append(first);
             secondLn.append(String.format(secondFormat, center(second, len)));
         }
+    }
+
+    @SafeVarargs
+    public static <T> List<T> combineLists(List<T>... lists) {
+        List<T> combinedList = new ArrayList<>();
+        for (List<T> list : lists) {
+            combinedList.addAll(list);
+        }
+        return Collections.unmodifiableList(combinedList);
     }
 }
