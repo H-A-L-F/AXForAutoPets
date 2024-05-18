@@ -9,10 +9,10 @@ public class PetFactory {
     private final Team pTeam;
     private final Team eTeam;
 
-    public PetFactory(Arena arena) {
+    public PetFactory(Arena arena, Team pTeam, Team eTeam) {
         this.arena = arena;
-        this.pTeam = arena.getPlayerTeam();
-        this.eTeam = arena.getEnmTeam();
+        this.pTeam = pTeam;
+        this.eTeam = eTeam;
     }
 
     public Pet getAnt() {
@@ -30,7 +30,7 @@ public class PetFactory {
             @Override
             public void onSell() {
                 super.onSell();
-                Arena.getInstance().incMoney(getLv());
+                arena.incMoney(getLv());
             }
         };
     }

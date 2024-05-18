@@ -36,6 +36,10 @@ public class Team {
         return this.pets;
     }
 
+    public void feedPetAt(Fruit fruit, int idx) {
+        pets.get(idx).eatFruit(fruit);
+    }
+
     public Pet getRandPet() {
         int idx = (int) (Math.random() * pets.size());
         return pets.get(idx);

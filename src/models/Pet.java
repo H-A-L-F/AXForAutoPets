@@ -33,6 +33,7 @@ public abstract class Pet {
 
     public void eatFruit(Fruit fruit) {
         this.fruit = fruit;
+        this.fruit.onEaten(this);
     }
 
     public void onPurchase() {

@@ -15,7 +15,6 @@ public class Arena {
     private int money;
     private static Arena instance;
 
-    private ShopStat shopStat;
     private Shop shop;
     private PetFactory petFactory;
     private FruitFactory fruitFactory;
@@ -28,7 +27,6 @@ public class Arena {
         life = 5;
         money = 0;
 
-        shopStat = ShopStat.TIER1;
         petFactory = new PetFactory(this);
         fruitFactory = new FruitFactory(this);
         shop = new Shop(this, this.petFactory, this.fruitFactory);
