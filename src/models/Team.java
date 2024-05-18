@@ -8,13 +8,14 @@ import java.util.Vector;
 public class Team {
     private EventManager eventManager;
     private Vector<Pet> pets;
-    private final int SIZE = 5;
+    public static final int START_SIZE = 1;
+    public static final int END_SIZE = 5;
     private int slot;
 
     public Team() {
         this.eventManager = new EventManager(this);
-        pets = new Vector<>(SIZE);
-        slot = SIZE;
+        pets = new Vector<>(END_SIZE);
+        slot = END_SIZE;
     }
 
     public void printTeam() {
@@ -49,13 +50,25 @@ public class Team {
             pets.insertElementAt(pet, pos);
             return;
         }
-        for(int i = SIZE - 1; i > pos; i--) {
+        for(int i = END_SIZE - 1; i > pos; i--) {
             pets.insertElementAt(pets.get(i - 1), i);
         }
         pets.insertElementAt(pet, pos);
     }
 
+    public void insertPetAt(Pet pet, int pos) {
+        pets.insertElementAt(pet, pos);
+    }
+
     private void failSpawn(Pet pet) {
         System.out.println("Failed to spawn pet");
+    }
+
+    public Pet getPetAtIdx(int idx) {
+        return this.pets.get(idx);
+    }
+
+    public int getSlot() {
+        return slot;
     }
 }

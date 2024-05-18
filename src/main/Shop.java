@@ -7,6 +7,7 @@ import constants.PetFactory;
 import constants.ShopStat;
 import models.Fruit;
 import models.Pet;
+import models.Team;
 
 import java.util.Vector;
 
@@ -22,9 +23,11 @@ public class Shop {
     private PetFactory petFactory;
     private FruitFactory fruitFactory;
 
+    private Arena arena;
+    private Team pteam;
     private ConsoleInput in;
 
-    public Shop(PetFactory petFactory, FruitFactory fruitFactory) {
+    public Shop(Arena arena, PetFactory petFactory, FruitFactory fruitFactory) {
         shopStat = ShopStat.TIER1;
 
         pets = new Vector<>(shopStat.getPET_SLOT());
@@ -34,6 +37,9 @@ public class Shop {
 
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
+
+        this.arena = arena;
+        this.pteam = arena.getPTeam();
         in = ConsoleInput.getInstance();
     }
 
@@ -105,13 +111,33 @@ public class Shop {
     }
 
     private void menuBuy() {
+        if(arena.getMoney() < ShopStat.PRICE) {
+            System.out.println("You have insufficient funds to buy!");
+            System.out.println("Purchase requires at least 3 gold.");
+            return;
+        }
         String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
         if(type.equals("Pet")) menuBuyPet();
         else if(type.equals("Food")) menuBuyFood();
     }
 
     private void menuBuyPet() {
+        int opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
+        int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
+        if(pteam.getPetAtIdx(pos) != null) {
+            System.out.println("That spot is filled!");
+            return;
+        }
+        Pet pet = buyPet(opt);
+        pteam.insertPetAt(pet, pos);
+    }
 
+    private Pet buyPet(int idx) {
+        arena.incMoney(-ShopStat.PRICE);
+        Pet temp = pets.get(idx);
+        frozenPet.removeElementAt(idx);
+        pets.removeElementAt(idx);
+        return temp;
     }
 
     private void menuBuyFood() {

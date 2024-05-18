@@ -31,11 +31,11 @@ public class Arena {
         shopStat = ShopStat.TIER1;
         petFactory = new PetFactory(this);
         fruitFactory = new FruitFactory(this);
-        shop = new Shop(this.petFactory, this.fruitFactory);
+        shop = new Shop(this, this.petFactory, this.fruitFactory);
     }
 
     public static Arena getInstance() {
-        if(instance == null) instance = new Arena();
+        if (instance == null) instance = new Arena();
         return instance;
     }
 
@@ -75,6 +75,10 @@ public class Arena {
         playerTeam.printTeam();
     }
 
+    public Team getPTeam() {
+        return this.playerTeam;
+    }
+
     private void getTeam() {
     }
 
@@ -88,5 +92,9 @@ public class Arena {
 
     public Team getEnmTeam() {
         return this.enmTeam;
+    }
+
+    public int getMoney() {
+        return this.money;
     }
 }
