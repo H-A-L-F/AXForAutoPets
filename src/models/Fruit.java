@@ -2,13 +2,12 @@ package models;
 
 import constants.FruitList;
 
-public class Fruit {
+public class Fruit extends Entity{
     private FruitList name;
-    private int tier;
 
     public Fruit(FruitList name, int tier) {
+        super(tier);
         this.name = name;
-        this.tier = tier;
     }
 
     public void onEaten(Pet pet) {
@@ -17,7 +16,8 @@ public class Fruit {
     public void onFaint(int pos) {
     }
 
+    @Override
     public String getName() {
-        return name.getName();
+        return this.name.toString();
     }
 }

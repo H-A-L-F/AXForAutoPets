@@ -5,9 +5,8 @@ import constants.PetStatus;
 import interfaces.EventListener;
 import main.Arena;
 
-public abstract class Pet {
+public abstract class Pet extends Entity {
     private PetList name;
-    private int tier;
     private int atk;
     private int hp;
     private int lv;
@@ -15,16 +14,16 @@ public abstract class Pet {
     private Fruit fruit;
 
     public Pet(PetList name, int tier, int atk, int hp) {
+        super(tier);
         this.name = name;
-        this.tier = tier;
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
     }
 
     public Pet(PetList name, int tier, int lv, int atk, int hp) {
+        super(tier);
         this.name = name;
-        this.tier = tier;
         this.lv = lv;
         this.atk = atk;
         this.hp = hp;
@@ -64,7 +63,8 @@ public abstract class Pet {
         this.hp = hp;
     }
 
-    public String getNameStr() {
+    @Override
+    public String getName() {
         return this.name.toString();
     }
 
