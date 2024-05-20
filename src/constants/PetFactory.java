@@ -93,16 +93,28 @@ public class PetFactory {
         };
     }
 
+    public Pet getOtter() {
+        return new Pet(PetList.OTTER, 1, 1, 3) {
+            @Override
+            public void onPurchase() {
+                super.onPurchase();
+                for(int i = 0; i < getLv(); i++) {
+                    pTeam.getRandPet().buff(0, 1);
+                }
+            }
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
-//            case BEAVER -> getBeaver();
+            case BEAVER -> getBeaver();
             case CRICKET -> getCricket();
 //            case DUCK -> getDuck();
             case FISH -> getFish();
 //            case HORSE -> getHorse();
             case MOSQUITO -> getMosquito();
-//            case OTTER -> getOtter();
+            case OTTER -> getOtter();
             case PIG -> getPig();
 //            case CRAB -> getCrab();
 //            case DODO -> getDodo();
