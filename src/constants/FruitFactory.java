@@ -8,10 +8,12 @@ import models.Team;
 public class FruitFactory {
     private Arena arena;
     private final Team pTeam;
+    private final Team eTeam;
 
-    public FruitFactory(Arena arena) {
+    public FruitFactory(Arena arena, Team pTeam, Team eTeam) {
         this.arena = arena;
-        this.pTeam = arena.getPlayerTeam();
+        this.pTeam = pTeam;
+        this.eTeam = eTeam;
     }
 
     public Fruit getApple() {

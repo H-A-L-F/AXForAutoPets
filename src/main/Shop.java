@@ -28,7 +28,7 @@ public class Shop {
     private Team pteam;
     private ConsoleInput in;
 
-    public Shop(Arena arena, PetFactory petFactory, FruitFactory fruitFactory) {
+    public Shop(Arena arena, PetFactory petFactory, FruitFactory fruitFactory, Team pteam) {
         shopStat = ShopStat.TIER1;
 
         pets = new Vector<>(shopStat.getPET_SLOT());
@@ -40,7 +40,7 @@ public class Shop {
         this.fruitFactory = fruitFactory;
 
         this.arena = arena;
-        this.pteam = arena.getPTeam();
+        this.pteam = pteam;
         in = ConsoleInput.getInstance();
     }
 

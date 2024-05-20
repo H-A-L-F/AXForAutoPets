@@ -28,8 +28,8 @@ public class Arena {
         money = 0;
 
         playerPetFactory = new PetFactory(this, playerTeam, enmTeam);
-        fruitFactory = new FruitFactory(this);
-        shop = new Shop(this, this.playerPetFactory, this.fruitFactory);
+        fruitFactory = new FruitFactory(this, playerTeam, enmTeam);
+        shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.playerTeam);
     }
 
     public static Arena getInstance() {
@@ -37,7 +37,25 @@ public class Arena {
         return instance;
     }
 
-    public void play() {
+    public void newGame() {
+        reset();
+        play();
+    }
+
+    private void reset() {
+        playerTeam = new Team();
+        enmTeam = new Team();
+        round = 0;
+        win = 0;
+        life = 5;
+        money = 0;
+
+        playerPetFactory = new PetFactory(this, playerTeam, enmTeam);
+        fruitFactory = new FruitFactory(this, playerTeam, enmTeam);
+        shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.playerTeam);
+    }
+
+    private void play() {
         while (life > 0) {
             nextRound();
             shop();
@@ -54,7 +72,7 @@ public class Arena {
         }
     }
 
-    public void shop() {
+    private void shop() {
         printPTeam();
         shop.startShop();
     }
@@ -64,20 +82,13 @@ public class Arena {
         shop.nextRound(round);
     }
 
-    public int battle() {
+    private int battle() {
         return 0;
     }
 
     private void printPTeam() {
         System.out.println("Player Team:");
         playerTeam.printTeam();
-    }
-
-    public Team getPTeam() {
-        return this.playerTeam;
-    }
-
-    private void getTeam() {
     }
 
     public void incMoney(int amt) {

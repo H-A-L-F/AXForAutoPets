@@ -47,11 +47,11 @@ public class Main {
     }
 
     private void menuArena() {
-
+        Arena.getInstance().newGame();
     }
 
     private void menuLeaderboard() {
-
+        
     }
 
     private void menuLogout() {
