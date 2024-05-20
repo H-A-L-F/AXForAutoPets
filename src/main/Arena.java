@@ -16,7 +16,7 @@ public class Arena {
     private static Arena instance;
 
     private Shop shop;
-    private PetFactory petFactory;
+    private PetFactory playerPetFactory;
     private FruitFactory fruitFactory;
 
     private Arena() {
@@ -27,9 +27,9 @@ public class Arena {
         life = 5;
         money = 0;
 
-        petFactory = new PetFactory(this);
+        playerPetFactory = new PetFactory(this, playerTeam, enmTeam);
         fruitFactory = new FruitFactory(this);
-        shop = new Shop(this, this.petFactory, this.fruitFactory);
+        shop = new Shop(this, this.playerPetFactory, this.fruitFactory);
     }
 
     public static Arena getInstance() {

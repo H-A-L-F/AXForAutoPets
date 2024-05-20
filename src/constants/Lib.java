@@ -35,7 +35,7 @@ public class Lib {
                 firstLn.append(String.format("[ %5s ] ", ""));
                 secondLn.append(String.format("[ %d | %d ] ", 0, 0));
             } else {
-                String first = "[ " + pet.getNameStr() + " ]";
+                String first = "[ " + pet.getName() + " ]";
                 String second = pet.getAtk() + " | " + pet.getHp();
                 int len = firstLn.length();
                 String secondFormat = "[ $%-" + len + "s ]";

@@ -31,16 +31,31 @@ public class Main {
 
             switch (opt) {
                 case 1:
+                    menuArena();
                     break;
                 case 2:
+                    menuLeaderboard();
                     break;
                 case 3:
+                    menuLogout();
                     run = false;
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private void menuArena() {
+
+    }
+
+    private void menuLeaderboard() {
+
+    }
+
+    private void menuLogout() {
+
     }
 
     public static void main(String[] args) {
