@@ -35,6 +35,9 @@ public class Shop {
         pets = new ArrayList<ShopItem<Pet>>();
         fruits = new ArrayList<ShopItem<Fruit>>();
 
+        for(int i = 0; i < ShopStat.MAX_PET_SLOT; i++) pets.add(new ShopItem<>(null));
+        for(int i = 0; i < ShopStat.MAX_FRUIT_SLOT; i++) fruits.add(new ShopItem<>(null));
+
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
 
