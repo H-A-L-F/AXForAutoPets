@@ -5,6 +5,7 @@ import constants.FruitFactory;
 import constants.Lib;
 import constants.PetFactory;
 import constants.ShopStat;
+import models.Entity;
 import models.Fruit;
 import models.Pet;
 import models.Team;
@@ -160,7 +161,44 @@ public class Shop {
     }
 
     private void menuFreeze() {
+        System.out.println("Choose unfrozen item to freeze or frozen item to unfreeze.");
+        String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
+        if(type.equals("Pet")) menuFreezePet();
+        else if(type.equals("Food")) menuFreezeFood();
+    }
 
+    private void menuFreezePet() {
+        int opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
+        if(frozenPet.get(opt) != null) {
+            unfreeze(frozenPet.get(opt), opt);
+        } else {
+            freeze(pets.get(opt), opt);
+        }
+    }
+
+    private void menuFreezeFood() {
+        int opt = in.getIntInRange(1, shopStat.getFRUIT_SLOT(), "Choose [1 - "+ shopStat.getFRUIT_SLOT() + "]: ");
+        if(frozenFruit.get(opt) != null) {
+            unfreeze(frozenFruit.get(opt), opt);
+        } else {
+            freeze(fruits.get(opt), opt);
+        }
+    }
+
+    private <T extends Entity> void freeze(T o, int idx) {
+        if(o instanceof Pet) {
+            frozenPet.insertElementAt(pets.get(idx), idx);
+        } else if(o instanceof Fruit) {
+            frozenFruit.insertElementAt(fruits.get(idx), idx);
+        }
+    }
+
+    private <T extends Entity> void unfreeze(T o, int idx) {
+        if(o instanceof Pet) {
+            frozenPet.removeElementAt(idx);
+        } else if(o instanceof Fruit) {
+            frozenFruit.removeElementAt(idx);
+        }
     }
 
     private void menuRoll() {
