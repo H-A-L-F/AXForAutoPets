@@ -64,6 +64,12 @@ public class Team {
         pets.insertElementAt(pet, pos);
     }
 
+    public void swapPet(int idx1, int idx2) {
+        Pet temp = pets.get(idx1);
+        pets.set(idx1, pets.get(idx2));
+        pets.set(idx2, temp);
+    }
+
     private void failSpawn(Pet pet) {
         System.out.println("Failed to spawn pet");
     }

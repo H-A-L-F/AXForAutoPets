@@ -207,7 +207,9 @@ public class Shop {
     }
 
     private void menuArrange() {
-
+        int opt = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
+        int target = in.getInt((x) -> x != opt && x >= Team.START_SIZE && x <= Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
+        pteam.swapPet(opt, target);
     }
 
     private void menuSell() {
