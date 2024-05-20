@@ -10,16 +10,17 @@ import models.Fruit;
 import models.Pet;
 import models.Team;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 public class Shop {
     private ShopStat shopStat;
 
-    private Vector<Pet> pets;
-    private Vector<Fruit> fruits;
-
-    private Vector<Pet> frozenPet;
-    private Vector<Fruit> frozenFruit;
+    private ArrayList<ShopItem<Pet>> pets;
+    private ArrayList<ShopItem<Fruit>> fruits;
 
     private PetFactory petFactory;
     private FruitFactory fruitFactory;
@@ -31,12 +32,8 @@ public class Shop {
     public Shop(Arena arena, PetFactory petFactory, FruitFactory fruitFactory, Team pteam) {
         shopStat = ShopStat.TIER1;
 
-        pets = new Vector<>();
-        fruits = new Vector<>();
-        frozenPet = new Vector<>();
-        frozenFruit = new Vector<>();
-
-        updateSlot();
+        pets = new ArrayList<ShopItem<Pet>>();
+        fruits = new ArrayList<ShopItem<Fruit>>();
 
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
@@ -71,14 +68,6 @@ public class Shop {
 
     private void updateShopStat(ShopStat shopStat) {
         this.shopStat = shopStat;
-        updateSlot();
-    }
-
-    private void updateSlot() {
-        pets.setSize(shopStat.getPET_SLOT());
-        fruits.setSize(shopStat.getFRUIT_SLOT());
-        frozenPet.setSize(shopStat.getPET_SLOT());
-        frozenFruit.setSize(shopStat.getFRUIT_SLOT());
     }
 
     public void startShop() {
@@ -143,16 +132,8 @@ public class Shop {
             System.out.println("That spot is filled!");
             return;
         }
-        Pet pet = buyPet(opt);
-        pteam.insertPetAt(pet, pos);
-    }
-
-    private Pet buyPet(int idx) {
-        arena.incMoney(-ShopStat.BUY_PRICE);
-        Pet temp = pets.get(idx);
-        frozenPet.removeElementAt(idx);
-        pets.removeElementAt(idx);
-        return temp;
+        ShopItem<Pet> pet = buyShopItem(pets, opt);
+        pteam.insertPetAt(pet.item, pos);
     }
 
     private void menuBuyFood() {
@@ -162,16 +143,13 @@ public class Shop {
             System.out.println("You must feed a pet!");
             return;
         }
-        Fruit fruit = buyFruit(opt);
-        pteam.feedPetAt(fruit, pos);
+        ShopItem<Fruit> fruit = buyShopItem(fruits, opt);
+        pteam.feedPetAt(fruit.item, pos);
     }
 
-    private Fruit buyFruit(int idx) {
+    private <T> ShopItem<T> buyShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
         arena.incMoney(-ShopStat.BUY_PRICE);
-        Fruit temp = fruits.get(idx);
-        frozenFruit.removeElementAt(idx);
-        fruits.removeElementAt(idx);
-        return temp;
+        return shopItems.remove(idx);
     }
 
     private void menuFreeze() {
@@ -183,35 +161,19 @@ public class Shop {
 
     private void menuFreezePet() {
         int opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
-        if(frozenPet.get(opt) != null) {
-            unfreeze(frozenPet.get(opt), opt);
-        } else {
-            freeze(pets.get(opt), opt);
-        }
+        freezeShopItem(pets, opt);
     }
 
     private void menuFreezeFood() {
         int opt = in.getIntInRange(1, shopStat.getFRUIT_SLOT(), "Choose [1 - "+ shopStat.getFRUIT_SLOT() + "]: ");
-        if(frozenFruit.get(opt) != null) {
-            unfreeze(frozenFruit.get(opt), opt);
+        freezeShopItem(fruits, opt);
+    }
+
+    private <T> void freezeShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
+        if(shopItems.get(idx).state == ShopState.NORMAL) {
+            shopItems.get(idx).state = ShopState.FROZEN;
         } else {
-            freeze(fruits.get(opt), opt);
-        }
-    }
-
-    private <T extends Entity> void freeze(T o, int idx) {
-        if(o instanceof Pet) {
-            frozenPet.insertElementAt(pets.get(idx), idx);
-        } else if(o instanceof Fruit) {
-            frozenFruit.insertElementAt(fruits.get(idx), idx);
-        }
-    }
-
-    private <T extends Entity> void unfreeze(T o, int idx) {
-        if(o instanceof Pet) {
-            frozenPet.removeElementAt(idx);
-        } else if(o instanceof Fruit) {
-            frozenFruit.removeElementAt(idx);
+            shopItems.get(idx).state = ShopState.NORMAL;
         }
     }
 
@@ -243,8 +205,8 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        Lib.printSlots(pets);
-        Lib.printFruits(fruits);
+        Lib.printSlots(pets.stream().map(o->o.item).collect(Collectors.toList()));
+        Lib.printFruits(fruits.stream().map(o->o.item).collect(Collectors.toList()));
     }
 
     private void generateShop() {
@@ -254,32 +216,36 @@ public class Shop {
 
     private void generatePetShop() {
         for (int i = 0; i < shopStat.getPET_SLOT(); i++) {
-            if (frozenPet.get(i) != null) {
-                pets.insertElementAt(frozenPet.get(i), i);
-                continue;
-            }
-            pets.insertElementAt(petFactory.getPet(shopStat.getTIER()), i);
+            if(pets.get(i).state == ShopState.FROZEN) continue;
+            pets.set(i, new ShopItem<>(petFactory.getPet(shopStat.getTIER())));
         }
     }
 
     private void generateFruitShop() {
         for (int i = 0; i < shopStat.getFRUIT_SLOT(); i++) {
-            if (frozenFruit.get(i) != null) {
-                fruits.insertElementAt(frozenFruit.get(i), i);
-                continue;
-            }
-            fruits.insertElementAt(fruitFactory.getFruit(shopStat.getTIER()), i);
+            if(fruits.get(i).state == ShopState.FROZEN) continue;
+            fruits.set(i, new ShopItem<>(fruitFactory.getFruit(shopStat.getTIER())));
         }
     }
 
     public void buffShop(int atk, int hp) {
         for(int i = 0; i < shopStat.getPET_SLOT(); i++) {
-            if(frozenPet.get(i) != null) {
-                frozenPet.get(i).buff(atk, hp);
-                pets.insertElementAt(frozenPet.get(i), i);
-            } else {
-                pets.get(i).buff(atk, hp);
-            }
+            pets.get(i).item.buff(atk, hp);
         }
+    }
+}
+
+enum ShopState {
+    NORMAL,
+    FROZEN;
+}
+
+class ShopItem<T> {
+    public ShopState state;
+    public T item;
+
+    public ShopItem(T item) {
+        this.state = ShopState.NORMAL;
+        this.item = item;
     }
 }

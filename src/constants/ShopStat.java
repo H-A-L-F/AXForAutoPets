@@ -12,6 +12,8 @@ public enum ShopStat {
     private final int TIER;
     private final int PET_SLOT;
     private final int FRUIT_SLOT;
+    public static final int MAX_PET_SLOT = 5;
+    public static final int MAX_FRUIT_SLOT = 2;
     public static final int BUY_PRICE = 3;
     public static final int ROLL_PRICE = 1;
     public static final int SELL_PRICE = 1;
