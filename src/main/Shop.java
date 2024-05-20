@@ -204,6 +204,7 @@ public class Shop {
     private void printShop() {
         System.out.println("Shop:");
         Lib.printSlots(pets.stream().map(o->o.item).toArray(Pet[]::new));
+        Lib.printDivider();
         Lib.printFruits(fruits.stream().map(o->o.item).toArray(Fruit[]::new));
     }
 

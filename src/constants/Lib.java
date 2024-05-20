@@ -35,10 +35,10 @@ public class Lib {
                 firstLn.append(String.format("[ %5s ] ", ""));
                 secondLn.append(String.format("[ %d | %d ] ", 0, 0));
             } else {
-                String first = "[ " + pet.getName() + " ]";
-                String second = pet.getAtk() + " | " + pet.getHp();
-                int len = firstLn.length();
-                String secondFormat = "[ $%-" + len + "s ]";
+                String first = String.format("[ %-5s ]", pet.getName());
+                String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
+                int len = first.length() - 4;
+                String secondFormat = "[ %-" + len + "s ]";
                 firstLn.append(first).append(" ");
                 secondLn.append(String.format(secondFormat, center(second, len))).append(" ");
             }
@@ -49,9 +49,20 @@ public class Lib {
 
     public static void printFruits(Fruit[] fruits) {
         for (Fruit fruit : fruits) {
+            if(fruit == null) continue;
             System.out.printf(fruit.getName() + " ");
         }
         System.out.println();
+    }
+
+    public static void printDivider() {
+        System.out.println("------------------------------");
+    }
+
+    public static void clear() {
+        for (int i = 0; i < 25; i++) {
+            System.out.println();
+        }
     }
 
     @SafeVarargs
