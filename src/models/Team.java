@@ -70,6 +70,19 @@ public class Team {
         pets.set(idx2, temp);
     }
 
+    public void removePet(int idx) {
+        pets.get(idx).onSell();
+        pets.removeElementAt(idx);
+    }
+
+    public int getTier(int idx) {
+        return pets.get(idx).getTier();
+    }
+
+    public Pet getPet(int idx) {
+        return pets.get(idx);
+    }
+
     private void failSpawn(Pet pet) {
         System.out.println("Failed to spawn pet");
     }

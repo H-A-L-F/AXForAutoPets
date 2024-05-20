@@ -14,6 +14,7 @@ public enum ShopStat {
     private final int FRUIT_SLOT;
     public static final int BUY_PRICE = 3;
     public static final int ROLL_PRICE = 1;
+    public static final int SELL_PRICE = 1;
 
     private ShopStat(int TIER, int PET_SLOT, int FRUIT_SLOT) {
         this.TIER = TIER;
