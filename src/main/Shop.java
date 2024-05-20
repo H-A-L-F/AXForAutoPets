@@ -47,24 +47,36 @@ public class Shop {
     public void nextRound(int round) {
         switch (round) {
             case 1:
-                shopStat = ShopStat.TIER1;
+                updateShopStat(ShopStat.TIER1);
                 break;
             case 3:
-                shopStat = ShopStat.TIER2;
+                updateShopStat(ShopStat.TIER2);
                 break;
             case 5:
-                shopStat = ShopStat.TIER3;
+                updateShopStat(ShopStat.TIER3);
                 break;
             case 7:
-                shopStat = ShopStat.TIER4;
+                updateShopStat(ShopStat.TIER4);
                 break;
             case 9:
-                shopStat = ShopStat.TIER5;
+                updateShopStat(ShopStat.TIER5);
                 break;
             case 11:
-                shopStat = ShopStat.TIER6;
+                updateShopStat(ShopStat.TIER6);
                 break;
         }
+    }
+
+    private void updateShopStat(ShopStat shopStat) {
+        this.shopStat = shopStat;
+        updateSlots();
+    }
+
+    private void updateSlots() {
+        pets.ensureCapacity(shopStat.getPET_SLOT());
+        fruits.ensureCapacity(shopStat.getFRUIT_SLOT());
+        frozenPet.ensureCapacity(shopStat.getPET_SLOT());
+        frozenFruit.ensureCapacity(shopStat.getFRUIT_SLOT());
     }
 
     public void startShop() {

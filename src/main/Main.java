@@ -51,7 +51,7 @@ public class Main {
     }
 
     private void menuLeaderboard() {
-        
+
     }
 
     private void menuLogout() {
