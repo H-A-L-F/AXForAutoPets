@@ -31,10 +31,12 @@ public class Shop {
     public Shop(Arena arena, PetFactory petFactory, FruitFactory fruitFactory, Team pteam) {
         shopStat = ShopStat.TIER1;
 
-        pets = new Vector<>(shopStat.getPET_SLOT());
-        fruits = new Vector<>(shopStat.getFRUIT_SLOT());
-        frozenPet = new Vector<>(shopStat.getPET_SLOT());
-        frozenFruit = new Vector<>(shopStat.getFRUIT_SLOT());
+        pets = new Vector<>();
+        fruits = new Vector<>();
+        frozenPet = new Vector<>();
+        frozenFruit = new Vector<>();
+
+        updateSlot();
 
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
@@ -69,14 +71,14 @@ public class Shop {
 
     private void updateShopStat(ShopStat shopStat) {
         this.shopStat = shopStat;
-        updateSlots();
+        updateSlot();
     }
 
-    private void updateSlots() {
-        pets.ensureCapacity(shopStat.getPET_SLOT());
-        fruits.ensureCapacity(shopStat.getFRUIT_SLOT());
-        frozenPet.ensureCapacity(shopStat.getPET_SLOT());
-        frozenFruit.ensureCapacity(shopStat.getFRUIT_SLOT());
+    private void updateSlot() {
+        pets.setSize(shopStat.getPET_SLOT());
+        fruits.setSize(shopStat.getFRUIT_SLOT());
+        frozenPet.setSize(shopStat.getPET_SLOT());
+        frozenFruit.setSize(shopStat.getFRUIT_SLOT());
     }
 
     public void startShop() {
@@ -256,7 +258,7 @@ public class Shop {
                 pets.insertElementAt(frozenPet.get(i), i);
                 continue;
             }
-            petFactory.getPet(shopStat.getTIER());
+            pets.insertElementAt(petFactory.getPet(shopStat.getTIER()), i);
         }
     }
 
@@ -266,7 +268,7 @@ public class Shop {
                 fruits.insertElementAt(frozenFruit.get(i), i);
                 continue;
             }
-            fruitFactory.getFruit(shopStat.getTIER());
+            fruits.insertElementAt(fruitFactory.getFruit(shopStat.getTIER()), i);
         }
     }
 }

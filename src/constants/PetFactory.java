@@ -69,6 +69,18 @@ public class PetFactory {
         };
     }
 
+    public Pet getMosquito() {
+        return new Pet(PetList.MOSQUITO, 1, 2, 2) {
+            @Override
+            public void onBattleStart() {
+                super.onBattleStart();
+                for(int i = 0; i < getLv(); i++) {
+                    eTeam.getRandPet().damage(1);
+                }
+            }
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
@@ -77,7 +89,7 @@ public class PetFactory {
 //            case DUCK -> getDuck();
             case FISH -> getFish();
 //            case HORSE -> getHorse();
-//            case MOSQUITO -> getMosquito();
+            case MOSQUITO -> getMosquito();
 //            case OTTER -> getOtter();
             case PIG -> getPig();
 //            case CRAB -> getCrab();

@@ -30,12 +30,19 @@ public abstract class Pet extends Entity {
         this.lv = 1;
     }
 
+    public void damage(int damage) {
+        this.hp -= damage;
+    }
+
     public void eatFruit(Fruit fruit) {
         this.fruit = fruit;
         this.fruit.onEaten(this);
     }
 
     public void onPurchase() {
+    }
+
+    public void onBattleStart() {
     }
 
     public void onSell() {
