@@ -27,7 +27,7 @@ public class Lib {
         return sb.toString();
     }
 
-    public static void printSlots(List<Pet> pets) {
+    public static void printSlots(Pet[] pets) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         for (Pet pet : pets) {
@@ -47,7 +47,7 @@ public class Lib {
         System.out.println(secondLn.toString());
     }
 
-    public static void printFruits(List<Fruit> fruits) {
+    public static void printFruits(Fruit[] fruits) {
         for (Fruit fruit : fruits) {
             System.out.printf(fruit.getName() + " ");
         }

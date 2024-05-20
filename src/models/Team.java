@@ -3,18 +3,16 @@ package models;
 import constants.Lib;
 import main.EventManager;
 
-import java.util.Vector;
-
 public class Team {
     private EventManager eventManager;
-    private Vector<Pet> pets;
+    private Pet[] pets;
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
     private int slot;
 
     public Team() {
         this.eventManager = new EventManager(this);
-        pets = new Vector<>(END_SIZE);
+        pets = new Pet[END_SIZE];
         slot = END_SIZE;
     }
 
@@ -32,17 +30,17 @@ public class Team {
         return this.eventManager;
     }
 
-    public Vector<Pet> getPets() {
-        return this.pets;
-    }
-
     public void feedPetAt(Fruit fruit, int idx) {
-        pets.get(idx).eatFruit(fruit);
+        pets[idx].eatFruit(fruit);
     }
 
     public Pet getRandPet() {
-        int idx = (int) (Math.random() * pets.size());
-        return pets.get(idx);
+        Pet res = null;
+        while (res == null) {
+            int idx = (int) (Math.random() * END_SIZE);
+            res = pets[idx];
+        }
+        return res;
     }
 
     public void addPet(Pet pet, int pos) {
@@ -50,45 +48,41 @@ public class Team {
             failSpawn(pet);
             return;
         }
-        if(pets.get(pos) == null) {
-            pets.insertElementAt(pet, pos);
+        if(pets[pos] == null) {
+            pets[pos] = pet;
             return;
         }
         for(int i = END_SIZE - 1; i > pos; i--) {
-            pets.insertElementAt(pets.get(i - 1), i);
+            pets[i] = pets[i-1];
         }
-        pets.insertElementAt(pet, pos);
+        pets[pos] = pet;
     }
 
     public void insertPetAt(Pet pet, int pos) {
-        pets.insertElementAt(pet, pos);
+        pets[pos] = pet;
     }
 
     public void swapPet(int idx1, int idx2) {
-        Pet temp = pets.get(idx1);
-        pets.set(idx1, pets.get(idx2));
-        pets.set(idx2, temp);
+        Pet temp = pets[idx1];
+        pets[idx1] = pets[idx2];
+        pets[idx2] = temp;
     }
 
-    public void removePet(int idx) {
-        pets.get(idx).onSell();
-        pets.removeElementAt(idx);
+    public void sellPet(int idx) {
+        pets[idx].onSell();
+        pets[idx] = null;
     }
 
     public int getTier(int idx) {
-        return pets.get(idx).getTier();
+        return pets[idx].getTier();
     }
 
     public Pet getPet(int idx) {
-        return pets.get(idx);
+        return pets[idx];
     }
 
     private void failSpawn(Pet pet) {
         System.out.println("Failed to spawn pet");
-    }
-
-    public Pet getPetAtIdx(int idx) {
-        return this.pets.get(idx);
     }
 
     public int getSlot() {

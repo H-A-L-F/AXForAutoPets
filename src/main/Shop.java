@@ -5,16 +5,11 @@ import constants.FruitFactory;
 import constants.Lib;
 import constants.PetFactory;
 import constants.ShopStat;
-import models.Entity;
 import models.Fruit;
 import models.Pet;
 import models.Team;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-import java.util.stream.Collectors;
 
 public class Shop {
     private ShopStat shopStat;
@@ -131,7 +126,7 @@ public class Shop {
     private void menuBuyPet() {
         int opt = in.getInt((x) -> pets.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
-        if(pteam.getPetAtIdx(pos) != null) {
+        if(pteam.getPet(pos) != null) {
             System.out.println("That spot is filled!");
             return;
         }
@@ -142,7 +137,7 @@ public class Shop {
     private void menuBuyFood() {
         int opt = in.getInt((x) -> fruits.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
-        if(pteam.getPetAtIdx(pos) == null) {
+        if(pteam.getPet(pos) == null) {
             System.out.println("You must feed a pet!");
             return;
         }
@@ -198,7 +193,7 @@ public class Shop {
             return;
         }
         arena.incMoney(pteam.getTier(opt) * ShopStat.SELL_PRICE);
-        pteam.removePet(opt);
+        pteam.sellPet(opt);
     }
 
     public void showShop() {
@@ -208,8 +203,8 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        Lib.printSlots(pets.stream().map(o->o.item).collect(Collectors.toList()));
-        Lib.printFruits(fruits.stream().map(o->o.item).collect(Collectors.toList()));
+        Lib.printSlots(pets.stream().map(o->o.item).toArray(Pet[]::new));
+        Lib.printFruits(fruits.stream().map(o->o.item).toArray(Fruit[]::new));
     }
 
     private void generateShop() {
