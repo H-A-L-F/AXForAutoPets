@@ -1,6 +1,7 @@
 package main;
 
 import console_input.ConsoleInput;
+import constants.Lib;
 
 public class Main {
     private final ConsoleInput ci;
@@ -28,6 +29,7 @@ public class Main {
         while (run) {
             optHome();
             opt = ci.getIntInRange(1, 3, ">> ");
+            Lib.clear();
 
             switch (opt) {
                 case 1:

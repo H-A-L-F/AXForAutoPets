@@ -88,6 +88,7 @@ public class Shop {
         while (run) {
             optShop();
             opt = in.getIntInRange(1, 6, ">> ");
+            Lib.clear();
 
             switch (opt) {
                 case 1:
@@ -203,9 +204,50 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        Lib.printSlots(pets.stream().map(o->o.item).toArray(Pet[]::new));
+        printPets();
         Lib.printDivider();
-        Lib.printFruits(fruits.stream().map(o->o.item).toArray(Fruit[]::new));
+        printFruits();
+        System.out.println();
+    }
+
+    private void printPets() {
+        StringBuilder firstLn = new StringBuilder();
+        StringBuilder secondLn = new StringBuilder();
+        for (ShopItem<Pet> pet : pets) {
+            if(pet.item == null) continue;
+            char x, y;
+            if(pet.state == ShopState.FROZEN) {
+                x = '{';
+                y = '}';
+            } else {
+                x = '[';
+                y = ']';
+            }
+            String first = String.format("%c %-5s %c", x, Lib.center(pet.item.getName(), 5), y);
+            String second = String.format("%d | %d", pet.item.getAtk(), pet.item.getHp());
+            int len = first.length() - 4;
+            String secondFormat = x + " %-" + len + "s " + y;
+            firstLn.append(first).append(" ");
+            secondLn.append(String.format(secondFormat, Lib.center(second, len))).append(" ");
+        }
+        System.out.println(firstLn.toString());
+        System.out.println(secondLn.toString());
+    }
+
+    private void printFruits() {
+        for (ShopItem<Fruit> fruit : fruits) {
+            if(fruit.item == null) continue;
+            char x, y;
+            if(fruit.state == ShopState.FROZEN) {
+                x = '{';
+                y = '}';
+            } else {
+                x = '[';
+                y = ']';
+            }
+            System.out.printf("%c %s %c ", x, fruit.item.getName(), y);
+        }
+        System.out.println();
     }
 
     private void generateShop() {
