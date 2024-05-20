@@ -81,6 +81,18 @@ public class PetFactory {
         };
     }
 
+    public Pet getBeaver() {
+        return new Pet(PetList.BEAVER, 1, 3, 2) {
+            @Override
+            public void onSell() {
+                super.onSell();
+                for(int i = 0; i < 2; i++) {
+                    pTeam.getRandPet().buff(getLv(), 0);
+                }
+            }
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
