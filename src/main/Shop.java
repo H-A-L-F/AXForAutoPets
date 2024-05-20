@@ -112,7 +112,7 @@ public class Shop {
     }
 
     private void menuBuy() {
-        if(arena.getMoney() < ShopStat.PRICE) {
+        if(arena.getMoney() < ShopStat.BUY_PRICE) {
             System.out.println("You have insufficient funds to buy!");
             System.out.println("Purchase requires at least 3 gold.");
             return;
@@ -134,7 +134,7 @@ public class Shop {
     }
 
     private Pet buyPet(int idx) {
-        arena.incMoney(-ShopStat.PRICE);
+        arena.incMoney(-ShopStat.BUY_PRICE);
         Pet temp = pets.get(idx);
         frozenPet.removeElementAt(idx);
         pets.removeElementAt(idx);
@@ -153,7 +153,7 @@ public class Shop {
     }
 
     private Fruit buyFruit(int idx) {
-        arena.incMoney(-ShopStat.PRICE);
+        arena.incMoney(-ShopStat.BUY_PRICE);
         Fruit temp = fruits.get(idx);
         frozenFruit.removeElementAt(idx);
         fruits.removeElementAt(idx);
@@ -202,7 +202,8 @@ public class Shop {
     }
 
     private void menuRoll() {
-
+        arena.incMoney(-ShopStat.ROLL_PRICE);
+        generateShop();
     }
 
     private void menuArrange() {
