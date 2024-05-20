@@ -105,12 +105,22 @@ public class PetFactory {
         };
     }
 
+    public Pet getDuck() {
+        return new Pet(PetList.DUCK, 1, 2, 3) {
+            @Override
+            public void onSell() {
+                super.onSell();
+                arena.getShop().buffShop(0, getLv());
+            }
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
             case BEAVER -> getBeaver();
             case CRICKET -> getCricket();
-//            case DUCK -> getDuck();
+            case DUCK -> getDuck();
             case FISH -> getFish();
 //            case HORSE -> getHorse();
             case MOSQUITO -> getMosquito();

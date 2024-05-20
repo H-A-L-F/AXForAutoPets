@@ -271,4 +271,15 @@ public class Shop {
             fruits.insertElementAt(fruitFactory.getFruit(shopStat.getTIER()), i);
         }
     }
+
+    public void buffShop(int atk, int hp) {
+        for(int i = 0; i < shopStat.getPET_SLOT(); i++) {
+            if(frozenPet.get(i) != null) {
+                frozenPet.get(i).buff(atk, hp);
+                pets.insertElementAt(frozenPet.get(i), i);
+            } else {
+                pets.get(i).buff(atk, hp);
+            }
+        }
+    }
 }

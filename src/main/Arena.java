@@ -106,4 +106,8 @@ public class Arena {
     public int getMoney() {
         return this.money;
     }
+
+    public Shop getShop() {
+        return this.shop;
+    }
 }
