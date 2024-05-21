@@ -37,7 +37,7 @@ public class Team {
     }
 
     public void arrangeBattleTeam() {
-        for (int i = END_SIZE; i >= 0; i--) {
+        for (int i = END_SIZE - 1; i >= 0; i--) {
             if(pets[i] != null) continue;
             for(int j = i - 1; j >= 0; j--) {
                 if(pets[j] == null) continue;
