@@ -130,6 +130,7 @@ public class Shop {
     }
 
     private void menuBuyPet() {
+        printShopItem(pets, petPrinter);
         int opt = in.getInt((x) -> pets.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
         if(pteam.getPet(pos) != null) {
@@ -141,6 +142,7 @@ public class Shop {
     }
 
     private void menuBuyFood() {
+        printShopItem(fruits, fruitPrinter);
         int opt = in.getInt((x) -> fruits.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
         if(pteam.getPet(pos) == null) {
@@ -157,7 +159,7 @@ public class Shop {
     }
 
     private void menuFreeze() {
-        printShopItem(pets, petPrinter);
+        printShop();
         System.out.println("Choose unfrozen item to freeze or frozen item to unfreeze.");
         String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
         int opt;
