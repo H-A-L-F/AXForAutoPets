@@ -5,6 +5,7 @@ import constants.FruitFactory;
 import constants.Lib;
 import constants.PetFactory;
 import constants.ShopStat;
+import models.Entity;
 import models.Fruit;
 import models.Pet;
 import models.Team;
@@ -204,50 +205,44 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        printPets();
+        printShopItem(pets, new ShopPrint() {
+            @Override
+            public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
+                if(!(obj.item instanceof Pet pet)) return;
+                String first = String.format("%c %-5s %c", open, Lib.center(pet.getName(), 5), close);
+                String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
+                int len = first.length() - 4;
+                String secondFormat = open + " %-" + len + "s " + close;
+                firstLn.append(first).append(" ");
+                secondLn.append(String.format(secondFormat, Lib.center(second, len))).append(" ");
+            }
+        });
         Lib.printDivider();
-        printFruits();
-        System.out.println();
+        printShopItem(fruits, new ShopPrint() {
+            @Override
+            public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
+                firstLn.append(String.format("%c %s %c ", open, obj.item.getName(), close));
+            }
+        });
     }
 
-    private void printPets() {
+    private <T extends Entity> void printShopItem(ArrayList<ShopItem<T>> items, ShopPrint shopPrint) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
-        for (ShopItem<Pet> pet : pets) {
-            if(pet.item == null) continue;
+        for(ShopItem<T> o: items) {
+            if(o.item == null) continue;
             char x, y;
-            if(pet.state == ShopState.FROZEN) {
+            if(o.state == ShopState.FROZEN) {
                 x = '{';
                 y = '}';
             } else {
                 x = '[';
                 y = ']';
             }
-            String first = String.format("%c %-5s %c", x, Lib.center(pet.item.getName(), 5), y);
-            String second = String.format("%d | %d", pet.item.getAtk(), pet.item.getHp());
-            int len = first.length() - 4;
-            String secondFormat = x + " %-" + len + "s " + y;
-            firstLn.append(first).append(" ");
-            secondLn.append(String.format(secondFormat, Lib.center(second, len))).append(" ");
+            shopPrint.print(o, firstLn, secondLn, x, y);
         }
-        System.out.println(firstLn.toString());
-        System.out.println(secondLn.toString());
-    }
-
-    private void printFruits() {
-        for (ShopItem<Fruit> fruit : fruits) {
-            if(fruit.item == null) continue;
-            char x, y;
-            if(fruit.state == ShopState.FROZEN) {
-                x = '{';
-                y = '}';
-            } else {
-                x = '[';
-                y = ']';
-            }
-            System.out.printf("%c %s %c ", x, fruit.item.getName(), y);
-        }
-        System.out.println();
+        System.out.println(firstLn);
+        System.out.println(secondLn);
     }
 
     private void generateShop() {
@@ -274,6 +269,10 @@ public class Shop {
             pets.get(i).item.buff(atk, hp);
         }
     }
+}
+
+interface ShopPrint {
+    public abstract <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close);
 }
 
 enum ShopState {
