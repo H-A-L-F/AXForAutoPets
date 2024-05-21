@@ -25,7 +25,7 @@ public class Arena {
         round = 0;
         win = 0;
         life = 5;
-        money = 0;
+        money = 10;
 
         playerPetFactory = new PetFactory(this, playerTeam, enmTeam);
         fruitFactory = new FruitFactory(this, playerTeam, enmTeam);
@@ -48,7 +48,7 @@ public class Arena {
         round = 0;
         win = 0;
         life = 5;
-        money = 0;
+        money = 10;
 
         playerPetFactory = new PetFactory(this, playerTeam, enmTeam);
         fruitFactory = new FruitFactory(this, playerTeam, enmTeam);
@@ -73,7 +73,6 @@ public class Arena {
     }
 
     private void shop() {
-        printPTeam();
         shop.startShop();
     }
 
@@ -86,9 +85,8 @@ public class Arena {
         return 0;
     }
 
-    private void printPTeam() {
-        System.out.println("Player Team:");
-        playerTeam.printTeam();
+    public void printStats() {
+        System.out.printf("[Money: %d | Round: %d | Life %d | Win %d]\n", money, round, life, win);
     }
 
     public void incMoney(int amt) {

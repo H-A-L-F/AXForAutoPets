@@ -87,6 +87,8 @@ public class Shop {
         boolean run = true;
         int opt = 0;
         while (run) {
+            arena.printStats();
+            pteam.printTeam();
             printShop();
             optShop();
             opt = in.getIntInRange(1, 6, ">> ");
@@ -159,11 +161,11 @@ public class Shop {
         int opt;
         if(type.equals("Pet")) {
             opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
-            freezeShopItem(pets, opt);
+            freezeShopItem(pets, opt - 1);
         }
         else if(type.equals("Food")) {
             opt = in.getIntInRange(1, shopStat.getFRUIT_SLOT(), "Choose [1 - "+ shopStat.getFRUIT_SLOT() + "]: ");
-            freezeShopItem(fruits, opt);
+            freezeShopItem(fruits, opt - 1);
         }
     }
 
