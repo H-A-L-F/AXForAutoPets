@@ -16,13 +16,15 @@ public class Arena {
     private PetFactory playerPetFactory;
     private FruitFactory fruitFactory;
 
+    private static final int DEFAULT_MONEY = 10;
+
     private Arena() {
         pTeam = new Team();
         enmTeam = new Team();
         round = 0;
         win = 0;
         life = 5;
-        money = 10;
+        money = DEFAULT_MONEY;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
         fruitFactory = new FruitFactory(this, pTeam, enmTeam);
@@ -45,7 +47,7 @@ public class Arena {
         round = 0;
         win = 0;
         life = 5;
-        money = 10;
+        money = DEFAULT_MONEY;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
         fruitFactory = new FruitFactory(this, pTeam, enmTeam);
@@ -69,6 +71,7 @@ public class Arena {
     }
 
     private void shop() {
+        resetMoney();
         shop.startShop();
     }
 
@@ -95,6 +98,10 @@ public class Arena {
 
     public void incMoney(int amt) {
         this.money += amt;
+    }
+
+    private void resetMoney() {
+        this.money = DEFAULT_MONEY;
     }
 
     public int getMoney() {
