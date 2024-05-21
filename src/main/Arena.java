@@ -1,6 +1,7 @@
 package main;
 
 import constants.FruitFactory;
+import constants.Lib;
 import constants.PetFactory;
 import constants.PetStatus;
 import models.Team;
@@ -81,14 +82,16 @@ public class Arena {
     }
 
     private BattleResult battle() {
-        while (pTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL && enmTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) {
-            int pAtk = pTeam.getAtk(Team.END_SIZE);
-            int enmAtk = enmTeam.getAtk(Team.END_SIZE);
-            enmTeam.takeDamage(pAtk, Team.END_SIZE);
-            pTeam.takeDamage(enmAtk, Team.END_SIZE);
+        int toFight = Team.END_SIZE - 1;
+        while (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) {
+            Lib.printTeams(pTeam, enmTeam);
+            int pAtk = pTeam.getAtk(toFight);
+            int enmAtk = enmTeam.getAtk(toFight);
+            enmTeam.takeDamage(pAtk, toFight);
+            pTeam.takeDamage(enmAtk, toFight);
         }
-        if (pTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
-        else if (enmTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        if (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
     }
 

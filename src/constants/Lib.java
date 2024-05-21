@@ -65,6 +65,9 @@ public class Lib {
             Pet pet = pteam.getPet(i);
             petPrintWrapper(firstLn, secondLn, pet);
         }
+        String vs = "-> <- ";
+        firstLn.append(vs);
+        secondLn.append(String.format("%" + vs.length() + "s", ""));
         for(int i = Team.END_SIZE; i >= 0; i--) {
             Pet pet = eTeam.getPet(i);
             petPrintWrapper(firstLn, secondLn, pet);
