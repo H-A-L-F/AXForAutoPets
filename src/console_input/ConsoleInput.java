@@ -21,7 +21,7 @@ public class ConsoleInput {
             System.out.printf(str);
             res = scanner.nextInt();
             scanner.nextLine();
-        } while (validator.validateInt(res));
+        } while (!validator.validateInt(res));
         return res;
     }
 
@@ -40,7 +40,7 @@ public class ConsoleInput {
         do {
             System.out.printf(str);
             res = scanner.nextLine();
-        } while(validator.validateStr(res));
+        } while(!validator.validateStr(res));
         return res;
     }
 }

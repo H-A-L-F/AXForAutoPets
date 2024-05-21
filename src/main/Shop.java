@@ -70,7 +70,7 @@ public class Shop {
     }
 
     public void startShop() {
-        showShop();
+        generateShop();
         menuShop();
     }
 
@@ -87,6 +87,7 @@ public class Shop {
         boolean run = true;
         int opt = 0;
         while (run) {
+            printShop();
             optShop();
             opt = in.getIntInRange(1, 6, ">> ");
             Lib.clear();
@@ -155,18 +156,15 @@ public class Shop {
     private void menuFreeze() {
         System.out.println("Choose unfrozen item to freeze or frozen item to unfreeze.");
         String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
-        if(type.equals("Pet")) menuFreezePet();
-        else if(type.equals("Food")) menuFreezeFood();
-    }
-
-    private void menuFreezePet() {
-        int opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
-        freezeShopItem(pets, opt);
-    }
-
-    private void menuFreezeFood() {
-        int opt = in.getIntInRange(1, shopStat.getFRUIT_SLOT(), "Choose [1 - "+ shopStat.getFRUIT_SLOT() + "]: ");
-        freezeShopItem(fruits, opt);
+        int opt;
+        if(type.equals("Pet")) {
+            opt = in.getIntInRange(1, shopStat.getPET_SLOT(), "Choose [1 - "+ shopStat.getPET_SLOT() + "]: ");
+            freezeShopItem(pets, opt);
+        }
+        else if(type.equals("Food")) {
+            opt = in.getIntInRange(1, shopStat.getFRUIT_SLOT(), "Choose [1 - "+ shopStat.getFRUIT_SLOT() + "]: ");
+            freezeShopItem(fruits, opt);
+        }
     }
 
     private <T> void freezeShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
@@ -196,11 +194,6 @@ public class Shop {
         }
         arena.incMoney(pteam.getTier(opt) * ShopStat.SELL_PRICE);
         pteam.sellPet(opt);
-    }
-
-    public void showShop() {
-        generateShop();
-        printShop();
     }
 
     private void printShop() {
