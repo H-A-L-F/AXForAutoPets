@@ -16,6 +16,10 @@ public class Fruit extends Entity{
     public void onFaint(int pos) {
     }
 
+    public int onDamaged(int dmg) {
+        return dmg;
+    }
+
     @Override
     public String getName() {
         return this.name.toString();

@@ -75,7 +75,8 @@ public class PetFactory {
             public void onBattleStart() {
                 super.onBattleStart();
                 for(int i = 0; i < getLv(); i++) {
-                    eTeam.getRandPet().damage(1);
+                    int idx = eTeam.getRandIdx();
+                    eTeam.getPet(idx).damage(1, idx);
                 }
             }
         };

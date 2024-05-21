@@ -20,18 +20,20 @@ public class Team {
         Lib.printSlots(pets);
     }
 
-    public void roundStart() {
-    }
-
-    public void roundEnd() {
-    }
-
     public EventManager getEventManager() {
         return this.eventManager;
     }
 
     public void feedPetAt(Fruit fruit, int idx) {
         pets[idx].eatFruit(fruit);
+    }
+
+    public int getAtk(int idx) {
+        return pets[idx].attack();
+    }
+
+    public int takeDamage(int damage, int idx) {
+        return pets[idx].damage(damage, idx);
     }
 
     public Pet getRandPet() {
@@ -41,6 +43,14 @@ public class Team {
             res = pets[idx];
         }
         return res;
+    }
+
+    public int getRandIdx() {
+        int idx = -1;
+        do {
+            idx = (int) (Math.random() * END_SIZE);
+        } while(pets[idx] == null);
+        return idx;
     }
 
     public void addPet(Pet pet, int pos) {

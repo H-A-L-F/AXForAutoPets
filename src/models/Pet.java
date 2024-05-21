@@ -30,13 +30,28 @@ public abstract class Pet extends Entity {
         this.lv = 1;
     }
 
-    public void damage(int damage) {
-        this.hp -= damage;
+    public int damage(int damage, int pos) {
+        int dmg = fruit.onDamaged(damage);
+        this.hp -= dmg;
+        this.onDamaged();
+        if(hp <= 0) onFaint(pos);
+        return dmg;
     }
 
     public void eatFruit(Fruit fruit) {
         this.fruit = fruit;
         this.fruit.onEaten(this);
+    }
+
+    private void beforeAttack() {
+    }
+
+    public int attack() {
+        beforeAttack();
+        return this.atk;
+    }
+
+    public void onDamaged() {
     }
 
     public void onPurchase() {
@@ -50,6 +65,7 @@ public abstract class Pet extends Entity {
     }
 
     public void onFaint(int pos) {
+        status = PetStatus.FAINT;
     }
 
     public void onLvUp() {
@@ -81,5 +97,9 @@ public abstract class Pet extends Entity {
 
     public int getHp() {
         return hp;
+    }
+
+    public PetStatus getStatus() {
+        return status;
     }
 }

@@ -2,6 +2,7 @@ package main;
 
 import constants.FruitFactory;
 import constants.PetFactory;
+import constants.PetStatus;
 import models.Team;
 
 public class Arena {
@@ -55,15 +56,14 @@ public class Arena {
         while (life > 0) {
             nextRound();
             shop();
-            int res = battle();
-            if (res == 0) {
-                // draw
-            } else if (res == -1) {
-                // lose
-                life--;
-            } else if (res == 1) {
-                // win
-                win++;
+            BattleResult res = battle();
+            switch (res) {
+                case WIN:
+                    break;
+                case LOSE:
+                    break;
+                case DRAW:
+                    break;
             }
         }
     }
@@ -77,9 +77,16 @@ public class Arena {
         shop.nextRound(round);
     }
 
-    private int battle() {
-        while()
-        return 0;
+    private BattleResult battle() {
+        while (pTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL && enmTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) {
+            int pAtk = pTeam.getAtk(Team.END_SIZE);
+            int enmAtk = enmTeam.getAtk(Team.END_SIZE);
+            enmTeam.takeDamage(pAtk, Team.END_SIZE);
+            pTeam.takeDamage(enmAtk, Team.END_SIZE);
+        }
+        if (pTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (enmTeam.getPet(Team.END_SIZE).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        else return BattleResult.DRAW;
     }
 
     public void printStats() {
@@ -97,4 +104,10 @@ public class Arena {
     public Shop getShop() {
         return this.shop;
     }
+}
+
+enum BattleResult {
+    WIN,
+    LOSE,
+    DRAW;
 }
