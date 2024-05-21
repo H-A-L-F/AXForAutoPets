@@ -132,7 +132,7 @@ public class Shop {
 
     private void menuBuyPet() {
         int opt = in.getInt((x) -> pets.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
-        int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
+        int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         opt--;
         pos--;
         if(pteam.getPet(pos) != null) {
@@ -145,7 +145,7 @@ public class Shop {
 
     private void menuBuyFood() {
         int opt = in.getInt((x) -> fruits.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
-        int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
+        int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         opt--;
         pos--;
         if(pteam.getPet(pos) == null) {
@@ -158,7 +158,9 @@ public class Shop {
 
     private <T> ShopItem<T> buyShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
         arena.incMoney(-ShopStat.BUY_PRICE);
-        return shopItems.remove(idx);
+        ShopItem<T> shopItem = shopItems.get(idx);
+        shopItems.set(idx, null);
+        return shopItem;
     }
 
     private void menuFreeze() {
@@ -212,9 +214,9 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        printShopItem(pets, petPrinter);
+        printShopItem(pets, petPrinter, emptyPet);
         Lib.printDivider();
-        printShopItem(fruits, fruitPrinter);
+        printShopItem(fruits, fruitPrinter, emptyFruit);
     }
 
     ShopPrint petPrinter = new ShopPrint() {
@@ -230,6 +232,14 @@ public class Shop {
         }
     };
 
+    EmptyPrint emptyPet = new EmptyPrint() {
+        @Override
+        public void print(StringBuilder firstLn, StringBuilder secondLn) {
+            firstLn.append(String.format("[ %-5s ] ", ""));
+            secondLn.append(String.format("[ %-5s ] ", ""));
+        }
+    };
+
     ShopPrint fruitPrinter = new ShopPrint() {
         @Override
         public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
@@ -237,10 +247,21 @@ public class Shop {
         }
     };
 
-    private <T extends Entity> void printShopItem(ArrayList<ShopItem<T>> items, ShopPrint shopPrint) {
+    EmptyPrint emptyFruit = new EmptyPrint() {
+        @Override
+        public void print(StringBuilder firstLn, StringBuilder secondLn) {
+            firstLn.append(String.format("[ %-5s ] ", ""));
+        }
+    };
+
+    private <T extends Entity> void printShopItem(ArrayList<ShopItem<T>> items, ShopPrint shopPrint, EmptyPrint emptyPrint) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         for(ShopItem<T> o: items) {
+            if(o == null) {
+                emptyPrint.print(firstLn, secondLn);
+                continue;
+            }
             if(o.item == null) continue;
             char x, y;
             if(o.state == ShopState.FROZEN) {
@@ -284,6 +305,10 @@ public class Shop {
 
 interface ShopPrint {
     public abstract <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close);
+}
+
+interface EmptyPrint {
+    public abstract void print(StringBuilder firstLn, StringBuilder secondLn);
 }
 
 enum ShopState {
