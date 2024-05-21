@@ -119,6 +119,7 @@ public class Shop {
     }
 
     private void menuBuy() {
+        printShop();
         if(arena.getMoney() < ShopStat.BUY_PRICE) {
             System.out.println("You have insufficient funds to buy!");
             System.out.println("Purchase requires at least 3 gold.");
@@ -130,9 +131,10 @@ public class Shop {
     }
 
     private void menuBuyPet() {
-        printShopItem(pets, petPrinter);
         int opt = in.getInt((x) -> pets.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
+        opt--;
+        pos--;
         if(pteam.getPet(pos) != null) {
             System.out.println("That spot is filled!");
             return;
@@ -142,9 +144,10 @@ public class Shop {
     }
 
     private void menuBuyFood() {
-        printShopItem(fruits, fruitPrinter);
         int opt = in.getInt((x) -> fruits.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 -" + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]");
+        opt--;
+        pos--;
         if(pteam.getPet(pos) == null) {
             System.out.println("You must feed a pet!");
             return;
