@@ -43,4 +43,9 @@ public class ConsoleInput {
         } while(!validator.validateStr(res));
         return res;
     }
+
+    public void enter() {
+        System.out.print("Press Enter to continue...");
+        scanner.nextLine();
+    }
 }

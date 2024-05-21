@@ -114,6 +114,7 @@ public class Shop {
                     run = false;
                     break;
             }
+            Lib.clear();
         }
     }
 
@@ -156,6 +157,7 @@ public class Shop {
     }
 
     private void menuFreeze() {
+        printShopItem(pets, petPrinter);
         System.out.println("Choose unfrozen item to freeze or frozen item to unfreeze.");
         String type = in.getString((str) -> str.equals("Pet") || str.equals("Food"), "Choose [Pet | Food]: ");
         int opt;
@@ -178,6 +180,11 @@ public class Shop {
     }
 
     private void menuRoll() {
+        if(arena.getMoney() < ShopStat.ROLL_PRICE) {
+            System.out.println("You have insufficient funds to roll!");
+            in.enter();
+            return;
+        }
         arena.incMoney(-ShopStat.ROLL_PRICE);
         generateShop();
     }
@@ -200,26 +207,30 @@ public class Shop {
 
     private void printShop() {
         System.out.println("Shop:");
-        printShopItem(pets, new ShopPrint() {
-            @Override
-            public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
-                if(!(obj.item instanceof Pet pet)) return;
-                String first = String.format("%c %-5s %c", open, Lib.center(pet.getName(), 5), close);
-                String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
-                int len = first.length() - 4;
-                String secondFormat = open + " %-" + len + "s " + close;
-                firstLn.append(first).append(" ");
-                secondLn.append(String.format(secondFormat, Lib.center(second, len))).append(" ");
-            }
-        });
+        printShopItem(pets, petPrinter);
         Lib.printDivider();
-        printShopItem(fruits, new ShopPrint() {
-            @Override
-            public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
-                firstLn.append(String.format("%c %s %c ", open, obj.item.getName(), close));
-            }
-        });
+        printShopItem(fruits, fruitPrinter);
     }
+
+    ShopPrint petPrinter = new ShopPrint() {
+        @Override
+        public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
+            if(!(obj.item instanceof Pet pet)) return;
+            String first = String.format("%c %-5s %c", open, Lib.center(pet.getName(), 5), close);
+            String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
+            int len = first.length() - 4;
+            String secondFormat = open + " %-" + len + "s " + close;
+            firstLn.append(first).append(" ");
+            secondLn.append(String.format(secondFormat, Lib.center(second, len))).append(" ");
+        }
+    };
+
+    ShopPrint fruitPrinter = new ShopPrint() {
+        @Override
+        public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
+            firstLn.append(String.format("%c %s %c ", open, obj.item.getName(), close));
+        }
+    };
 
     private <T extends Entity> void printShopItem(ArrayList<ShopItem<T>> items, ShopPrint shopPrint) {
         StringBuilder firstLn = new StringBuilder();
