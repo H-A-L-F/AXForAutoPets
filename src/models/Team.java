@@ -36,6 +36,17 @@ public class Team {
         return pets[idx].damage(damage, idx);
     }
 
+    public void arrangeBattleTeam() {
+        for (int i = END_SIZE; i >= 0; i--) {
+            if(pets[i] != null) continue;
+            for(int j = i - 1; j >= 0; j--) {
+                if(pets[j] == null) continue;
+                pets[i] = pets[j];
+                pets[j] = null;
+            }
+        }
+    }
+
     public Pet getRandPet() {
         Pet res = null;
         while (res == null) {

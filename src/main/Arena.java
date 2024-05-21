@@ -84,6 +84,8 @@ public class Arena {
     private BattleResult battle() {
         int toFight = Team.END_SIZE - 1;
         while (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) {
+            pTeam.arrangeBattleTeam();
+            enmTeam.arrangeBattleTeam();
             Lib.printTeams(pTeam, enmTeam);
             int pAtk = pTeam.getAtk(toFight);
             int enmAtk = enmTeam.getAtk(toFight);
