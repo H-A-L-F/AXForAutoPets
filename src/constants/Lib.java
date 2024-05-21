@@ -31,10 +31,7 @@ public class Lib {
     public static void printSlots(Pet[] pets) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
-        for (Pet pet : pets) {
-            if(pet == null) printEmpty(firstLn, secondLn);
-            else petPrinter.print(firstLn, secondLn, pet);
-        }
+        for (Pet pet : pets) petPrintWrapper(firstLn, secondLn, pet);
         System.out.println(firstLn);
         System.out.println(secondLn);
     }
@@ -56,18 +53,21 @@ public class Lib {
         }
     };
 
+    private static void petPrintWrapper(StringBuilder firstLn, StringBuilder secondLn, Pet pet) {
+        if(pet == null) printEmpty(firstLn, secondLn);
+        else petPrinter.print(firstLn, secondLn, pet);
+    }
+
     public static void printTeams(Team pteam, Team eTeam) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         for(int i = 0; i < Team.END_SIZE; i++) {
             Pet pet = pteam.getPet(i);
-            if(pet == null) printEmpty(firstLn, secondLn);
-            else petPrinter.print(firstLn, secondLn, pet);
+            petPrintWrapper(firstLn, secondLn, pet);
         }
         for(int i = Team.END_SIZE; i >= 0; i--) {
             Pet pet = eTeam.getPet(i);
-            if(pet == null) printEmpty(firstLn, secondLn);
-            else petPrinter.print(firstLn, secondLn, pet);
+            petPrintWrapper(firstLn, secondLn, pet);
         }
         System.out.println(firstLn);
         System.out.println(secondLn);
