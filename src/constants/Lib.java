@@ -2,6 +2,7 @@ package constants;
 
 import models.Fruit;
 import models.Pet;
+import models.Team;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,12 +48,39 @@ public class Lib {
         System.out.println(secondLn.toString());
     }
 
-    public static void printFruits(Fruit[] fruits) {
-        for (Fruit fruit : fruits) {
-            if(fruit == null) continue;
-            System.out.printf(fruit.getName() + " ");
+    public static void printTeams(Team pteam, Team eTeam) {
+        StringBuilder firstLn = new StringBuilder();
+        StringBuilder secondLn = new StringBuilder();
+        for(int i = 0; i < Team.END_SIZE; i++) {
+            Pet pet = pteam.getPet(i);
+            if(pet == null) {
+                firstLn.append(String.format("[ %5s ] ", ""));
+                secondLn.append(String.format("[ %d | %d ] ", 0, 0));
+                continue;
+            }
+            String first = String.format("[ %-5s ]", center(pet.getName(), 5));
+            String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
+            int len = first.length() - 4;
+            String secondFormat = "[ %-" + len + "s ]";
+            firstLn.append(first).append(" ");
+            secondLn.append(String.format(secondFormat, center(second, len))).append(" ");
         }
-        System.out.println();
+        for(int i = Team.END_SIZE; i >= 0; i--) {
+            Pet pet = eTeam.getPet(i);
+            if(pet == null) {
+                firstLn.append(String.format("[ %5s ] ", ""));
+                secondLn.append(String.format("[ %d | %d ] ", 0, 0));
+                continue;
+            }
+            String first = String.format("[ %-5s ]", center(pet.getName(), 5));
+            String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
+            int len = first.length() - 4;
+            String secondFormat = "[ %-" + len + "s ]";
+            firstLn.append(first).append(" ");
+            secondLn.append(String.format(secondFormat, center(second, len))).append(" ");
+        }
+        System.out.println(firstLn);
+        System.out.println(secondLn);
     }
 
     public static void printDivider() {
@@ -73,4 +101,8 @@ public class Lib {
         }
         return Collections.unmodifiableList(combinedList);
     }
+}
+
+interface PetPrinter {
+    public abstract void print(StringBuilder firstLn, StringBuilder secondLn, Pet pet);
 }
