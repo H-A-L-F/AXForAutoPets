@@ -258,11 +258,10 @@ public class Shop {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         for(ShopItem<T> o: items) {
-            if(o == null) {
+            if(o == null || o.item == null) {
                 emptyPrint.print(firstLn, secondLn);
                 continue;
             }
-            if(o.item == null) continue;
             char x, y;
             if(o.state == ShopState.FROZEN) {
                 x = '{';
