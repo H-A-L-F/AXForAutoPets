@@ -31,8 +31,8 @@ public class Shop {
         pets = new ArrayList<ShopItem<Pet>>();
         fruits = new ArrayList<ShopItem<Fruit>>();
 
-        for(int i = 0; i < ShopStat.MAX_PET_SLOT; i++) pets.add(new ShopItem<>(null));
-        for(int i = 0; i < ShopStat.MAX_FRUIT_SLOT; i++) fruits.add(new ShopItem<>(null));
+        for(int i = 0; i < ShopStat.MAX_PET_SLOT; i++) pets.add(new ShopItem<>(ShopState.LOCKED, null));
+        for(int i = 0; i < ShopStat.MAX_FRUIT_SLOT; i++) fruits.add(new ShopItem<>(ShopState.LOCKED, null));
 
         this.petFactory = petFactory;
         this.fruitFactory = fruitFactory;
@@ -159,7 +159,7 @@ public class Shop {
     private <T> ShopItem<T> buyShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
         arena.incMoney(-ShopStat.BUY_PRICE);
         ShopItem<T> shopItem = shopItems.get(idx);
-        shopItems.set(idx, new ShopItem<T>(null));
+        shopItems.set(idx, new ShopItem<T>(ShopState.LOCKED, null));
         return shopItem;
     }
 
@@ -257,8 +257,9 @@ public class Shop {
     private <T extends Entity> void printShopItem(ArrayList<ShopItem<T>> items, ShopPrint shopPrint, EmptyPrint emptyPrint) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
-        for(ShopItem<T> o: items) {
-            if(o == null || o.item == null) {
+        for(ShopItem<T> o : items) {
+            if(o.state == ShopState.LOCKED) continue;
+            if(o.item == null) {
                 emptyPrint.print(firstLn, secondLn);
                 continue;
             }
@@ -311,6 +312,7 @@ interface EmptyPrint {
 }
 
 enum ShopState {
+    LOCKED,
     NORMAL,
     FROZEN;
 }
@@ -321,6 +323,11 @@ class ShopItem<T> {
 
     public ShopItem(T item) {
         this.state = ShopState.NORMAL;
+        this.item = item;
+    }
+
+    public ShopItem(ShopState state, T item) {
+        this.state = state;
         this.item = item;
     }
 }
