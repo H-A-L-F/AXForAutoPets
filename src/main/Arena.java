@@ -1,5 +1,6 @@
 package main;
 
+import console_input.ConsoleInput;
 import constants.FruitFactory;
 import constants.Lib;
 import constants.PetFactory;
@@ -16,6 +17,7 @@ public class Arena {
     private Shop shop;
     private PetFactory playerPetFactory;
     private FruitFactory fruitFactory;
+    private ConsoleInput in;
 
     private static final int DEFAULT_MONEY = 10;
 
@@ -30,6 +32,7 @@ public class Arena {
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
         fruitFactory = new FruitFactory(this, pTeam, enmTeam);
         shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.pTeam);
+        in = ConsoleInput.getInstance();
     }
 
     public static Arena getInstance() {
@@ -62,13 +65,31 @@ public class Arena {
             BattleResult res = battle();
             switch (res) {
                 case WIN:
+                    win();
                     break;
                 case LOSE:
+                    lose();
                     break;
                 case DRAW:
+                    draw();
                     break;
             }
+            in.enter();
         }
+    }
+
+    private void win() {
+        win++;
+        System.out.println("Your team won!");
+    }
+
+    private void lose() {
+        life--;
+        System.out.println("Your team lost!");
+    }
+
+    private void draw() {
+        System.out.println("It's a draw!");
     }
 
     private void shop() {
@@ -85,6 +106,11 @@ public class Arena {
         int toFight = Team.END_SIZE - 1;
         pTeam.arrangeBattleTeam();
         enmTeam.arrangeBattleTeam();
+
+        if(pTeam.getPet(toFight) == null && enmTeam.getPet(toFight) == null) return BattleResult.DRAW;
+        else if(pTeam.getPet(toFight) == null) return BattleResult.LOSE;
+        else if(enmTeam.getPet(toFight) == null) return BattleResult.WIN;
+
         while (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) {
             pTeam.arrangeBattleTeam();
             enmTeam.arrangeBattleTeam();
@@ -94,8 +120,8 @@ public class Arena {
             enmTeam.takeDamage(pAtk, toFight);
             pTeam.takeDamage(enmAtk, toFight);
         }
-        if (pTeam.getPet(toFight) != null && pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
-        else if (enmTeam.getPet(toFight) != null && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        if (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
     }
 
