@@ -19,6 +19,7 @@ public abstract class Pet extends Entity {
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
+        this.status = PetStatus.NORMAL;
     }
 
     public Pet(PetList name, int tier, int lv, int atk, int hp) {
@@ -28,6 +29,7 @@ public abstract class Pet extends Entity {
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
+        this.status = PetStatus.NORMAL;
     }
 
     public int damage(int damage, int pos) {
