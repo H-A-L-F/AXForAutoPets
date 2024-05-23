@@ -159,7 +159,7 @@ public class Shop {
     private <T> ShopItem<T> buyShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
         arena.incMoney(-ShopStat.BUY_PRICE);
         ShopItem<T> shopItem = shopItems.get(idx);
-        shopItems.set(idx, new ShopItem<T>(ShopState.LOCKED, null));
+        shopItems.set(idx, new ShopItem<T>(ShopState.NORMAL, null));
         return shopItem;
     }
 
