@@ -94,8 +94,8 @@ public class Arena {
             enmTeam.takeDamage(pAtk, toFight);
             pTeam.takeDamage(enmAtk, toFight);
         }
-        if (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
-        else if (enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        if (pTeam.getPet(toFight) != null && pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (enmTeam.getPet(toFight) != null && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
     }
 
