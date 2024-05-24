@@ -1,7 +1,6 @@
 package pets;
 
 import constants.PetList;
-import interfaces.OnSell;
 import models.Pet;
 
 public abstract class Duck extends Pet implements OnSell {

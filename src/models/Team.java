@@ -12,7 +12,6 @@ public class Team {
     private Pet[] pets;
     private int slot;
 
-    private ArrayList<OnSell> onSells;
     private ArrayList<OnBattleStart> onBattleStarts;
     private ArrayList<OnLevelup> onLevelups;
     private ArrayList<OnPurchase> onPurchases;
@@ -32,7 +31,6 @@ public class Team {
         pets = new Pet[END_SIZE];
         slot = END_SIZE;
 
-        onSells = new ArrayList<>();
         onBattleStarts = new ArrayList<>();
         onLevelups = new ArrayList<>();
         onPurchases = new ArrayList<>();
@@ -149,10 +147,6 @@ public class Team {
             res = comparePet.comparePet(res, pets[i]);
         }
         return res;
-    }
-
-    public void addOnSell(OnSell onSell) {
-        onSells.add(onSell);
     }
 
     public void addOnLvUp(OnLevelup onLevelup) {

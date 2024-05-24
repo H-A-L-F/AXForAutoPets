@@ -30,16 +30,24 @@ public abstract class Pet extends Entity implements OnPlaced {
         this.status = PetStatus.NORMAL;
     }
 
+    // region<On...>
+
+    protected void onFaint() {
+        status = PetStatus.FAINT;
+    }
+
+    protected void onSell() {
+        Arena.getInstance().incMoney(getLv());
+    }
+
+    // endregion
+
     public int damage(int damage) {
         int dmg = fruit.onDamaged(damage);
         this.hp -= dmg;
         this.onDamaged();
         if(hp <= 0) onFaint();
         return dmg;
-    }
-
-    protected void onFaint() {
-        status = PetStatus.FAINT;
     }
 
     public void eatFruit(Fruit fruit) {

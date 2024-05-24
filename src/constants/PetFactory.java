@@ -31,12 +31,8 @@ public class PetFactory {
         return new Pig() {
             @Override
             public void onSell() {
+                super.onSell();
                 arena.incMoney(getLv());
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnSell(this);
             }
         };
     }
@@ -90,14 +86,10 @@ public class PetFactory {
         return new Beaver() {
             @Override
             public void onSell() {
+                super.onSell();
                 for (int i = 0; i < 2; i++) {
                     pTeam.doRandom(pet -> pet.buff(getLv(), 0));
                 }
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnSell(this);
             }
         };
     }
@@ -122,12 +114,8 @@ public class PetFactory {
         return new Duck() {
             @Override
             public void onSell() {
+                super.onSell();
                 arena.getShop().buffShop(0, getLv());
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnSell(this);
             }
         };
     }
@@ -150,12 +138,8 @@ public class PetFactory {
         return new Pigeon() {
             @Override
             public void onSell() {
+                super.onSell();
                 arena.getShop().addFruit(FruitFactory.getBreadCrumbs());
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnSell(this);
             }
         };
     }

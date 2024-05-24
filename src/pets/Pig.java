@@ -1,7 +1,6 @@
 package pets;
 
 import constants.PetList;
-import interfaces.OnSell;
 import models.Pet;
 
 public abstract class Pig extends Pet implements OnSell {
