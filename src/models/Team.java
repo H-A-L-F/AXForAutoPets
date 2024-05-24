@@ -15,7 +15,6 @@ public class Team {
     private ArrayList<OnBattleStart> onBattleStarts;
     private ArrayList<OnSummon> onSummons;
     private ArrayList<OnTurnStart> onTurnStarts;
-    private ArrayList<OnHurt> onHurts;
     private ArrayList<OnTurnEnd> onTurnEnds;
     private ArrayList<OnFriendAttack> onFriendAttacks;
 
@@ -32,7 +31,6 @@ public class Team {
         onBattleStarts = new ArrayList<>();
         onSummons = new ArrayList<>();
         onTurnStarts = new ArrayList<>();
-        onHurts = new ArrayList<>();
         onTurnEnds = new ArrayList<>();
         onFriendAttacks = new ArrayList<>();
     }
@@ -155,10 +153,6 @@ public class Team {
 
     public void addOnTurnStart(OnTurnStart onTurnStart) {
         onTurnStarts.add(onTurnStart);
-    }
-
-    public void addOnHurt(OnHurt onHurt) {
-        onHurts.add(onHurt);
     }
 
     public void addOnTurnEnd(OnTurnEnd onTurnEnd) {

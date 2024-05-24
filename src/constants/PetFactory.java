@@ -216,12 +216,8 @@ public class PetFactory {
         return new Peacock() {
             @Override
             public void onHurt() {
+                super.onHurt();
                 buff(4, 0);
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnHurt(this);
             }
         };
     }

@@ -47,6 +47,9 @@ public abstract class Pet extends Entity implements OnPlaced {
     protected void onPurchased() {
     }
 
+    protected void onHurt() {
+    }
+
     // endregion
 
     public int damage(int damage) {
