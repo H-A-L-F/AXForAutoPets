@@ -1,8 +1,12 @@
 package constants;
 
+import interfaces.OnFaint;
+import interfaces.OnLevelup;
+import interfaces.OnPlaced;
 import main.Arena;
 import models.Pet;
 import models.Team;
+import pets.*;
 
 public class PetFactory {
     private Arena arena;
@@ -16,102 +20,142 @@ public class PetFactory {
     }
 
     public Pet getAnt() {
-        return new Pet(PetList.ANT, 1, 2, 2) {
+        return new Ant() {
             @Override
-            public void onFaint(int pos) {
-                super.onFaint(pos);
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
+            }
+
+            @Override
+            public void onFaint() {
                 pTeam.getRandPet().buff(getLv(), getLv());
             }
         };
     }
 
     public Pet getPig() {
-        return new Pet(PetList.PIG, 1, 4, 1) {
+        return new Pig() {
             @Override
             public void onSell() {
-                super.onSell();
                 arena.incMoney(getLv());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSell(this);
             }
         };
     }
 
     public Pet getFish() {
-        return new Pet(PetList.FISH, 1, 2, 3) {
+        return new Fish() {
             @Override
             public void onLvUp() {
-                super.onLvUp();
                 for (int i = 0; i < 2; i++) {
                     pTeam.getRandPet().buff(getLv() - 1, getLv() - 1);
                 }
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnLvUp(this);
             }
         };
     }
 
     public Pet getCricket() {
-        return new Pet(PetList.CRICKET, 1, 1, 2) {
+        return new Cricket() {
             @Override
-            public void onFaint(int pos) {
-                super.onFaint(pos);
+            public void onFaint() {
                 Pet temp = getZombieCricket();
                 temp.setStats(getLv(), getLv());
-                pTeam.summonPet(temp, pos);
+                pTeam.summonPet(temp, getPos());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
             }
         };
     }
 
     public Pet getZombieCricket() {
         return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
+            @Override
+            public void onPlaced() {
+
+            }
         };
     }
 
     public static Pet getBee() {
         return new Pet(PetList.BEE, 1, 1, 1) {
+            @Override
+            public void onPlaced() {
+
+            }
         };
     }
 
     public Pet getMosquito() {
-        return new Pet(PetList.MOSQUITO, 1, 2, 2) {
+        return new Mosquito() {
             @Override
             public void onBattleStart() {
-                super.onBattleStart();
                 for(int i = 0; i < getLv(); i++) {
                     int idx = eTeam.getRandIdx();
                     eTeam.getPet(idx).damage(1, idx);
                 }
             }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnBattleStart(this);
+            }
         };
     }
 
     public Pet getBeaver() {
-        return new Pet(PetList.BEAVER, 1, 3, 2) {
+        return new Beaver() {
             @Override
             public void onSell() {
-                super.onSell();
                 for(int i = 0; i < 2; i++) {
                     pTeam.getRandPet().buff(getLv(), 0);
                 }
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSell(this);
             }
         };
     }
 
     public Pet getOtter() {
-        return new Pet(PetList.OTTER, 1, 1, 3) {
+        return new Otter() {
             @Override
             public void onPurchase() {
-                super.onPurchase();
                 for(int i = 0; i < getLv(); i++) {
                     pTeam.getRandPet().buff(0, 1);
                 }
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnPurchase(this);
             }
         };
     }
 
     public Pet getDuck() {
-        return new Pet(PetList.DUCK, 1, 2, 3) {
+        return new Duck() {
             @Override
             public void onSell() {
-                super.onSell();
                 arena.getShop().buffShop(0, getLv());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSell(this);
             }
         };
     }

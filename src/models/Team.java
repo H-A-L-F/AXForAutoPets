@@ -1,19 +1,37 @@
 package models;
 
 import constants.Lib;
+import interfaces.*;
 import main.EventManager;
+
+import java.util.ArrayList;
 
 public class Team {
     private EventManager eventManager;
     private Pet[] pets;
+    private int slot;
+
+    private ArrayList<OnFaint> onFaints;
+    private ArrayList<OnSell> onSells;
+    private ArrayList<OnBattleStart> onBattleStarts;
+    private ArrayList<OnLevelup> onLevelups;
+    private ArrayList<OnPurchase> onPurchases;
+    private ArrayList<OnSummon> onSummons;
+
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
-    private int slot;
 
     public Team() {
         this.eventManager = new EventManager(this);
         pets = new Pet[END_SIZE];
         slot = END_SIZE;
+
+        onFaints = new ArrayList<>();
+        onSells = new ArrayList<>();
+        onBattleStarts = new ArrayList<>();
+        onLevelups = new ArrayList<>();
+        onPurchases = new ArrayList<>();
+        onSummons = new ArrayList<>();
     }
 
     public void printTeam() {
@@ -92,8 +110,28 @@ public class Team {
     }
 
     public void sellPet(int idx) {
-        pets[idx].onSell();
+        pets[idx].sell();
         pets[idx] = null;
+    }
+
+    public void addOnFaint(OnFaint onFaint) {
+        onFaints.add(onFaint);
+    }
+
+    public void addOnSell(OnSell onSell) {
+        onSells.add(onSell);
+    }
+
+    public void addOnLvUp(OnLevelup onLevelup) {
+        onLevelups.add(onLevelup);
+    }
+
+    public void addOnBattleStart(OnBattleStart onBattleStart) {
+        onBattleStarts.add(onBattleStart);
+    }
+
+    public void addOnPurchase(OnPurchase onPurchase) {
+        onPurchases.add(onPurchase);
     }
 
     public int getTier(int idx) {

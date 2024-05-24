@@ -3,9 +3,10 @@ package models;
 import constants.PetList;
 import constants.PetStatus;
 import interfaces.EventListener;
+import interfaces.OnPlaced;
 import main.Arena;
 
-public abstract class Pet extends Entity {
+public abstract class Pet extends Entity implements OnPlaced {
     private PetList name;
     private int atk;
     private int hp;
@@ -33,8 +34,12 @@ public abstract class Pet extends Entity {
         int dmg = fruit.onDamaged(damage);
         this.hp -= dmg;
         this.onDamaged();
-        if(hp <= 0) onFaint(pos);
+        if(hp <= 0) faint(pos);
         return dmg;
+    }
+
+    private void faint(int pos) {
+        status = PetStatus.FAINT;
     }
 
     public void eatFruit(Fruit fruit) {
@@ -53,22 +58,8 @@ public abstract class Pet extends Entity {
     public void onDamaged() {
     }
 
-    public void onPurchase() {
-    }
-
-    public void onBattleStart() {
-    }
-
-    public void onSell() {
+    public void sell() {
         Arena.getInstance().incMoney(this.lv);
-    }
-
-    public void onFaint(int pos) {
-        status = PetStatus.FAINT;
-    }
-
-    public void onLvUp() {
-        this.lv++;
     }
 
     public void buff(int atk, int hp) {
@@ -100,6 +91,10 @@ public abstract class Pet extends Entity {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getPos() {
+        return pos;
     }
 
     public PetStatus getStatus() {
