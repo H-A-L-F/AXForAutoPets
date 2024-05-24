@@ -264,6 +264,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getPeacock() {
+        return new Peacock() {
+            @Override
+            public void onHurt() {
+                buff(4, 0);
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnHurt(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -314,7 +328,7 @@ public class PetFactory {
             case SPIDER -> getSpider();
             case WORM -> getWorm();
             case SWAN -> getSwan();
-//            case PEACOCK -> getPeacock();
+            case PEACOCK -> getPeacock();
 //            case SNAIL -> getSnail();
 //            case CRAB -> getCrab();
 //            case KANGAROO -> getKangaroo();
