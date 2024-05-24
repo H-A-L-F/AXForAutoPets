@@ -40,6 +40,13 @@ public abstract class Pet extends Entity {
         Arena.getInstance().incMoney(getLv());
     }
 
+    protected void onMerge() {
+        exp++;
+        atk++;
+        hp++;
+        if((lv == 1 && exp == EXP_LV1) || (lv == 2 && exp == EXP_LV2)) onLevelUp();
+    }
+
     protected void onLevelUp() {
         lv++;
     }
@@ -115,6 +122,10 @@ public abstract class Pet extends Entity {
 
     public int getPos() {
         return pos;
+    }
+
+    public PetList getPetListName() {
+        return name;
     }
 
     public PetStatus getStatus() {

@@ -135,12 +135,17 @@ public class Shop {
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         opt--;
         pos--;
-        if(pteam.getPet(pos) != null) {
+        Pet curr = pets.get(opt).item;
+        Pet target = pteam.getPet(pos);
+        if(target != null && target.getPetListName() != curr.getPetListName()) {
             System.out.println("That spot is filled!");
+            System.out.println("You can only merge pet with the same type!");
+            in.enter();
             return;
         }
         ShopItem<Pet> pet = buyShopItem(pets, opt);
-        pteam.insertPetAt(pet.item, pos);
+        if(target == null) pteam.boughtPet(pet.item, pos);
+        else pteam.mergePet(pet.item, pos);
     }
 
     private void menuBuyFood() {

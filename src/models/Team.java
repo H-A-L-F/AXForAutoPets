@@ -117,9 +117,17 @@ public class Team {
         pets[pos] = pet;
     }
 
-    public void insertPetAt(Pet pet, int pos) {
+    public void boughtPet(Pet pet, int pos) {
         pet.setPos(pos);
         pets[pos] = pet;
+    }
+
+    public void mergePet(Pet pet, int pos) {
+        Pet curr = pets[pos];
+        int atk = Math.max(curr.getAtk(), pet.getAtk());
+        int hp = Math.max(curr.getHp(), pet.getHp());
+        pets[pos].setStats(atk, hp);
+        pets[pos].onMerge();
     }
 
     public void swapPet(int idx1, int idx2) {
