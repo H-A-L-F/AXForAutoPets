@@ -205,7 +205,10 @@ public class Shop {
         pteam.printTeam();
         int opt = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         int target = in.getInt((x) -> x != opt && x >= Team.START_SIZE && x <= Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
-        pteam.swapPet(opt - 1, target - 1);
+        Pet curr = pteam.getPet(opt);
+        Pet targetPet = pteam.getPet(target);
+        if(curr.getPetListName() == targetPet.getPetListName()) pteam.mergePet(curr, target);
+        else pteam.swapPet(opt - 1, target - 1);
     }
 
     private void menuSell() {

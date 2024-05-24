@@ -124,9 +124,8 @@ public class Team {
     }
 
     public void mergePet(Pet pet, int pos) {
-        Pet curr = pets[pos];
-        int atk = Math.max(curr.getAtk(), pet.getAtk());
-        int hp = Math.max(curr.getHp(), pet.getHp());
+        int atk = Math.max(pets[pos].getAtk(), pet.getAtk());
+        int hp = Math.max(pets[pos].getHp(), pet.getHp());
         pets[pos].setStats(atk, hp);
         pets[pos].onMerge();
     }
