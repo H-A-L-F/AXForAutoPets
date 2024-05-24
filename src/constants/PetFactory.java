@@ -205,6 +205,23 @@ public class PetFactory {
         };
     }
 
+    public Pet getSpider() {
+        return new Spider() {
+            @Override
+            public void onFaint() {
+                int stat = 2 * getLv();
+                Pet temp = getPet(3);
+                temp.setStats(1, stat, stat);
+                pTeam.summonPet(temp, getPos());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -255,7 +272,7 @@ public class PetFactory {
 //            case PEACOCK -> getPeacock();
             case RAT -> getRat();
 //            case SHRIMP -> getShrimp();
-//            case SPIDER -> getSpider();
+            case SPIDER -> getSpider();
 //            case SWAN -> getSwan();
 //            case BADGER -> getBadger();
 //            case BLOWFISH -> getBlowfish();
