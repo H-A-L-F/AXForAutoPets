@@ -55,15 +55,16 @@ public enum PetList {
     PARROT("Parrot"),
 
     // tier 5,
-    ROOSTER("Rooster"),
-    COW("Cow"),
-    CROCODILE("Crocodile"),
-    MONKEY("Monkey"),
-    RHINO("Rhino"),
     SCORPION("Scorpion"),
+    RHINO("Rhino"),
     SEAL("Seal"),
+    ARMADILLO("Armadillo"),
+    COW("Cow"),
+    MONKEY("Monkey"),
     SHARK("Shark"),
     TURKEY("Turkey"),
+    CROCODILE("Crocodile"),
+    ROOSTER("Rooster"),
 
     // tier 6
     BOAR("Boar"),
@@ -111,7 +112,7 @@ public enum PetList {
 
     // Tier 5
     private static final List<PetList> VALUES5 = Collections.unmodifiableList(Arrays.asList(
-            COW, CROCODILE, MONKEY, RHINO, SCORPION, SEAL, SHARK, TURKEY
+            SCORPION, RHINO, SEAL, ARMADILLO, COW, MONKEY, SHARK, TURKEY, CROCODILE, ROOSTER
     ));
     private static final int SIZE5 = VALUES5.size();
 

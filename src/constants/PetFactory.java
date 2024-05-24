@@ -298,16 +298,18 @@ public class PetFactory {
 //            case PENGUIN -> getPenguin();
 //            case HIPPO -> getHippo();
 //            case PARROT -> getParrot();
-            
-//            case ROOSTER -> getRooster();
-//            case COW -> getCow();
-//            case CROCODILE -> getCrocodile();
-//            case MONKEY -> getMonkey();
-//            case RHINO -> getRhino();
+
 //            case SCORPION -> getScorpion();
+//            case RHINO -> getRhino();
 //            case SEAL -> getSeal();
+//            case ARMADILLO -> getArmadillo();
+//            case COW -> getCow();
+//            case MONKEY -> getMonkey();
 //            case SHARK -> getShark();
 //            case TURKEY -> getTurkey();
+//            case CROCODILE -> getCrocodile();
+//            case ROOSTER -> getRooster();
+
 //            case BOAR -> getBoar();
 //            case CAT -> getCat();
 //            case DRAGON -> getDragon();
