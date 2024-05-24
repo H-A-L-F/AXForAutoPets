@@ -274,28 +274,16 @@ public class PetFactory {
     // region <Others>
     public Pet getZombieCricket() {
         return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
-            @Override
-            public void onPlaced() {
-
-            }
         };
     }
 
     public static Pet getBee() {
         return new Pet(PetList.BEE, 1, 1, 1) {
-            @Override
-            public void onPlaced() {
-
-            }
         };
     }
 
     public static Pet getDirtyRat() {
         return new Pet(PetList.DIRTY_RAT, 1, 1, 1) {
-            @Override
-            public void onPlaced() {
-
-            }
         };
     }
     // endregion

@@ -6,7 +6,7 @@ import interfaces.EventListener;
 import interfaces.OnPlaced;
 import main.Arena;
 
-public abstract class Pet extends Entity implements OnPlaced {
+public abstract class Pet extends Entity {
     private PetList name;
     private int atk;
     private int hp;
