@@ -310,19 +310,22 @@ public class PetFactory {
 //            case CROCODILE -> getCrocodile();
 //            case ROOSTER -> getRooster();
 
-//            case BOAR -> getBoar();
-//            case CAT -> getCat();
 //            case DRAGON -> getDragon();
-//            case FLY -> getFly();
-//            case GORILLA -> getGorilla();
 //            case LEOPARD -> getLeopard();
 //            case MAMMOTH -> getMammoth();
-//            case SNAKE -> getSnake();
+//            case GORILLA -> getGorilla();
+//            case BOAR -> getBoar();
 //            case TIGER -> getTiger();
+//            case SNAKE -> getSnake();
+//            case FLY -> getFly();
+//            case CAT -> getCat();
+//            case WOLVERINE -> getWolverine();
+
 //            case BUS -> getBus();
 //            case CHICK -> getChick();
             case BEE -> getBee();
             case ZOMBIE_CRICKET -> getZombieCricket();
+            case DIRTY_RAT -> getDirtyRat();
             default -> null;
         };
     }
