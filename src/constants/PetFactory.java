@@ -165,7 +165,7 @@ public class PetFactory {
             @Override
             public void onFaint() {
                 for(int i = 0; i < getLv(); i++) {
-                    eTeam.summonPet(getDirtyRat(), Team.END_SIZE - 1);
+                    eTeam.summonPet(getDirtyRat(), Team.FRONT_INDEX);
                 }
             }
 

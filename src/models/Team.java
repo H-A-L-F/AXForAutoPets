@@ -20,6 +20,8 @@ public class Team {
 
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
+    public static final int FRONT_INDEX = END_SIZE - 1;
+    public static final int BACK_INDEX = START_SIZE - 1;
 
     public Team() {
         this.eventManager = new EventManager(this);
@@ -55,7 +57,7 @@ public class Team {
     }
 
     public void arrangeBattleTeam() {
-        for (int i = END_SIZE - 1; i >= 0; i--) {
+        for (int i = FRONT_INDEX; i >= 0; i--) {
             if(pets[i] != null) continue;
             for(int j = i - 1; j >= 0; j--) {
                 if(pets[j] == null) continue;
@@ -92,7 +94,7 @@ public class Team {
             pets[pos] = pet;
             return;
         }
-        for(int i = END_SIZE - 1; i > pos; i--) {
+        for(int i = FRONT_INDEX; i > pos; i--) {
             pets[i] = pets[i-1];
         }
         pets[pos] = pet;

@@ -103,25 +103,24 @@ public class Arena {
     }
 
     private BattleResult battle() {
-        int toFight = Team.END_SIZE - 1;
         pTeam.arrangeBattleTeam();
         enmTeam.arrangeBattleTeam();
 
-        if(pTeam.getPet(toFight) == null && enmTeam.getPet(toFight) == null) return BattleResult.DRAW;
-        else if(pTeam.getPet(toFight) == null) return BattleResult.LOSE;
-        else if(enmTeam.getPet(toFight) == null) return BattleResult.WIN;
+        if(pTeam.getPet(Team.FRONT_INDEX) == null && enmTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.DRAW;
+        else if(pTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.LOSE;
+        else if(enmTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.WIN;
 
-        while (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL && enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) {
+        while (pTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL && enmTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL) {
             pTeam.arrangeBattleTeam();
             enmTeam.arrangeBattleTeam();
             Lib.printTeams(pTeam, enmTeam);
-            int pAtk = pTeam.getAtk(toFight);
-            int enmAtk = enmTeam.getAtk(toFight);
-            enmTeam.takeDamage(pAtk, toFight);
-            pTeam.takeDamage(enmAtk, toFight);
+            int pAtk = pTeam.getAtk(Team.FRONT_INDEX);
+            int enmAtk = enmTeam.getAtk(Team.FRONT_INDEX);
+            enmTeam.takeDamage(pAtk, Team.FRONT_INDEX);
+            pTeam.takeDamage(enmAtk, Team.FRONT_INDEX);
         }
-        if (pTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
-        else if (enmTeam.getPet(toFight).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        if (pTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (enmTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
     }
 
