@@ -164,7 +164,9 @@ public class PetFactory {
         return new Rat() {
             @Override
             public void onFaint() {
-
+                for(int i = 0; i < getLv(); i++) {
+                    eTeam.summonPet(getDirtyRat(), Team.END_SIZE - 1);
+                }
             }
 
             @Override
@@ -188,6 +190,15 @@ public class PetFactory {
 
     public static Pet getBee() {
         return new Pet(PetList.BEE, 1, 1, 1) {
+            @Override
+            public void onPlaced() {
+
+            }
+        };
+    }
+
+    public static Pet getDirtyRat() {
+        return new Pet(PetList.DIRTY_RAT, 1, 1, 1) {
             @Override
             public void onPlaced() {
 

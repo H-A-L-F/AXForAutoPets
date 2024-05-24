@@ -78,6 +78,7 @@ public enum PetList {
     BUS("Bus"),
     CHICK("Chick"),
     ZOMBIE_CRICKET("ZombieCricket"),
+    DIRTY_RAT("DirtyRat"),
     BEE("Bee");
 
     private final String name;
