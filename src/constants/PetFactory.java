@@ -191,6 +191,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getFlamingo() {
+        return new Flamingo() {
+            @Override
+            public void onFaint() {
+                pTeam.doBehind(getPos(), 2, pet -> pet.buff(getLv(), getLv()));
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -236,7 +250,7 @@ public class PetFactory {
 //            case CRAB -> getCrab();
 //            case DODO -> getDodo();
 //            case ELEPHANT -> getElephant();
-//            case FLAMINGO -> getFlamingo();
+            case FLAMINGO -> getFlamingo();
             case HEDGEHOG -> getHedgehog();
 //            case PEACOCK -> getPeacock();
             case RAT -> getRat();
