@@ -46,12 +46,8 @@ public abstract class Pet extends Entity implements OnPlaced {
         this.fruit = fruit;
         this.fruit.onEaten(this);
     }
-
-    private void beforeAttack() {
-    }
-
+    
     public int attack() {
-        beforeAttack();
         return this.atk;
     }
 
