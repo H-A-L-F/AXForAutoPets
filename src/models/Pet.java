@@ -62,8 +62,8 @@ public abstract class Pet extends Entity {
     public int damage(int damage) {
         int dmg = fruit.onDamaged(damage);
         this.hp -= dmg;
-        this.onDamaged();
         if(hp <= 0) onFaint();
+        else onHurt();
         return dmg;
     }
 
@@ -74,9 +74,6 @@ public abstract class Pet extends Entity {
 
     public int attack() {
         return this.atk;
-    }
-
-    public void onDamaged() {
     }
 
     public void buff(int atk, int hp) {
