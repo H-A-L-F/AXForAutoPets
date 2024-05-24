@@ -81,6 +81,7 @@ public class Team {
     }
 
     public void insertPetAt(Pet pet, int pos) {
+        pet.setPos(pos);
         pets[pos] = pet;
     }
 

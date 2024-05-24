@@ -90,6 +90,10 @@ public abstract class Pet extends Entity {
         return this.name.toString();
     }
 
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
     public int getAtk() {
         return atk;
     }
