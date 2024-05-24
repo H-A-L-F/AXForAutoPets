@@ -54,7 +54,7 @@ public class PetFactory {
                 super.onFaint(pos);
                 Pet temp = getZombieCricket();
                 temp.setStats(getLv(), getLv());
-                pTeam.addPet(temp, pos);
+                pTeam.summonPet(temp, pos);
             }
         };
     }

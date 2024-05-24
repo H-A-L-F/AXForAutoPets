@@ -32,7 +32,7 @@ public class FruitFactory {
             public void onFaint(int pos) {
                 super.onFaint(pos);
                 Pet temp = PetFactory.getBee();
-                pTeam.addPet(temp, pos);
+                pTeam.summonPet(temp, pos);
             }
         };
     }

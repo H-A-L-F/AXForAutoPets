@@ -65,7 +65,7 @@ public class Team {
         return idx;
     }
 
-    public void addPet(Pet pet, int pos) {
+    public void summonPet(Pet pet, int pos) {
         if(slot == 0) {
             failSpawn(pet);
             return;
