@@ -21,6 +21,7 @@ public class PetFactory {
         return new Ant() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 pTeam.doRandom(pet -> pet.buff(getLv(), getLv()));
             }
         };
@@ -60,6 +61,7 @@ public class PetFactory {
         return new Cricket() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 Pet temp = getZombieCricket();
                 temp.setStats(getLv(), getLv());
                 pTeam.summonPet(temp, getPos());
@@ -176,6 +178,7 @@ public class PetFactory {
         return new Hedgehog() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 int dmg = 2 * getLv();
                 pTeam.doAll((pet) -> pet.damage(dmg));
             }
@@ -186,6 +189,7 @@ public class PetFactory {
         return new Flamingo() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 pTeam.doBehind(getPos(), 2, pet -> pet.buff(getLv(), getLv()));
             }
         };
@@ -195,6 +199,7 @@ public class PetFactory {
         return new Spider() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 int stat = 2 * getLv();
                 Pet temp = getPet(3);
                 temp.setStats(1, stat, stat);
