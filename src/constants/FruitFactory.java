@@ -47,6 +47,16 @@ public class FruitFactory {
         };
     }
 
+    public static Fruit getWormApple(Pet pet) {
+        return new Fruit(FruitList.WORM_APPLE, 1) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.buff(pet.getLv(), pet.getLv());
+            }
+        };
+    }
+
     private Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
@@ -67,6 +77,7 @@ public class FruitFactory {
 //            case STEAK -> getSteak();
 
             case BREAD_CRUMBS -> getBreadCrumbs();
+//            case WORM_APPLE -> getWormApple();
             default -> null;
         };
     }

@@ -85,7 +85,7 @@ public class PetFactory {
         return new Mosquito() {
             @Override
             public void onBattleStart() {
-                for(int i = 0; i < getLv(); i++) {
+                for (int i = 0; i < getLv(); i++) {
                     int idx = eTeam.getRandIdx();
                     eTeam.getPet(idx).damage(1, idx);
                 }
@@ -102,7 +102,7 @@ public class PetFactory {
         return new Beaver() {
             @Override
             public void onSell() {
-                for(int i = 0; i < 2; i++) {
+                for (int i = 0; i < 2; i++) {
                     pTeam.doRandom(pet -> pet.buff(getLv(), 0));
                 }
             }
@@ -118,7 +118,7 @@ public class PetFactory {
         return new Otter() {
             @Override
             public void onPurchase() {
-                for(int i = 0; i < getLv(); i++) {
+                for (int i = 0; i < getLv(); i++) {
                     pTeam.doRandom(pet -> pet.buff(0, 1));
                 }
             }
@@ -178,7 +178,7 @@ public class PetFactory {
         return new Rat() {
             @Override
             public void onFaint() {
-                for(int i = 0; i < getLv(); i++) {
+                for (int i = 0; i < getLv(); i++) {
                     eTeam.summonPet(getDirtyRat(), Team.FRONT_INDEX);
                 }
             }
@@ -236,6 +236,22 @@ public class PetFactory {
         };
     }
 
+    public Pet getWorm() {
+        return new Worm() {
+            @Override
+            public void onTurnStart() {
+                arena.getShop().addFruit(FruitFactory.getWormApple(this));
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnTurnStart(this);
+            }
+        };
+    }
+
+    
+
     // endregion
 
     // region <Others>
@@ -284,7 +300,7 @@ public class PetFactory {
             case HEDGEHOG -> getHedgehog();
             case FLAMINGO -> getFlamingo();
             case SPIDER -> getSpider();
-//            case WORM -> getWorm();
+            case WORM -> getWorm();
 //            case SWAN -> getSwan();
 //            case PEACOCK -> getPeacock();
 //            case SNAIL -> getSnail();

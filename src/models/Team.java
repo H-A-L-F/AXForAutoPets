@@ -17,6 +17,7 @@ public class Team {
     private ArrayList<OnLevelup> onLevelups;
     private ArrayList<OnPurchase> onPurchases;
     private ArrayList<OnSummon> onSummons;
+    private ArrayList<OnTurnStart> onTurnStarts;
 
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
@@ -156,6 +157,10 @@ public class Team {
 
     public void addOnSummon(OnSummon onSummon) {
         onSummons.add(onSummon);
+    }
+
+    public void addOnTurnStart(OnTurnStart onTurnStart) {
+        onTurnStarts.add(onTurnStart);
     }
 
     public int getTier(int idx) {
