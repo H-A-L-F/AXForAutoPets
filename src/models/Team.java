@@ -5,6 +5,7 @@ import interfaces.*;
 import main.EventManager;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Team {
     private EventManager eventManager;
@@ -138,6 +139,16 @@ public class Team {
     public void sellPet(int idx) {
         pets[idx].sell();
         pets[idx] = null;
+    }
+
+    public Pet getMostAttribute(ComparePet comparePet) {
+        Pet res = null;
+        for (int i = BACK_INDEX; i < FRONT_INDEX; i++) {
+            if(pets[i] == null) continue;
+            if(res == null) res = pets[i];
+            res = comparePet.comparePet(res, pets[i]);
+        }
+        return res;
     }
 
     public void addOnFaint(OnFaint onFaint) {

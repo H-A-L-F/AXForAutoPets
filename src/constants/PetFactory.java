@@ -292,6 +292,25 @@ public class PetFactory {
         };
     }
 
+    public Pet getCrab() {
+        return new Crab() {
+            @Override
+            public void onBattleStart() {
+                Pet temp = pTeam.getMostAttribute((pet1, pet2) -> {
+                   if(pet1.getHp() >= pet2.getHp()) return pet1;
+                   return pet2;
+                });
+                int hp = (int) (((double) temp.getHp() * 0.5) * getLv());
+                setHp(hp);
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnBattleStart(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -344,7 +363,7 @@ public class PetFactory {
             case SWAN -> getSwan();
             case PEACOCK -> getPeacock();
             case SNAIL -> getSnail();
-//            case CRAB -> getCrab();
+            case CRAB -> getCrab();
 //            case KANGAROO -> getKangaroo();
 
 //            case DOLPHIN -> getDolphin();

@@ -82,6 +82,10 @@ public abstract class Pet extends Entity implements OnPlaced {
         this.hp = hp;
     }
 
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     @Override
     public String getName() {
         return this.name.toString();
