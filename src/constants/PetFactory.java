@@ -29,7 +29,7 @@ public class PetFactory {
 
             @Override
             public void onFaint() {
-                pTeam.getRandPet().buff(getLv(), getLv());
+                pTeam.doRandom(pet -> pet.buff(getLv(), getLv()));
             }
         };
     }
@@ -53,7 +53,7 @@ public class PetFactory {
             @Override
             public void onLvUp() {
                 for (int i = 0; i < 2; i++) {
-                    pTeam.getRandPet().buff(getLv() - 1, getLv() - 1);
+                    pTeam.doRandom(pet -> pet.buff(getLv() - 1, getLv() - 1));
                 }
             }
 
@@ -102,7 +102,7 @@ public class PetFactory {
             @Override
             public void onSell() {
                 for(int i = 0; i < 2; i++) {
-                    pTeam.getRandPet().buff(getLv(), 0);
+                    pTeam.doRandom(pet -> pet.buff(getLv(), 0));
                 }
             }
 
@@ -118,7 +118,7 @@ public class PetFactory {
             @Override
             public void onPurchase() {
                 for(int i = 0; i < getLv(); i++) {
-                    pTeam.getRandPet().buff(0, 1);
+                    pTeam.doRandom(pet -> pet.buff(0, 1));
                 }
             }
 

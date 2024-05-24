@@ -63,6 +63,10 @@ public class Team {
         }
     }
 
+    public void doRandom(DoPet doPet) {
+        doPet.doPet(getRandPet());
+    }
+
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
             if(pets[i] != null) continue;
@@ -75,7 +79,7 @@ public class Team {
         }
     }
 
-    public Pet getRandPet() {
+    private Pet getRandPet() {
         Pet res = null;
         while (res == null) {
             int idx = (int) (Math.random() * END_SIZE);
