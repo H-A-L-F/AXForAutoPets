@@ -1,10 +1,7 @@
 package main;
 
 import console_input.ConsoleInput;
-import constants.FruitFactory;
-import constants.Lib;
-import constants.PetFactory;
-import constants.PetStatus;
+import constants.*;
 import models.Team;
 
 public class Arena {
@@ -137,6 +134,10 @@ public class Arena {
         this.money = DEFAULT_MONEY;
     }
 
+    public BattleResult getLastBattleResult() {
+        return lastBattleResult;
+    }
+
     public int getMoney() {
         return this.money;
     }
@@ -144,10 +145,4 @@ public class Arena {
     public Shop getShop() {
         return this.shop;
     }
-}
-
-enum BattleResult {
-    WIN,
-    LOSE,
-    DRAW;
 }

@@ -19,6 +19,7 @@ public class Team {
     private ArrayList<OnSummon> onSummons;
     private ArrayList<OnTurnStart> onTurnStarts;
     private ArrayList<OnHurt> onHurts;
+    private ArrayList<OnTurnEnd> onTurnEnds;
 
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
@@ -38,6 +39,7 @@ public class Team {
         onSummons = new ArrayList<>();
         onTurnStarts = new ArrayList<>();
         onHurts = new ArrayList<>();
+        onTurnEnds = new ArrayList<>();
     }
 
     public void printTeam() {
@@ -168,6 +170,10 @@ public class Team {
 
     public void addOnHurt(OnHurt onHurt) {
         onHurts.add(onHurt);
+    }
+
+    public void addOnTurnEnd(OnTurnEnd onTurnEnd) {
+        onTurnEnds.add(onTurnEnd);
     }
 
     public int getTier(int idx) {

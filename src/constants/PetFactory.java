@@ -278,6 +278,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getSnail() {
+        return new Snail() {
+            @Override
+            public void onTurnEnd() {
+                if(arena.getLastBattleResult() == BattleResult.LOSE) pTeam.doAll(pet -> pet.buff(0, getLv()));
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnTurnEnd(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -329,7 +343,7 @@ public class PetFactory {
             case WORM -> getWorm();
             case SWAN -> getSwan();
             case PEACOCK -> getPeacock();
-//            case SNAIL -> getSnail();
+            case SNAIL -> getSnail();
 //            case CRAB -> getCrab();
 //            case KANGAROO -> getKangaroo();
 
