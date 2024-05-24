@@ -31,31 +31,31 @@ public enum PetList {
     KANGAROO("Kangaroo"),
 
     // tier 3
+    DOLPHIN("Dolphin"),
+    RABBIT("Rabbit"),
+    DOG("Dog"),
     DODO("Dodo"),
     ELEPHANT("Elephant"),
-    BADGER("Badger"),
-    BLOWFISH("Blowfish"),
-    CAMEL("Camel"),
-    DOG("Dog"),
-    GIRAFFE("Giraffe"),
-    OX("Ox"),
-    RABBIT("Rabbit"),
     SHEEP("Sheep"),
-    TURTLE("Turtle"),
+    BADGER("Badger"),
+    CAMEL("Camel"),
+    OX("Ox"),
+    GIRAFFE("Giraffe"),
 
-    // tier 4
-    BISON("Bison"),
+    // tier 4,
+    BLOWFISH("Blowfish"),
+    SKUNK("Skunk"),
+    TURTLE("Turtle"),
+    SQUIRREL("Squirrel"),
     DEER("Deer"),
-    DOLPHIN("Dolphin"),
+    BISON("Bison"),
+    WHALE("Whale"),
+    PENGUIN("Penguin"),
     HIPPO("Hippo"),
     PARROT("Parrot"),
-    PENGUIN("Penguin"),
-    ROOSTER("Rooster"),
-    SKUNK("Skunk"),
-    SQUIRREL("Squirrel"),
-    WHALE("Whale"),
 
-    // tier 5
+    // tier 5,
+    ROOSTER("Rooster"),
     COW("Cow"),
     CROCODILE("Crocodile"),
     MONKEY("Monkey"),
@@ -99,13 +99,13 @@ public enum PetList {
 
     // Tier 3
     private static final List<PetList> VALUES3 = Collections.unmodifiableList(Arrays.asList(
-            BADGER, DODO, BLOWFISH, ELEPHANT, CAMEL, DOG, GIRAFFE, OX, RABBIT, SHEEP, TURTLE
+            DOLPHIN, RABBIT, DOG, DODO, ELEPHANT, SHEEP, BADGER, CAMEL, OX, GIRAFFE
     ));
     private static final int SIZE3 = VALUES3.size();
 
     // Tier 4
     private static final List<PetList> VALUES4 = Collections.unmodifiableList(Arrays.asList(
-            BISON, DEER, DOLPHIN, HIPPO, PARROT, PENGUIN, ROOSTER, SKUNK, SQUIRREL, WHALE
+            BLOWFISH, SKUNK, TURTLE, SQUIRREL, DEER, BISON, WHALE, PENGUIN, HIPPO, PARROT
     ));
     private static final int SIZE4 = VALUES4.size();
 
