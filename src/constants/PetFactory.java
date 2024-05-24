@@ -250,7 +250,19 @@ public class PetFactory {
         };
     }
 
-    
+    public Pet getSwan() {
+        return new Swan() {
+            @Override
+            public void onTurnStart() {
+                arena.incMoney(getLv());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnTurnStart(this);
+            }
+        };
+    }
 
     // endregion
 
@@ -301,7 +313,7 @@ public class PetFactory {
             case FLAMINGO -> getFlamingo();
             case SPIDER -> getSpider();
             case WORM -> getWorm();
-//            case SWAN -> getSwan();
+            case SWAN -> getSwan();
 //            case PEACOCK -> getPeacock();
 //            case SNAIL -> getSnail();
 //            case CRAB -> getCrab();
