@@ -311,6 +311,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getKangaroo() {
+        return new Kangaroo() {
+            @Override
+            public void onFriendAttack() {
+                buff(getLv(), getLv());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFriendAttack(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -364,7 +378,7 @@ public class PetFactory {
             case PEACOCK -> getPeacock();
             case SNAIL -> getSnail();
             case CRAB -> getCrab();
-//            case KANGAROO -> getKangaroo();
+            case KANGAROO -> getKangaroo();
 
 //            case DOLPHIN -> getDolphin();
 //            case RABBIT -> getRabbit();
