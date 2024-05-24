@@ -265,22 +265,25 @@ public class PetFactory {
             case OTTER -> getOtter();
             case PIG -> getPig();
 //            case PIGEON -> getPigeon();
-//            case CRAB -> getCrab();
-//            case DODO -> getDodo();
-//            case ELEPHANT -> getElephant();
-            case FLAMINGO -> getFlamingo();
-            case HEDGEHOG -> getHedgehog();
-//            case PEACOCK -> getPeacock();
+
             case RAT -> getRat();
-//            case SHRIMP -> getShrimp();
+            case HEDGEHOG -> getHedgehog();
+            case FLAMINGO -> getFlamingo();
             case SPIDER -> getSpider();
+//            case WORM -> getWorm();
 //            case SWAN -> getSwan();
+//            case PEACOCK -> getPeacock();
+//            case SNAIL -> getSnail();
+//            case CRAB -> getCrab();
+//            case KANGAROO -> getKangaroo();
+
 //            case BADGER -> getBadger();
 //            case BLOWFISH -> getBlowfish();
+//            case DODO -> getDodo();
+//            case ELEPHANT -> getElephant();
 //            case CAMEL -> getCamel();
 //            case DOG -> getDog();
 //            case GIRAFFE -> getGiraffe();
-//            case KANGAROO -> getKangaroo();
 //            case OX -> getOx();
 //            case RABBIT -> getRabbit();
 //            case SHEEP -> getSheep();
