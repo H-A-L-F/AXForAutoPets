@@ -40,6 +40,10 @@ public abstract class Pet extends Entity implements OnPlaced {
         Arena.getInstance().incMoney(getLv());
     }
 
+    protected void onLevelUp() {
+        lv++;
+    }
+
     // endregion
 
     public int damage(int damage) {

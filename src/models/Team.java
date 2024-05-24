@@ -13,7 +13,6 @@ public class Team {
     private int slot;
 
     private ArrayList<OnBattleStart> onBattleStarts;
-    private ArrayList<OnLevelup> onLevelups;
     private ArrayList<OnPurchase> onPurchases;
     private ArrayList<OnSummon> onSummons;
     private ArrayList<OnTurnStart> onTurnStarts;
@@ -32,7 +31,6 @@ public class Team {
         slot = END_SIZE;
 
         onBattleStarts = new ArrayList<>();
-        onLevelups = new ArrayList<>();
         onPurchases = new ArrayList<>();
         onSummons = new ArrayList<>();
         onTurnStarts = new ArrayList<>();
@@ -147,10 +145,6 @@ public class Team {
             res = comparePet.comparePet(res, pets[i]);
         }
         return res;
-    }
-
-    public void addOnLvUp(OnLevelup onLevelup) {
-        onLevelups.add(onLevelup);
     }
 
     public void addOnBattleStart(OnBattleStart onBattleStart) {

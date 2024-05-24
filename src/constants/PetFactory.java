@@ -40,15 +40,11 @@ public class PetFactory {
     public Pet getFish() {
         return new Fish() {
             @Override
-            public void onLvUp() {
+            public void onLevelUp() {
+                super.onLevelUp();
                 for (int i = 0; i < 2; i++) {
                     pTeam.doRandom(pet -> pet.buff(getLv() - 1, getLv() - 1));
                 }
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnLvUp(this);
             }
         };
     }
