@@ -145,7 +145,7 @@ public class Shop {
         }
         ShopItem<Pet> pet = buyShopItem(pets, opt);
         if(target == null) pteam.boughtPet(pet.item, pos);
-        else pteam.mergePet(pet.item, pos);
+        else pteam.mergeBoughtPet(pet.item, pos);
     }
 
     private void menuBuyFood() {

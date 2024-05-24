@@ -120,6 +120,7 @@ public class Team {
     public void boughtPet(Pet pet, int pos) {
         pet.setPos(pos);
         pets[pos] = pet;
+        pets[pos].onPurchased();
     }
 
     public void mergePet(Pet pet, int pos) {
@@ -128,6 +129,11 @@ public class Team {
         int hp = Math.max(curr.getHp(), pet.getHp());
         pets[pos].setStats(atk, hp);
         pets[pos].onMerge();
+    }
+
+    public void mergeBoughtPet(Pet pet, int pos) {
+        mergePet(pet, pos);
+        pets[pos].onPurchased();
     }
 
     public void swapPet(int idx1, int idx2) {
