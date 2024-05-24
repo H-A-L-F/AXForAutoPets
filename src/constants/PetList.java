@@ -1,5 +1,7 @@
 package constants;
 
+import pets.Worm;
+
 import java.util.*;
 
 public enum PetList {
@@ -19,7 +21,6 @@ public enum PetList {
     // tier 2
     CRAB("Crab"),
     DODO("Dodo"),
-    ELEPHANT("Elephant"),
     FLAMINGO("Flamingo"),
     HEDGEHOG("Hedgehog"),
     PEACOCK("Peacock"),
@@ -27,8 +28,10 @@ public enum PetList {
     SHRIMP("Shrimp"),
     SPIDER("Spider"),
     SWAN("Swan"),
+    WORM("Worm"),
 
     // tier 3
+    ELEPHANT("Elephant"),
     BADGER("Badger"),
     BLOWFISH("Blowfish"),
     CAMEL("Camel"),
@@ -38,7 +41,6 @@ public enum PetList {
     OX("Ox"),
     RABBIT("Rabbit"),
     SHEEP("Sheep"),
-    SNAIL("Snail"),
     TURTLE("Turtle"),
 
     // tier 4
@@ -85,19 +87,19 @@ public enum PetList {
 
     // Tier 1
     private static final List<PetList> VALUES1 = Collections.unmodifiableList(Arrays.asList(
-            ANT, BEAVER, CRICKET, DUCK, FISH, HORSE, MOSQUITO, OTTER, PIG
+            ANT, BEAVER, CRICKET, DUCK, FISH, HORSE, MOSQUITO, OTTER, PIG, PIGEON
     ));
     private static final int SIZE1 = VALUES1.size();
 
     // Tier 2
     private static final List<PetList> VALUES2 = Collections.unmodifiableList(Arrays.asList(
-            CRAB, DODO, ELEPHANT, FLAMINGO, HEDGEHOG, PEACOCK, RAT, SHRIMP, SPIDER, SWAN
+            CRAB, DODO,  FLAMINGO, HEDGEHOG, PEACOCK, RAT, SHRIMP, SPIDER, SWAN, WORM
     ));
     private static final int SIZE2 = VALUES2.size();
 
     // Tier 3
     private static final List<PetList> VALUES3 = Collections.unmodifiableList(Arrays.asList(
-            BADGER, BLOWFISH, CAMEL, DOG, GIRAFFE, KANGAROO, OX, RABBIT, SHEEP, SNAIL, TURTLE
+            BADGER, BLOWFISH, ELEPHANT, CAMEL, DOG, GIRAFFE, KANGAROO, OX, RABBIT, SHEEP, TURTLE
     ));
     private static final int SIZE3 = VALUES3.size();
 
@@ -121,7 +123,7 @@ public enum PetList {
 
     // Other
     private static final List<PetList> VALUES_OTHER = Collections.unmodifiableList(Arrays.asList(
-            BUS, CHICK, ZOMBIE_CRICKET, BEE
+            BUS, CHICK, ZOMBIE_CRICKET, BEE, DIRTY_RAT
     ));
     private static final int SIZE_OTHER = VALUES_OTHER.size();
 

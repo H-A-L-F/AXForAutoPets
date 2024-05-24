@@ -264,6 +264,7 @@ public class PetFactory {
             case MOSQUITO -> getMosquito();
             case OTTER -> getOtter();
             case PIG -> getPig();
+//            case PIGEON -> getPigeon();
 //            case CRAB -> getCrab();
 //            case DODO -> getDodo();
 //            case ELEPHANT -> getElephant();
@@ -283,7 +284,6 @@ public class PetFactory {
 //            case OX -> getOx();
 //            case RABBIT -> getRabbit();
 //            case SHEEP -> getSheep();
-//            case SNAIL -> getSnail();
 //            case TURTLE -> getTurtle();
 //            case BISON -> getBison();
 //            case DEER -> getDeer();
