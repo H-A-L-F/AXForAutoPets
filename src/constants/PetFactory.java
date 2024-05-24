@@ -19,6 +19,7 @@ public class PetFactory {
         this.eTeam = eTeam;
     }
 
+    // region <Tier1>
     public Pet getAnt() {
         return new Ant() {
             @Override
@@ -75,24 +76,6 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnFaint(this);
-            }
-        };
-    }
-
-    public Pet getZombieCricket() {
-        return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
-            @Override
-            public void onPlaced() {
-
-            }
-        };
-    }
-
-    public static Pet getBee() {
-        return new Pet(PetList.BEE, 1, 1, 1) {
-            @Override
-            public void onPlaced() {
-
             }
         };
     }
@@ -174,6 +157,45 @@ public class PetFactory {
         };
     }
 
+    //endregion
+
+    // region <Tier2>
+    public Pet getRat() {
+        return new Rat() {
+            @Override
+            public void onFaint() {
+
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
+            }
+        };
+    }
+
+    // endregion
+
+    // region <Others>
+    public Pet getZombieCricket() {
+        return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
+            @Override
+            public void onPlaced() {
+
+            }
+        };
+    }
+
+    public static Pet getBee() {
+        return new Pet(PetList.BEE, 1, 1, 1) {
+            @Override
+            public void onPlaced() {
+
+            }
+        };
+    }
+    // endregion
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
@@ -191,7 +213,7 @@ public class PetFactory {
 //            case FLAMINGO -> getFlamingo();
 //            case HEDGEHOG -> getHedgehog();
 //            case PEACOCK -> getPeacock();
-//            case RAT -> getRat();
+            case RAT -> getRat();
 //            case SHRIMP -> getShrimp();
 //            case SPIDER -> getSpider();
 //            case SWAN -> getSwan();
