@@ -10,8 +10,13 @@ public abstract class Pet extends Entity {
     private int atk;
     private int hp;
     private int lv;
+    private int exp;
+    private int pos;
     private PetStatus status;
     private Fruit fruit;
+
+    private static int EXP_LV1 = 2;
+    private static int EXP_LV2 = 3;
 
     public Pet(PetList name, int tier, int atk, int hp) {
         super(tier);
@@ -19,16 +24,8 @@ public abstract class Pet extends Entity {
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
-        this.status = PetStatus.NORMAL;
-    }
-
-    public Pet(PetList name, int tier, int lv, int atk, int hp) {
-        super(tier);
-        this.name = name;
-        this.lv = lv;
-        this.atk = atk;
-        this.hp = hp;
-        this.lv = 1;
+        this.exp = 0;
+        this.pos = 0;
         this.status = PetStatus.NORMAL;
     }
 
