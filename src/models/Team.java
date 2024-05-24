@@ -134,6 +134,10 @@ public class Team {
         onPurchases.add(onPurchase);
     }
 
+    public void addOnSummon(OnSummon onSummon) {
+        onSummons.add(onSummon);
+    }
+
     public int getTier(int idx) {
         return pets[idx].getTier();
     }

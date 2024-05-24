@@ -160,6 +160,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getHorse() {
+        return new Horse() {
+            @Override
+            public void onSummon(Pet pet) {
+                pet.buff(getLv(), 0);
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSummon(this);
+            }
+        };
+    }
+
     public Pet getPet(PetList name) {
         return switch (name) {
             case ANT -> getAnt();
@@ -167,7 +181,7 @@ public class PetFactory {
             case CRICKET -> getCricket();
             case DUCK -> getDuck();
             case FISH -> getFish();
-//            case HORSE -> getHorse();
+            case HORSE -> getHorse();
             case MOSQUITO -> getMosquito();
             case OTTER -> getOtter();
             case PIG -> getPig();
