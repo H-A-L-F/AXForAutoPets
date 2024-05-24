@@ -4,17 +4,20 @@ import interfaces.OnFaint;
 import interfaces.OnLevelup;
 import interfaces.OnPlaced;
 import main.Arena;
+import main.Shop;
 import models.Pet;
 import models.Team;
 import pets.*;
 
 public class PetFactory {
     private Arena arena;
+    private Shop shop;
     private final Team pTeam;
     private final Team eTeam;
 
-    public PetFactory(Arena arena, Team pTeam, Team eTeam) {
+    public PetFactory(Arena arena, Shop shop, Team pTeam, Team eTeam) {
         this.arena = arena;
+        this.shop = shop;
         this.pTeam = pTeam;
         this.eTeam = eTeam;
     }
@@ -133,7 +136,7 @@ public class PetFactory {
         return new Duck() {
             @Override
             public void onSell() {
-                arena.getShop().buffShop(0, getLv());
+                shop.buffShop(0, getLv());
             }
 
             @Override
@@ -157,6 +160,19 @@ public class PetFactory {
         };
     }
 
+    public Pet getPigeon() {
+        return new Pigeon() {
+            @Override
+            public void onSell() {
+                shop.addFruit(FruitFactory.getBreadCrumbs());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSell(this);
+            }
+        };
+    }
     //endregion
 
     // region <Tier2>
@@ -264,7 +280,7 @@ public class PetFactory {
             case MOSQUITO -> getMosquito();
             case OTTER -> getOtter();
             case PIG -> getPig();
-//            case PIGEON -> getPigeon();
+            case PIGEON -> getPigeon();
 
             case RAT -> getRat();
             case HEDGEHOG -> getHedgehog();

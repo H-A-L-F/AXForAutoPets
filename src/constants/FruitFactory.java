@@ -37,10 +37,21 @@ public class FruitFactory {
         };
     }
 
+    public static Fruit getBreadCrumbs() {
+        return new Fruit(FruitList.BREAD_CRUMBS, 1) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.buff(1, 0);
+            }
+        };
+    }
+
     private Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
             case HONEY -> getHoney();
+
 //            case CUPCAKE -> getCupcake();
 //            case MEAT_BONE -> getMeatBone();
 //            case SALAD_BOWL -> getSaladBowl();
@@ -54,6 +65,8 @@ public class FruitFactory {
 //            case MUSHROOM -> getMushroom();
 //            case PIZZA -> getPizza();
 //            case STEAK -> getSteak();
+
+            case BREAD_CRUMBS -> getBreadCrumbs();
             default -> null;
         };
     }

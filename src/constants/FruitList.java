@@ -29,7 +29,11 @@ public enum FruitList {
     MELON("Melon"),
     MUSHROOM("Mushroom"),
     PIZZA("Pizza"),
-    STEAK("Steak");
+    STEAK("Steak"),
+
+    // Others
+    BREAD_CRUMBS("BreadCrumbs"),
+    WORM_APPLE("WormApple");
 
     private final String name;
 
@@ -77,6 +81,11 @@ public enum FruitList {
             FruitList.MELON, FruitList.MUSHROOM, FruitList.PIZZA, FruitList.STEAK
     ));
     private static final int SIZE6 = VALUES6.size();
+
+    private static final List<FruitList> VALUES_OTHER = Collections.unmodifiableList(Arrays.asList(
+            FruitList.BREAD_CRUMBS, FruitList.WORM_APPLE
+    ));
+    private static final int SIZE_OTHER = VALUES_OTHER.size();
 
     private static final Random RANDOM = new Random();
 

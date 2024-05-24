@@ -302,6 +302,10 @@ public class Shop {
             pets.get(i).item.buff(atk, hp);
         }
     }
+
+    public void addFruit(Fruit fruit) {
+        fruits.add(new ShopItem<>(ShopState.NORMAL, fruit));
+    }
 }
 
 interface ShopPrint {
