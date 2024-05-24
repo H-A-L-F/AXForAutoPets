@@ -43,6 +43,7 @@ public class Team {
                 if(pets[j] == null) continue;
                 pets[i] = pets[j];
                 pets[j] = null;
+                break;
             }
         }
     }
