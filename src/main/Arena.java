@@ -12,6 +12,7 @@ public class Arena {
     private Team enmTeam;
     private int round, win, life;
     private int money;
+    private BattleResult lastBattleResult;
     private static Arena instance;
 
     private Shop shop;
@@ -62,8 +63,8 @@ public class Arena {
         while (life > 0) {
             nextRound();
             shop();
-            BattleResult res = battle();
-            switch (res) {
+            lastBattleResult = battle();
+            switch (lastBattleResult) {
                 case WIN:
                     win();
                     break;
