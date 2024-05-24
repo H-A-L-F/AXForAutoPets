@@ -93,15 +93,11 @@ public class PetFactory {
     public Pet getOtter() {
         return new Otter() {
             @Override
-            public void onPurchase() {
+            public void onPurchased() {
+                super.onPurchased();
                 for (int i = 0; i < getLv(); i++) {
                     pTeam.doRandom(pet -> pet.buff(0, 1));
                 }
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnPurchase(this);
             }
         };
     }

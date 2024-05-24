@@ -13,7 +13,6 @@ public class Team {
     private int slot;
 
     private ArrayList<OnBattleStart> onBattleStarts;
-    private ArrayList<OnPurchase> onPurchases;
     private ArrayList<OnSummon> onSummons;
     private ArrayList<OnTurnStart> onTurnStarts;
     private ArrayList<OnHurt> onHurts;
@@ -31,7 +30,6 @@ public class Team {
         slot = END_SIZE;
 
         onBattleStarts = new ArrayList<>();
-        onPurchases = new ArrayList<>();
         onSummons = new ArrayList<>();
         onTurnStarts = new ArrayList<>();
         onHurts = new ArrayList<>();
@@ -149,10 +147,6 @@ public class Team {
 
     public void addOnBattleStart(OnBattleStart onBattleStart) {
         onBattleStarts.add(onBattleStart);
-    }
-
-    public void addOnPurchase(OnPurchase onPurchase) {
-        onPurchases.add(onPurchase);
     }
 
     public void addOnSummon(OnSummon onSummon) {
