@@ -11,13 +11,11 @@ import pets.*;
 
 public class PetFactory {
     private Arena arena;
-    private Shop shop;
     private final Team pTeam;
     private final Team eTeam;
 
-    public PetFactory(Arena arena, Shop shop, Team pTeam, Team eTeam) {
+    public PetFactory(Arena arena, Team pTeam, Team eTeam) {
         this.arena = arena;
-        this.shop = shop;
         this.pTeam = pTeam;
         this.eTeam = eTeam;
     }
@@ -136,7 +134,7 @@ public class PetFactory {
         return new Duck() {
             @Override
             public void onSell() {
-                shop.buffShop(0, getLv());
+                arena.getShop().buffShop(0, getLv());
             }
 
             @Override
@@ -164,7 +162,7 @@ public class PetFactory {
         return new Pigeon() {
             @Override
             public void onSell() {
-                shop.addFruit(FruitFactory.getBreadCrumbs());
+                arena.getShop().addFruit(FruitFactory.getBreadCrumbs());
             }
 
             @Override
