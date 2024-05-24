@@ -30,15 +30,15 @@ public abstract class Pet extends Entity implements OnPlaced {
         this.status = PetStatus.NORMAL;
     }
 
-    public int damage(int damage, int pos) {
+    public int damage(int damage) {
         int dmg = fruit.onDamaged(damage);
         this.hp -= dmg;
         this.onDamaged();
-        if(hp <= 0) faint(pos);
+        if(hp <= 0) onFaint();
         return dmg;
     }
 
-    private void faint(int pos) {
+    protected void onFaint() {
         status = PetStatus.FAINT;
     }
 
@@ -46,7 +46,7 @@ public abstract class Pet extends Entity implements OnPlaced {
         this.fruit = fruit;
         this.fruit.onEaten(this);
     }
-    
+
     public int attack() {
         return this.atk;
     }

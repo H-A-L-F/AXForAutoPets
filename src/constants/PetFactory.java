@@ -1,10 +1,6 @@
 package constants;
 
-import interfaces.OnFaint;
-import interfaces.OnLevelup;
-import interfaces.OnPlaced;
 import main.Arena;
-import main.Shop;
 import models.Pet;
 import models.Team;
 import pets.*;
@@ -23,11 +19,6 @@ public class PetFactory {
     // region <Tier1>
     public Pet getAnt() {
         return new Ant() {
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
-            }
-
             @Override
             public void onFaint() {
                 pTeam.doRandom(pet -> pet.buff(getLv(), getLv()));
@@ -73,11 +64,6 @@ public class PetFactory {
                 temp.setStats(getLv(), getLv());
                 pTeam.summonPet(temp, getPos());
             }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
-            }
         };
     }
 
@@ -87,7 +73,7 @@ public class PetFactory {
             public void onBattleStart() {
                 for (int i = 0; i < getLv(); i++) {
                     int idx = eTeam.getRandIdx();
-                    eTeam.getPet(idx).damage(1, idx);
+                    eTeam.getPet(idx).damage(1);
                 }
             }
 
@@ -178,14 +164,10 @@ public class PetFactory {
         return new Rat() {
             @Override
             public void onFaint() {
+                super.onFaint();
                 for (int i = 0; i < getLv(); i++) {
                     eTeam.summonPet(getDirtyRat(), Team.FRONT_INDEX);
                 }
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
             }
         };
     }
@@ -195,12 +177,7 @@ public class PetFactory {
             @Override
             public void onFaint() {
                 int dmg = 2 * getLv();
-                pTeam.doAll((pet) -> pet.damage(dmg, pet.getPos()));
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
+                pTeam.doAll((pet) -> pet.damage(dmg));
             }
         };
     }
@@ -210,11 +187,6 @@ public class PetFactory {
             @Override
             public void onFaint() {
                 pTeam.doBehind(getPos(), 2, pet -> pet.buff(getLv(), getLv()));
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
             }
         };
     }
@@ -227,11 +199,6 @@ public class PetFactory {
                 Pet temp = getPet(3);
                 temp.setStats(1, stat, stat);
                 pTeam.summonPet(temp, getPos());
-            }
-
-            @Override
-            public void onPlaced() {
-                pTeam.addOnFaint(this);
             }
         };
     }

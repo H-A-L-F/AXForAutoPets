@@ -12,7 +12,6 @@ public class Team {
     private Pet[] pets;
     private int slot;
 
-    private ArrayList<OnFaint> onFaints;
     private ArrayList<OnSell> onSells;
     private ArrayList<OnBattleStart> onBattleStarts;
     private ArrayList<OnLevelup> onLevelups;
@@ -33,7 +32,6 @@ public class Team {
         pets = new Pet[END_SIZE];
         slot = END_SIZE;
 
-        onFaints = new ArrayList<>();
         onSells = new ArrayList<>();
         onBattleStarts = new ArrayList<>();
         onLevelups = new ArrayList<>();
@@ -62,7 +60,7 @@ public class Team {
     }
 
     public int takeDamage(int damage, int idx) {
-        return pets[idx].damage(damage, idx);
+        return pets[idx].damage(damage);
     }
 
     public void doAll(DoPet doPet) {
@@ -151,10 +149,6 @@ public class Team {
             res = comparePet.comparePet(res, pets[i]);
         }
         return res;
-    }
-
-    public void addOnFaint(OnFaint onFaint) {
-        onFaints.add(onFaint);
     }
 
     public void addOnSell(OnSell onSell) {
