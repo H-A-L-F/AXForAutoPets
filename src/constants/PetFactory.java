@@ -176,6 +176,21 @@ public class PetFactory {
         };
     }
 
+    public Pet getHedgehog() {
+        return new Hedgehog() {
+            @Override
+            public void onFaint() {
+                int dmg = 2 * getLv();
+                pTeam.doAll((pet) -> pet.damage(dmg, pet.getPos()));
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFaint(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -222,7 +237,7 @@ public class PetFactory {
 //            case DODO -> getDodo();
 //            case ELEPHANT -> getElephant();
 //            case FLAMINGO -> getFlamingo();
-//            case HEDGEHOG -> getHedgehog();
+            case HEDGEHOG -> getHedgehog();
 //            case PEACOCK -> getPeacock();
             case RAT -> getRat();
 //            case SHRIMP -> getShrimp();

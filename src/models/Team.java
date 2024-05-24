@@ -56,6 +56,13 @@ public class Team {
         return pets[idx].damage(damage, idx);
     }
 
+    public void doAll(DoPet doPet) {
+        for(int i = BACK_INDEX; i < END_SIZE; i++) {
+            if(pets[i] == null) continue;
+            doPet.doPet(pets[i]);
+        }
+    }
+
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
             if(pets[i] != null) continue;
