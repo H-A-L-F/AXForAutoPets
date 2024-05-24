@@ -72,10 +72,6 @@ public abstract class Pet extends Entity {
     public void onDamaged() {
     }
 
-    public void sell() {
-        Arena.getInstance().incMoney(this.lv);
-    }
-
     public void buff(int atk, int hp) {
         this.atk += atk;
         this.hp += hp;

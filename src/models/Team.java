@@ -129,7 +129,7 @@ public class Team {
     }
 
     public void sellPet(int idx) {
-        pets[idx].sell();
+        pets[idx].onSell();
         pets[idx] = null;
     }
 

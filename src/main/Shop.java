@@ -209,7 +209,6 @@ public class Shop {
             System.out.println("You can only sell a valid pet");
             return;
         }
-        arena.incMoney(pteam.getTier(opt) * ShopStat.SELL_PRICE);
         pteam.sellPet(opt);
     }
 
