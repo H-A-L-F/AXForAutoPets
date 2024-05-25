@@ -9,7 +9,7 @@ public class Connect {
     private static final String MYSQL_DATABASE = "railway";
     private static final String MYSQL_USER = "root";
     private static final String MYSQL_PASSWORD = "lWNLwSKOABTlbSXAMcxJmmeKzFGucGDP";
-    private static final String constr = String.format("mysql://%s:%s@%s:%s/%s", MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE);
+    private static final String constr = String.format("jdbc:mysql://%s:%s@%s:%s/%s", MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE);
 
     public ResultSet rs;
     public ResultSetMetaData rsmd;

@@ -52,7 +52,7 @@ public class Main {
     }
 
     private void menuLogin() {
-        String query = "SELECT * FROM user WHERE username = '%s' and password = '%s'";
+        String query = "SELECT * FROM User WHERE name = '%s' and password = '%s'";
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
         con.execQuery(String.format(query, name, password));
