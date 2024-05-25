@@ -3,6 +3,9 @@ package main;
 import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
+import models.User;
+
+import java.sql.SQLException;
 
 public class Main {
     private final ConsoleInput ci;
@@ -12,7 +15,7 @@ public class Main {
         ci = ConsoleInput.getInstance();
         con = Connect.getInstance();
 
-        menuHome();
+        menuAuth();
     }
 
     private void title() {
@@ -36,8 +39,10 @@ public class Main {
 
             switch (opt) {
                 case 1:
+                    menuLogin();
                     break;
                 case 2:
+                    menuRegister();
                     break;
                 case 3:
                     run = false;
@@ -47,7 +52,23 @@ public class Main {
     }
 
     private void menuLogin() {
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM user WHERE username = '%s' and password = '%s'";
+        String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
+        String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
+        con.execQuery(String.format(query, name, password));
+        try {
+            con.rs.next();
+            int id = con.rs.getInt(1);
+            String username = con.rs.getString(2);
+            String userpass = con.rs.getString(3);
+            User.getInstance(id, name, userpass);
+            System.out.println("Logged in as " + username);
+            ci.enter();
+            menuHome();
+        } catch (SQLException e) {
+            System.out.println("Login failed");
+            throw new RuntimeException(e);
+        }
     }
 
     private void menuRegister() {

@@ -1,12 +1,25 @@
 package models;
 
 public class User {
+    private int id;
     private String name;
     private String password;
 
-    public User(String name, String password) {
+    private static User instance;
+
+    private User(int id, String name, String password) {
+        this.id = id;
         this.name = name;
         this.password = password;
+    }
+
+    public static User getInstance(int id, String name, String password) {
+        if (instance == null) instance = new User(id, name, password);
+        return instance;
+    }
+
+    public static User getInstance() {
+        return instance;
     }
 
     public String getName() {
