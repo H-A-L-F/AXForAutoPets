@@ -43,4 +43,12 @@ public class Connect {
         }
         return rs;
     }
+
+    public void execUpdate(String query) {
+        try {
+            st.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
