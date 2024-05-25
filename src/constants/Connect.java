@@ -4,12 +4,12 @@ import java.sql.*;
 
 public class Connect {
 
-    private static final String user = "root";
-    private static final String password = "lWNLwSKOABTlbSXAMcxJmmeKzFGucGDP";
-    private static final String proxy = "roundhouse.proxy.rlwy.net";
-    private static final String port = "43124";
-    private static final String database = "railway";
-    private static final String constr = "mysql://%s:%s@%s:%s/%s";
+    private static final String MYSQL_HOST = "roundhouse.proxy.rlwy.net";
+    private static final String MYSQL_PORT = "43124";
+    private static final String MYSQL_DATABASE = "railway";
+    private static final String MYSQL_USER = "root";
+    private static final String MYSQL_PASSWORD = "lWNLwSKOABTlbSXAMcxJmmeKzFGucGDP";
+    private static final String constr = String.format("mysql://%s:%s@%s:%s/%s", MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE);
 
     public ResultSet rs;
     public ResultSetMetaData rsmd;
@@ -21,8 +21,8 @@ public class Connect {
 
     private Connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(String.format(constr, user, password, proxy, port, database));
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(constr);
             st = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
