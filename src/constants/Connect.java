@@ -4,10 +4,12 @@ import java.sql.*;
 
 public class Connect {
 
-    private static final String user = "arya";
-    private static final String password = "nDp1Jx9TX1d7uAOwX2ZMcw";
-    private static final String database = "autopets";
-    private static final String constr = "postgresql://%s:%s@%s-6879.6xw.aws-ap-southeast-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full";
+    private static final String user = "root";
+    private static final String password = "lWNLwSKOABTlbSXAMcxJmmeKzFGucGDP";
+    private static final String proxy = "roundhouse.proxy.rlwy.net";
+    private static final String port = "43124";
+    private static final String database = "railway";
+    private static final String constr = "mysql://%s:%s@%s:%s/%s";
 
     public ResultSet rs;
     public ResultSetMetaData rsmd;
@@ -20,7 +22,7 @@ public class Connect {
     private Connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(String.format(constr, user, password, database));
+            con = DriverManager.getConnection(String.format(constr, user, password, proxy, port, database));
             st = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
