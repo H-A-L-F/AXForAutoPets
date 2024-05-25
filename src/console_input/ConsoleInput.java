@@ -44,6 +44,11 @@ public class ConsoleInput {
         return res;
     }
 
+    public String getStringInRange(int min, int max, String str) {
+        ValidatorString validator = (s) -> s.length() >= min && s.length() <= max;
+        return getString(validator, str);
+    }
+
     public void enter() {
         System.out.print("Press Enter to continue...");
         scanner.nextLine();
