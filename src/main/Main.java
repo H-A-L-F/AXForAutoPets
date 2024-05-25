@@ -57,7 +57,12 @@ public class Main {
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
         con.execQuery(String.format(query, name, password));
         try {
-            con.rs.next();
+            if(!con.rs.next()) {
+                System.out.println("Invalid username or password");
+                System.out.println("Login Failed");
+                ci.enter();
+                return;
+            }
             int id = con.rs.getInt(1);
             String username = con.rs.getString(2);
             String userpass = con.rs.getString(3);
@@ -76,6 +81,8 @@ public class Main {
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
         con.execUpdate(String.format(query, name, password));
+        System.out.println("Successfully registered");
+        ci.enter();
     }
 
     private void optHome() {
