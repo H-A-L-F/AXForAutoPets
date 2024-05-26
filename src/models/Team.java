@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Team {
+    String name;
     private EventManager eventManager;
     private Pet[] pets;
     private int slot;
@@ -24,6 +25,19 @@ public class Team {
     public static final int BACK_INDEX = START_SIZE - 1;
 
     public Team() {
+        this.eventManager = new EventManager(this);
+        pets = new Pet[END_SIZE];
+        slot = END_SIZE;
+
+        onBattleStarts = new ArrayList<>();
+        onSummons = new ArrayList<>();
+        onTurnStarts = new ArrayList<>();
+        onTurnEnds = new ArrayList<>();
+        onFriendAttacks = new ArrayList<>();
+    }
+
+    public Team(String name) {
+        this.name = name;
         this.eventManager = new EventManager(this);
         pets = new Pet[END_SIZE];
         slot = END_SIZE;

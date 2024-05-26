@@ -33,8 +33,27 @@ public class Arena {
         in = ConsoleInput.getInstance();
     }
 
+    private Arena(Team pTeam) {
+        this.pTeam = pTeam;
+        enmTeam = new Team();
+        round = 0;
+        win = 0;
+        life = 5;
+        money = DEFAULT_MONEY;
+
+        playerPetFactory = new PetFactory(this, pTeam, enmTeam);
+        fruitFactory = new FruitFactory(this, pTeam, enmTeam);
+        shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.pTeam);
+        in = ConsoleInput.getInstance();
+    }
+
     public static Arena getInstance() {
         if (instance == null) instance = new Arena();
+        return instance;
+    }
+
+    public static Arena getInstance(Team pTeam) {
+        if (instance == null) instance = new Arena(pTeam);
         return instance;
     }
 

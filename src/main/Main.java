@@ -3,6 +3,7 @@ package main;
 import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
+import models.Team;
 import models.User;
 import repository.UserRepository;
 
@@ -118,7 +119,8 @@ public class Main {
     }
 
     private void menuArena() {
-        Arena.getInstance().newGame();
+        String name = ci.getStringInRange(5, 20, "Team Name [5 - 20]: ");
+        Arena.getInstance(new Team(name)).newGame();
     }
 
     private void menuLeaderboard() {
