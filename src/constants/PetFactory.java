@@ -271,6 +271,26 @@ public class PetFactory {
 
     // endregion
 
+    // region <Tier3>
+
+    public Pet getDodo() {
+        return new Dodo() {
+            @Override
+            public void onBattleStart() {
+                if(getPos() == Team.FRONT_INDEX) return;
+                int atk = (int) ((double)getAtk() * 0.5) * getLv();
+                pTeam.getPet(getPos() + 1).buff(atk, 0);
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnBattleStart(this);
+            }
+        };
+    }
+
+    // endregion
+
     // region <Others>
     public Pet getZombieCricket() {
         return new Pet(PetList.ZOMBIE_CRICKET, 1, 1, 1) {
@@ -315,7 +335,7 @@ public class PetFactory {
 //            case DOLPHIN -> getDolphin();
 //            case RABBIT -> getRabbit();
 //            case DOG -> getDog();
-//            case DODO -> getDodo();
+            case DODO -> getDodo();
 //            case ELEPHANT -> getElephant();
 //            case SHEEP -> getSheep();
 //            case BADGER -> getBadger();
