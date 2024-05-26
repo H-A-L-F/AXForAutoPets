@@ -4,6 +4,7 @@ import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
 import models.User;
+import repository.UserRepository;
 
 import java.sql.SQLException;
 
@@ -77,10 +78,9 @@ public class Main {
     }
 
     private void menuRegister() {
-        String query = "INSERT INTO User (name, password) values('%s', '%s')";
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
-        con.execUpdate(String.format(query, name, password));
+        UserRepository.getInstance().insert(name, password);
         System.out.println("Successfully registered");
         ci.enter();
     }
