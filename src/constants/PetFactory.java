@@ -289,6 +289,23 @@ public class PetFactory {
         };
     }
 
+    public Pet getBadger() {
+        return new Badger() {
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                int dmg = (int) ((double)getAtk() * 0.5) * getLv();
+                if(getPos() == Team.FRONT_INDEX) {
+                    pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
+                    eTeam.doPet(() -> eTeam.getPet(Team.FRONT_INDEX), pet -> pet.damage(dmg));
+                } else {
+                    pTeam.doPet(() -> pTeam.getPet(getPos() + 1), pet -> pet.damage(dmg));
+                    pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
+                }
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -338,7 +355,7 @@ public class PetFactory {
             case DODO -> getDodo();
 //            case ELEPHANT -> getElephant();
 //            case SHEEP -> getSheep();
-//            case BADGER -> getBadger();
+            case BADGER -> getBadger();
 //            case CAMEL -> getCamel();
 //            case OX -> getOx();
 //            case GIRAFFE -> getGiraffe();

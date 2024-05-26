@@ -80,6 +80,11 @@ public class Team {
         doPet.doPet(getRandPet());
     }
 
+    public void doPet(GetPet getPet, DoPet doPet) {
+        Pet pet = getPet.getPet();
+        if(pet != null) doPet.doPet(pet);
+    }
+
     public void doBehind(int pos, int n, DoPet doPet) {
         for(int i = pos; i >= BACK_INDEX; i--) {
             if(pets[i] == null) continue;
