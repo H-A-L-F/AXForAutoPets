@@ -60,6 +60,9 @@ public abstract class Pet extends Entity {
     protected void onAfterAttack() {
     }
 
+    protected void onEatFruit() {
+    }
+
     // endregion
 
     public int damage(int damage) {
@@ -71,6 +74,7 @@ public abstract class Pet extends Entity {
     }
 
     public void eatFruit(Fruit fruit) {
+        onEatFruit();
         this.fruit = fruit;
         this.fruit.onEaten(this);
     }
