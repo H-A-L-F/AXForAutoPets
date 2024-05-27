@@ -265,8 +265,8 @@ public class PetFactory {
     public Pet getKangaroo() {
         return new Kangaroo() {
             @Override
-            public void onFriendAttack() {
-                buff(getLv(), getLv());
+            public void onFriendAttack(Pet pet) {
+                if(pet.getPos() == getPos() + 1) buff(getLv(), getLv());
             }
 
             @Override
