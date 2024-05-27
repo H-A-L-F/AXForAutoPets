@@ -2,6 +2,7 @@ package main;
 
 import console_input.ConsoleInput;
 import constants.*;
+import models.Pet;
 import models.Team;
 
 public class Arena {
@@ -131,10 +132,20 @@ public class Arena {
             pTeam.arrangeBattleTeam();
             enmTeam.arrangeBattleTeam();
             Lib.printTeams(pTeam, enmTeam);
+            Pet pPet = pTeam.getPet(Team.FRONT_INDEX);
+            Pet ePet = enmTeam.getPet(Team.FRONT_INDEX);
             int pAtk = pTeam.getAtk(Team.FRONT_INDEX);
             int enmAtk = enmTeam.getAtk(Team.FRONT_INDEX);
             enmTeam.takeDamage(pAtk, Team.FRONT_INDEX);
             pTeam.takeDamage(enmAtk, Team.FRONT_INDEX);
+            pTeam.doPet(
+                    () -> pPet,
+                    Pet::onAfterAttack
+            );
+            enmTeam.doPet(
+                    () -> ePet,
+                    Pet::onAfterAttack
+            );
         }
         if (pTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
         else if (enmTeam.getPet(Team.FRONT_INDEX).getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;

@@ -57,7 +57,7 @@ public abstract class Pet extends Entity {
     protected void onHurt() {
     }
 
-    protected void onAfterAttack() {
+    public void onAfterAttack() {
     }
 
     protected void onEatFruit() {
