@@ -85,13 +85,6 @@ public class Team {
         if(pet != null) doPet.doPet(pet);
     }
 
-    public void doBehind(int pos, int n, DoPet doPet) {
-        for(int i = pos; i >= BACK_INDEX; i--) {
-            if(pets[i] == null) continue;
-            doPet.doPet(pets[i]);
-        }
-    }
-
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
             if(pets[i] != null) continue;

@@ -166,7 +166,13 @@ public class PetFactory {
             @Override
             public void onFaint() {
                 super.onFaint();
-                pTeam.doBehind(getPos(), 2, pet -> pet.buff(getLv(), getLv()));
+                for(int i = 0; i < 2; i++) {
+                    int pos = getPos() - i - 1;
+                    pTeam.doPet(
+                            () -> pTeam.getPet(pos),
+                            pet -> pet.buff(getLv(), getLv())
+                    );
+                }
             }
         };
     }
