@@ -13,7 +13,7 @@ public class Fruit extends Entity{
     public void onEaten(Pet pet) {
     }
 
-    public void onFaint(int pos) {
+    public void onFaint(Pet pet) {
     }
 
     public int onDamaged(int dmg) {

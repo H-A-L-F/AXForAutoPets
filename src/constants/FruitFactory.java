@@ -29,10 +29,10 @@ public class FruitFactory {
     public Fruit getHoney() {
         return new Fruit(FruitList.HONEY, 1) {
             @Override
-            public void onFaint(int pos) {
-                super.onFaint(pos);
+            public void onFaint(Pet pet) {
+                super.onFaint(pet);
                 Pet temp = PetFactory.getBee();
-                pTeam.summonPet(temp, pos);
+                pTeam.summonPet(temp, pet.getPos());
             }
         };
     }

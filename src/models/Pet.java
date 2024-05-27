@@ -33,6 +33,7 @@ public abstract class Pet extends Entity {
     // region<On...>
 
     protected void onFaint() {
+        fruit.onFaint(getPos());
         status = PetStatus.FAINT;
     }
 
