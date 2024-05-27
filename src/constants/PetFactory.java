@@ -368,6 +368,21 @@ public class PetFactory {
         };
     }
 
+    public Pet getCamel() {
+        return new Camel() {
+            @Override
+            protected void onHurt() {
+                super.onHurt();
+                int atk = getLv();
+                int hp = 2 * getLv();
+                pTeam.doPet(
+                        () -> pTeam.getPet(getPos() - 1),
+                        pet -> pet.buff(atk, hp)
+                );
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -418,7 +433,7 @@ public class PetFactory {
             case ELEPHANT -> getElephant();
 //            case SHEEP -> getSheep();
             case BADGER -> getBadger();
-//            case CAMEL -> getCamel();
+            case CAMEL -> getCamel();
 //            case OX -> getOx();
             case GIRAFFE -> getGiraffe();
 
