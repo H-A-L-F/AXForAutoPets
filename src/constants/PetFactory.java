@@ -429,6 +429,16 @@ public class PetFactory {
         };
     }
 
+    public Pet getSheep() {
+        return new Sheep() {
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -444,6 +454,11 @@ public class PetFactory {
 
     public static Pet getDirtyRat() {
         return new Pet(PetList.DIRTY_RAT, 1, 1, 1) {
+        };
+    }
+
+    public static Pet getRam() {
+        return new Pet(PetList.RAM, 1, 2, 2) {
         };
     }
     // endregion
@@ -477,7 +492,7 @@ public class PetFactory {
             case DOG -> getDog();
             case DODO -> getDodo();
             case ELEPHANT -> getElephant();
-//            case SHEEP -> getSheep();
+            case SHEEP -> getSheep();
             case BADGER -> getBadger();
             case CAMEL -> getCamel();
             case OX -> getOx();
@@ -518,6 +533,7 @@ public class PetFactory {
 
 //            case BUS -> getBus();
 //            case CHICK -> getChick();
+            case RAM -> getRam();
             case BEE -> getBee();
             case ZOMBIE_CRICKET -> getZombieCricket();
             case DIRTY_RAT -> getDirtyRat();

@@ -79,6 +79,7 @@ public enum PetList {
     WOLVERINE("Wolverine"),
 
     //other
+    RAM("Ram"),
     BUS("Bus"),
     CHICK("Chick"),
     ZOMBIE_CRICKET("ZombieCricket"),
@@ -125,7 +126,7 @@ public enum PetList {
 
     // Other
     private static final List<PetList> VALUES_OTHER = Collections.unmodifiableList(Arrays.asList(
-            BUS, CHICK, ZOMBIE_CRICKET, BEE, DIRTY_RAT
+            RAM, BUS, CHICK, ZOMBIE_CRICKET, BEE, DIRTY_RAT
     ));
     private static final int SIZE_OTHER = VALUES_OTHER.size();
 
