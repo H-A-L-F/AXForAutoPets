@@ -356,7 +356,7 @@ public class PetFactory {
     public Pet getElephant() {
         return new Elephant() {
             @Override
-            protected void onAfterAttack() {
+            public void onAfterAttack() {
                 super.onAfterAttack();
                 int dmg = 1;
                 for(int i = 0; i < getLv(); i++) {
