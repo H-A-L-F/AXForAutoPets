@@ -434,7 +434,8 @@ public class PetFactory {
             @Override
             protected void onFaint() {
                 super.onFaint();
-
+                Pet ram = getRam();
+                ram.setStats(getLv(), 2 * getLv(), 2 * getLv());
             }
         };
     }
