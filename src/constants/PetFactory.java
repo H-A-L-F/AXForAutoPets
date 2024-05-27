@@ -1,6 +1,7 @@
 package constants;
 
 import main.Arena;
+import models.Fruit;
 import models.Pet;
 import models.Team;
 import pets.*;
@@ -383,6 +384,20 @@ public class PetFactory {
         };
     }
 
+    public Pet getRabbit() {
+        return new Rabbit() {
+            @Override
+            public void onEatFruit(Pet pet, Fruit fruit) {
+                pet.buff(0, getLv());
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFriendEatFruit(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -427,7 +442,7 @@ public class PetFactory {
             case KANGAROO -> getKangaroo();
 
             case DOLPHIN -> getDolphin();
-//            case RABBIT -> getRabbit();
+            case RABBIT -> getRabbit();
 //            case DOG -> getDog();
             case DODO -> getDodo();
             case ELEPHANT -> getElephant();
