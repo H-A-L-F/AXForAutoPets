@@ -413,6 +413,22 @@ public class PetFactory {
         };
     }
 
+    public Pet getDog() {
+        return new Dog() {
+            @Override
+            public void onSummon(Pet pet) {
+                int atk = 2 * getLv();
+                int hp = getLv();
+                buff(atk, hp);
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnSummon(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -458,7 +474,7 @@ public class PetFactory {
 
             case DOLPHIN -> getDolphin();
             case RABBIT -> getRabbit();
-//            case DOG -> getDog();
+            case DOG -> getDog();
             case DODO -> getDodo();
             case ELEPHANT -> getElephant();
 //            case SHEEP -> getSheep();
