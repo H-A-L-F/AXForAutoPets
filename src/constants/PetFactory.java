@@ -226,7 +226,7 @@ public class PetFactory {
         return new Snail() {
             @Override
             public void onTurnEnd() {
-                if(arena.getLastBattleResult() == BattleResult.LOSE) pTeam.doAll(pet -> pet.buff(0, getLv()));
+                if (arena.getLastBattleResult() == BattleResult.LOSE) pTeam.doAll(pet -> pet.buff(0, getLv()));
             }
 
             @Override
@@ -241,8 +241,8 @@ public class PetFactory {
             @Override
             public void onBattleStart() {
                 Pet temp = pTeam.getMostAttribute((pet1, pet2) -> {
-                   if(pet1.getHp() >= pet2.getHp()) return pet1;
-                   return pet2;
+                    if (pet1.getHp() >= pet2.getHp()) return pet1;
+                    return pet2;
                 });
                 int hp = (int) (((double) temp.getHp() * 0.5) * getLv());
                 setHp(hp);
@@ -277,8 +277,8 @@ public class PetFactory {
         return new Dodo() {
             @Override
             public void onBattleStart() {
-                if(getPos() == Team.FRONT_INDEX) return;
-                int atk = (int) ((double)getAtk() * 0.5) * getLv();
+                if (getPos() == Team.FRONT_INDEX) return;
+                int atk = (int) ((double) getAtk() * 0.5) * getLv();
                 pTeam.getPet(getPos() + 1).buff(atk, 0);
             }
 
@@ -294,14 +294,34 @@ public class PetFactory {
             @Override
             protected void onFaint() {
                 super.onFaint();
-                int dmg = (int) ((double)getAtk() * 0.5) * getLv();
-                if(getPos() == Team.FRONT_INDEX) {
+                int dmg = (int) ((double) getAtk() * 0.5) * getLv();
+                if (getPos() == Team.FRONT_INDEX) {
                     pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
                     eTeam.doPet(() -> eTeam.getPet(Team.FRONT_INDEX), pet -> pet.damage(dmg));
                 } else {
                     pTeam.doPet(() -> pTeam.getPet(getPos() + 1), pet -> pet.damage(dmg));
                     pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
                 }
+            }
+        };
+    }
+
+    public Pet getDolphin() {
+        return new Dolphin() {
+            @Override
+            public void onBattleStart() {
+                for (int i = 0; i < getLv(); i++) {
+                    int dmg = 4;
+                    eTeam.doPet(
+                            () -> eTeam.getMostAttribute((x, y) -> x.getHp() <= y.getHp() ? x : y),
+                            pet -> pet.damage(dmg)
+                    );
+                }
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnBattleStart(this);
             }
         };
     }
@@ -349,7 +369,7 @@ public class PetFactory {
             case CRAB -> getCrab();
             case KANGAROO -> getKangaroo();
 
-//            case DOLPHIN -> getDolphin();
+            case DOLPHIN -> getDolphin();
 //            case RABBIT -> getRabbit();
 //            case DOG -> getDog();
             case DODO -> getDodo();
