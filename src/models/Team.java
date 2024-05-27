@@ -1,6 +1,7 @@
 package models;
 
 import constants.Lib;
+import constants.PetStatus;
 import interfaces.*;
 import main.EventManager;
 
@@ -82,7 +83,7 @@ public class Team {
 
     public void doPet(GetPet getPet, DoPet doPet) {
         Pet pet = getPet.getPet();
-        if(pet != null) doPet.doPet(pet);
+        if(pet != null && pet.getStatus() != PetStatus.FAINT) doPet.doPet(pet);
     }
 
     public void arrangeBattleTeam() {
