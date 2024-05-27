@@ -20,6 +20,7 @@ public class Team {
     private ArrayList<OnTurnEnd> onTurnEnds;
     private ArrayList<OnFriendAttack> onFriendAttacks;
     private ArrayList<OnFriendEatFruit> onFriendEatFruits;
+    private ArrayList<OnFriendFaint> onFriendFaints;
 
     public static final int START_SIZE = 1;
     public static final int END_SIZE = 5;
@@ -36,6 +37,8 @@ public class Team {
         onTurnStarts = new ArrayList<>();
         onTurnEnds = new ArrayList<>();
         onFriendAttacks = new ArrayList<>();
+        onFriendEatFruits = new ArrayList<>();
+        onFriendFaints = new ArrayList<>();
     }
 
     public Team(String name) {
@@ -49,6 +52,8 @@ public class Team {
         onTurnStarts = new ArrayList<>();
         onTurnEnds = new ArrayList<>();
         onFriendAttacks = new ArrayList<>();
+        onFriendEatFruits = new ArrayList<>();
+        onFriendFaints = new ArrayList<>();
     }
 
     public void printTeam() {
@@ -192,6 +197,10 @@ public class Team {
 
     public void addOnFriendEatFruit(OnFriendEatFruit onFriendEatFruit) {
         onFriendEatFruits.add(onFriendEatFruit);
+    }
+
+    public void addOnFriendFaint(OnFriendFaint onFriendFaint) {
+        onFriendFaints.add(onFriendFaint);
     }
 
     public int getTier(int idx) {

@@ -398,6 +398,21 @@ public class PetFactory {
         };
     }
 
+    public Pet getOx() {
+        return new Ox() {
+            @Override
+            public void onFriendFaint(Pet pet) {
+                // TODO
+                //if(getPos() + 1 == pet.getPos())
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnFriendFaint(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -449,7 +464,7 @@ public class PetFactory {
 //            case SHEEP -> getSheep();
             case BADGER -> getBadger();
             case CAMEL -> getCamel();
-//            case OX -> getOx();
+            case OX -> getOx();
             case GIRAFFE -> getGiraffe();
 
 //            case BLOWFISH -> getBlowfish();
