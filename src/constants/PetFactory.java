@@ -352,6 +352,22 @@ public class PetFactory {
         };
     }
 
+    public Pet getElephant() {
+        return new Elephant() {
+            @Override
+            protected void onAfterAttack() {
+                super.onAfterAttack();
+                int dmg = 1;
+                for(int i = 0; i < getLv(); i++) {
+                    pTeam.doPet(
+                            () -> pTeam.getPet(getPos() - 1),
+                            pet -> pet.damage(dmg)
+                    );
+                }
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -399,7 +415,7 @@ public class PetFactory {
 //            case RABBIT -> getRabbit();
 //            case DOG -> getDog();
             case DODO -> getDodo();
-//            case ELEPHANT -> getElephant();
+            case ELEPHANT -> getElephant();
 //            case SHEEP -> getSheep();
             case BADGER -> getBadger();
 //            case CAMEL -> getCamel();

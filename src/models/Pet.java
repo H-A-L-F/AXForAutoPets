@@ -57,6 +57,9 @@ public abstract class Pet extends Entity {
     protected void onHurt() {
     }
 
+    protected void onAfterAttack() {
+    }
+
     // endregion
 
     public int damage(int damage) {
