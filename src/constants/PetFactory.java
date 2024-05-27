@@ -326,6 +326,26 @@ public class PetFactory {
         };
     }
 
+    public Pet getGiraffe() {
+        return new Giraffe() {
+            @Override
+            public void onTurnEnd() {
+                for(int i = 0; i < getLv(); i++) {
+                    int pos = getPos() + i + 1;
+                    pTeam.doPet(
+                            () -> pTeam.getPet(pos),
+                            pet -> pet.buff(1, 1)
+                    );
+                }
+            }
+
+            @Override
+            public void onPlaced() {
+                pTeam.addOnTurnEnd(this);
+            }
+        };
+    }
+
     // endregion
 
     // region <Others>
@@ -378,7 +398,7 @@ public class PetFactory {
             case BADGER -> getBadger();
 //            case CAMEL -> getCamel();
 //            case OX -> getOx();
-//            case GIRAFFE -> getGiraffe();
+            case GIRAFFE -> getGiraffe();
 
 //            case BLOWFISH -> getBlowfish();
 //            case SKUNK -> getSkunk();
