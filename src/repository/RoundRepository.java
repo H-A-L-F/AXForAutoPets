@@ -18,7 +18,7 @@ public class RoundRepository extends ModelRepository{
         this.round = round;
     }
 
-    public RoundRepository getInstance() {
+    public static RoundRepository getInstance() {
         return instance;
     }
 
@@ -49,5 +49,9 @@ public class RoundRepository extends ModelRepository{
             e.printStackTrace();
             return null;
         }
+    }
+
+    public int getId() {
+        return id;
     }
 }

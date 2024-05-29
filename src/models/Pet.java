@@ -129,6 +129,10 @@ public abstract class Pet extends Entity {
         return pos;
     }
 
+    public int getExp() {
+        return exp;
+    }
+
     public PetList getPetListName() {
         return name;
     }

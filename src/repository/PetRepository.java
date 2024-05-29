@@ -23,7 +23,7 @@ public class PetRepository extends ModelRepository {
         this.pos = pos;
     }
 
-    private static PetRepository newRepository(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
+    public static PetRepository newInstance(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
         insert(round_id, name, atk, hp, lv, exp, pos);
         return getLastInserted(round_id, pos);
     }

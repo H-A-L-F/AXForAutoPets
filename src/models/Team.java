@@ -4,6 +4,8 @@ import constants.Lib;
 import constants.PetStatus;
 import interfaces.*;
 import main.EventManager;
+import repository.PetRepository;
+import repository.RoundRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -58,6 +60,13 @@ public class Team {
 
     public void printTeam() {
         Lib.printSlots(pets);
+    }
+
+    public void saveTeam() {
+        for (Pet p : pets) {
+            if(p == null) continue;
+            PetRepository.newInstance(RoundRepository.getInstance().getId(), p.getName(), p.getAtk(), p.getHp(), p.getLv(), p.getExp(), p.getPos());
+        }
     }
 
     public EventManager getEventManager() {
