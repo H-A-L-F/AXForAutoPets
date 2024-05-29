@@ -7,6 +7,9 @@ public class UserRepository extends ModelRepository {
 
     private static UserRepository instance;
 
+    private UserRepository() {
+    }
+
     private UserRepository(int id, String name, String password) {
         this.id = id;
         this.name = name;
@@ -19,6 +22,7 @@ public class UserRepository extends ModelRepository {
     }
 
     public static UserRepository getInstance() {
+        if (instance == null) instance = new UserRepository();
         return instance;
     }
 
