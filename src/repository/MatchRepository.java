@@ -37,7 +37,6 @@ public class MatchRepository extends ModelRepository {
     public void insert() {
         String query = "INSERT INTO match(user_id, team_name, win) VALUES (%d, %s, %d)";
         con.execUpdate(String.format(query, user_id, team_name, win));
-        getLastInserted(user_id, team_name);
     }
 
     public static void insert(int user_id, String team_name) {
