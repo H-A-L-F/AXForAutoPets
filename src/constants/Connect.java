@@ -3,13 +3,11 @@ package constants;
 import java.sql.*;
 
 public class Connect {
-
-    private static final String MYSQL_HOST = "roundhouse.proxy.rlwy.net";
-    private static final String MYSQL_PORT = "43124";
-    private static final String MYSQL_DATABASE = "railway";
-    private static final String MYSQL_USER = "root";
-    private static final String MYSQL_PASSWORD = "lWNLwSKOABTlbSXAMcxJmmeKzFGucGDP";
-    private static final String constr = String.format("jdbc:mysql://%s:%s@%s:%s/%s", MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE);
+    private final String USERNAME = "root";
+    private final String PASSWORD = "";
+    private final String DATABASE = "auto_pets";
+    private final String HOST = "127.0.0.1:3306";
+    private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 
     public ResultSet rs;
     public ResultSetMetaData rsmd;
@@ -22,7 +20,7 @@ public class Connect {
     private Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(constr);
+            con = DriverManager.getConnection(CONNECTION, USERNAME, PASSWORD);
             st = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
