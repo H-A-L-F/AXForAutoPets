@@ -167,6 +167,7 @@ public class Team {
         pet.setPos(pos);
         pets[pos] = pet;
         pets[pos].onPurchased();
+        if(pets[pos] instanceof OnPlaced) ((OnPlaced) pets[pos]).onPlaced();
     }
 
     public void mergePet(Pet pet, int pos) {
