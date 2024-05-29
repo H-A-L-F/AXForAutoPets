@@ -3,5 +3,5 @@ package repository;
 import constants.Connect;
 
 public abstract class ModelRepository {
-    protected Connect con = Connect.getInstance();
+    protected static Connect con = Connect.getInstance();
 }

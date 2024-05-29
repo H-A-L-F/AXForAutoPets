@@ -22,13 +22,15 @@ public class MatchRepository extends ModelRepository {
         this.win = 0;
     }
 
-    public static MatchRepository getInstance(int id, int user_id, String player_name, int win) {
-        if (instance == null) instance = new MatchRepository(id, user_id, player_name, win);
+    public static MatchRepository getInstance() {
         return instance;
     }
 
-    public static MatchRepository getInstance(int user_id, String team_name) {
-        if (instance == null) instance = new MatchRepository(user_id, team_name);
+    public static MatchRepository newInstance(int user_id, String team_name) {
+        if (instance == null) {
+            insert(user_id, team_name);
+            instance = getLastInserted(user_id, team_name);
+        }
         return instance;
     }
 
@@ -38,28 +40,28 @@ public class MatchRepository extends ModelRepository {
         getLastInserted(user_id, team_name);
     }
 
-    public void insert(int user_id, String team_name) {
+    public static void insert(int user_id, String team_name) {
         String query = "INSERT INTO match(user_id, team_name, win) VALUES (%d, '%s', %d)";
         con.execUpdate(String.format(query, user_id, team_name, 0));
-        getLastInserted(user_id, team_name);
     }
 
-    private MatchRepository getLastInserted(int user_id, String team_name) {
+    private static MatchRepository getLastInserted(int user_id, String team_name) {
         String query = "SELECT * FROM match WHERE user_id = %d and team_name = '%s' ORDER BY id DESC LIMIT 1";
         con.execQuery(String.format(query, user_id, team_name));
         try {
             if(!con.rs.next()) {
                 System.out.println("Failed to get match!");
-                return this;
+                return null;
             }
-            this.id = con.rs.getInt(1);
-            this.user_id = con.rs.getInt(2);
-            this.team_name = con.rs.getString(3);
-            this.win = con.rs.getInt(4);
+            int id = con.rs.getInt(1);
+            int curr_user_id = con.rs.getInt(2);
+            String curr_team_name = con.rs.getString(3);
+            int win = con.rs.getInt(4);
+            return new MatchRepository(id, curr_user_id, curr_team_name, win);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this;
+        return null;
     }
 
     public void updateWin(int win) {
