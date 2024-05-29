@@ -5,6 +5,7 @@ import constants.*;
 import models.Pet;
 import models.Team;
 import repository.MatchRepository;
+import repository.RoundRepository;
 import repository.UserRepository;
 
 public class Arena {
@@ -105,6 +106,7 @@ public class Arena {
 
     private void nextRound() {
         round++;
+        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
         shop.nextRound(round);
     }
 

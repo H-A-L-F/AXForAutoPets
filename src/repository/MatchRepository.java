@@ -51,7 +51,7 @@ public class MatchRepository extends ModelRepository {
         try {
             if(!con.rs.next()) {
                 System.out.println("Failed to get match!");
-                return null;
+                throw new Exception();
             }
             int id = con.rs.getInt(1);
             int curr_user_id = con.rs.getInt(2);
@@ -60,12 +60,16 @@ public class MatchRepository extends ModelRepository {
             return new MatchRepository(id, curr_user_id, curr_team_name, win);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public void updateWin(int win) {
         String query = "UPDATE match SET win = %d WHERE id = %d";
         con.execUpdate(String.format(query, win, id));
+    }
+
+    public int getId() {
+        return id;
     }
 }
