@@ -1,5 +1,9 @@
 package repository;
 
+import constants.FruitFactory;
+import constants.FruitList;
+import models.Fruit;
+
 public class FruitRepository extends ModelRepository{
 
     private int pet_id;
@@ -21,9 +25,7 @@ public class FruitRepository extends ModelRepository{
         con.execUpdate(String.format(query, pet_id, name));
     }
 
-    private static FruitRepository getLastInserted(int pet_id) {
-        String query = "SELECT * FROM fruit WHERE pet_id = %d ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, pet_id));
+    private static FruitRepository getFruitRepoFromRS() {
         try {
             if(!con.rs.next()) {
                 System.out.println("Failed to get fruit");
@@ -37,5 +39,19 @@ public class FruitRepository extends ModelRepository{
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static FruitRepository getLastInserted(int pet_id) {
+        String query = "SELECT * FROM fruit WHERE pet_id = %d ORDER BY id DESC LIMIT 1";
+        con.execQuery(String.format(query, pet_id));
+        return getFruitRepoFromRS();
+    }
+
+    public static Fruit getFruit(FruitFactory fruitFactory, int pet_id) {
+        String query = "SELECT * FROM fruit WHERE pet_id = %d";
+        con.execQuery(String.format(query, pet_id));
+        FruitRepository fruitRepo = getFruitRepoFromRS();
+        if(fruitRepo == null) return null;
+        return fruitFactory.getFruit(FruitList.valueOf(fruitRepo.name.toUpperCase()));
     }
 }

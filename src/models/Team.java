@@ -1,6 +1,8 @@
 package models;
 
+import constants.FruitFactory;
 import constants.Lib;
+import constants.PetFactory;
 import constants.PetStatus;
 import interfaces.*;
 import main.EventManager;
@@ -59,9 +61,18 @@ public class Team {
         onFriendFaints = new ArrayList<>();
     }
 
-    public void setRandTeamFromDB() {
+    public void setRandTeamFromDB(PetFactory petF, FruitFactory fruF) {
         RoundRepository roundRepo = RoundRepository.getRandRoundRepository();
+        Pet[] temp = PetRepository.getPetsForRound(petF, fruF, roundRepo.getId());
+        for(int i = 0; i < END_SIZE; i++) {
+            Pet curr = temp[i];
+            placePet(curr, curr.getPos());
+        }
+    }
 
+    public void placePet(Pet pet, int pos) {
+        pets[pos] = pet;
+        if(pets[pos] instanceof OnPlaced) ((OnPlaced) pets[pos]).onPlaced();
     }
 
     public void printTeam() {

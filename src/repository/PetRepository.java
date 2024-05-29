@@ -1,7 +1,9 @@
 package repository;
 
+import constants.FruitFactory;
 import constants.PetFactory;
 import constants.PetList;
+import models.Fruit;
 import models.Pet;
 import models.Team;
 
@@ -73,7 +75,7 @@ public class PetRepository extends ModelRepository {
         return getPetRepoFromRS();
     }
 
-    public static Pet[] getPetsForRound(int round_id) {
+    public static Pet[] getPetsForRound(PetFactory petF, FruitFactory fruF, int round_id) {
         Pet[] pets = new Pet[Team.END_SIZE];
         String query = "SELECT * FROM pet WHERE round_id = %d";
         con.execQuery(String.format(query, round_id));
@@ -81,6 +83,7 @@ public class PetRepository extends ModelRepository {
             try {
                 if(con.rs.absolute(i)) {
                     PetRepository petRepo = convertPetRepoFromRS();
+                    pets[i] = petRepoToPet(petF, fruF, petRepo);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -89,9 +92,31 @@ public class PetRepository extends ModelRepository {
         return pets;
     }
 
-    private static Pet PetRepoToPet(PetFactory factory, PetRepository petRepo) {
-        Pet pet = factory.getPet(PetList.valueOf(petRepo.name.toUpperCase()));
-        pet.setStats();
+    private static Pet petRepoToPet(PetFactory petF, FruitFactory fruF, PetRepository petRepo) {
+        Pet pet = petF.getPet(PetList.valueOf(petRepo.name.toUpperCase()));
+        pet.setStats(petRepo.atk, petRepo.hp, petRepo.lv, petRepo.exp, petRepo.pos);
+        Fruit fruit = FruitRepository.getFruit(fruF, petRepo.id);
+        if(fruit != null) pet.eatFruit(fruit);
         return pet;
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getLv() {
+        return lv;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public int getPos() {
+        return pos;
     }
 }

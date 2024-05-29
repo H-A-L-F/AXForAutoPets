@@ -104,8 +104,12 @@ public abstract class Pet extends Entity {
         this.hp = hp;
     }
 
-    public void setStats(int lv, int atk, int hp, int exp, int pos) {
-
+    public void setStats(int atk, int hp, int lv, int exp, int pos) {
+        this.atk = atk;
+        this.hp = hp;
+        this.lv = lv;
+        this.exp = exp;
+        this.pos = pos;
     }
 
     public void setHp(int hp) {

@@ -57,7 +57,7 @@ public class FruitFactory {
         };
     }
 
-    private Fruit getFruit(FruitList name) {
+    public Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
             case HONEY -> getHoney();
