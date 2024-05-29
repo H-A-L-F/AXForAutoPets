@@ -18,6 +18,7 @@ public abstract class Pet extends Entity {
 
     private static int EXP_LV1 = 2;
     private static int EXP_LV2 = 3;
+    public static int MAX_LV = 3;
 
     public Pet(PetList name, int tier, int atk, int hp) {
         super(tier);

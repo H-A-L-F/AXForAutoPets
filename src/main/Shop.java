@@ -138,7 +138,7 @@ public class Shop {
         pos--;
         Pet curr = pets.get(opt).item;
         Pet target = pteam.getPet(pos);
-        if(target != null && target.getPetListName() != curr.getPetListName()) {
+        if(target != null && (target.getPetListName() != curr.getPetListName() || target.getLv() == Pet.MAX_LV)) {
             System.out.println("That spot is filled!");
             System.out.println("You can only merge pet with the same type!");
             in.enter();
@@ -146,7 +146,10 @@ public class Shop {
         }
         ShopItem<Pet> pet = buyShopItem(pets, opt);
         if(target == null) pteam.boughtPet(pet.item, pos);
-        else pteam.mergeBoughtPet(pet.item, pos);
+        else {
+            if(pteam.getPet(pos).getLv() != Pet.MAX_LV) pteam.mergeBoughtPet(pet.item, pos);
+            else
+        }
     }
 
     private void menuBuyFood() {
