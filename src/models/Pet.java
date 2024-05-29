@@ -50,6 +50,7 @@ public abstract class Pet extends Entity {
 
     protected void onLevelUp() {
         lv++;
+        exp = 0;
     }
 
     protected void onPurchased() {
