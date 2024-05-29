@@ -1,6 +1,6 @@
 package repository;
 
-public class RoundRepository extends ModelRepository{
+public class RoundRepository extends ModelRepository {
 
     private int match_id;
     private int round;
@@ -33,11 +33,9 @@ public class RoundRepository extends ModelRepository{
         con.execUpdate(String.format(query, match_id, round));
     }
 
-    private static RoundRepository getLastInserted(int match_id, int round) {
-        String query = "SELECT * FROM round WHERE match_id = %d and round = %d ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, match_id, round));
+    private static RoundRepository getRoundRepoFromRS() {
         try {
-            if(!con.rs.next()) {
+            if (!con.rs.next()) {
                 System.out.println("Failed to get round");
                 throw new Exception();
             }
@@ -49,5 +47,17 @@ public class RoundRepository extends ModelRepository{
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static RoundRepository getLastInserted(int match_id, int round) {
+        String query = "SELECT * FROM round WHERE match_id = %d and round = %d ORDER BY id DESC LIMIT 1";
+        con.execQuery(String.format(query, match_id, round));
+        return getRoundRepoFromRS();
+    }
+
+    public static RoundRepository getRandRoundRepository() {
+        String query = "SELECT * FROM round ORDER BY RAND() LIMIT 1";
+        con.execQuery(query);
+        return getRoundRepoFromRS();
     }
 }
