@@ -17,7 +17,7 @@ public class Arena {
     private static Arena instance;
 
     private Shop shop;
-    private PetFactory playerPetFactory;
+    private PetFactory playerPetFactory, enmPetFactory;
     private FruitFactory fruitFactory;
     private ConsoleInput in;
 
@@ -32,6 +32,7 @@ public class Arena {
         money = DEFAULT_MONEY;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
+        enmPetFactory = new PetFactory(this, enmTeam, pTeam);
         fruitFactory = new FruitFactory(this, pTeam, enmTeam);
         shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.pTeam);
         in = ConsoleInput.getInstance();
@@ -107,6 +108,7 @@ public class Arena {
     private void nextRound() {
         round++;
         RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
+        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
         shop.nextRound(round);
     }
 

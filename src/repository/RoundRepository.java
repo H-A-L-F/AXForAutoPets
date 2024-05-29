@@ -55,9 +55,9 @@ public class RoundRepository extends ModelRepository {
         return getRoundRepoFromRS();
     }
 
-    public static RoundRepository getRandRoundRepository() {
-        String query = "SELECT * FROM round ORDER BY RAND() LIMIT 1";
-        con.execQuery(query);
+    public static RoundRepository getRandRoundRepository(int round) {
+        String query = "SELECT * FROM round WHERE round = %d ORDER BY RAND() LIMIT 1";
+        con.execQuery(String.format(query, round));
         return getRoundRepoFromRS();
     }
 }
