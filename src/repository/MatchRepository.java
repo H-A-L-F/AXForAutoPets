@@ -2,7 +2,6 @@ package repository;
 
 public class MatchRepository extends ModelRepository {
 
-    private int id;
     private int user_id;
     private String team_name;
     private int win;
@@ -66,9 +65,5 @@ public class MatchRepository extends ModelRepository {
     public void updateWin(int win) {
         String query = "UPDATE match SET win = %d WHERE id = %d";
         con.execUpdate(String.format(query, win, id));
-    }
-
-    public int getId() {
-        return id;
     }
 }

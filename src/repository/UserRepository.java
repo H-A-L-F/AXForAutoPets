@@ -2,7 +2,6 @@ package repository;
 
 public class UserRepository extends ModelRepository {
 
-    private int id;
     private String name;
     private String password;
 
@@ -53,9 +52,5 @@ public class UserRepository extends ModelRepository {
             e.printStackTrace();
         }
         return this;
-    }
-
-    public int getId() {
-        return id;
     }
 }

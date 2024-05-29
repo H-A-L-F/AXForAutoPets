@@ -1,7 +1,7 @@
 package repository;
 
 public class RoundRepository extends ModelRepository{
-    private int id;
+
     private int match_id;
     private int round;
 
@@ -49,9 +49,5 @@ public class RoundRepository extends ModelRepository{
             e.printStackTrace();
             return null;
         }
-    }
-
-    public int getId() {
-        return id;
     }
 }

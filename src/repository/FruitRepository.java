@@ -1,7 +1,7 @@
 package repository;
 
 public class FruitRepository extends ModelRepository{
-    private int id;
+
     private int pet_id;
     private String name;
 
@@ -11,7 +11,7 @@ public class FruitRepository extends ModelRepository{
         this.name = name;
     }
 
-    public static FruitRepository newInstance(int id, int pet_id, String name) {
+    public static FruitRepository newInstance(int pet_id, String name) {
         insert(pet_id, name);
         return getLastInserted(pet_id);
     }

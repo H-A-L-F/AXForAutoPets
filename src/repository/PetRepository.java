@@ -3,7 +3,7 @@ package repository;
 import models.Pet;
 
 public class PetRepository extends ModelRepository {
-    private int id;
+
     private int round_id;
     private String name;
     private int atk;

@@ -4,6 +4,7 @@ import constants.Lib;
 import constants.PetStatus;
 import interfaces.*;
 import main.EventManager;
+import repository.FruitRepository;
 import repository.PetRepository;
 import repository.RoundRepository;
 
@@ -65,7 +66,8 @@ public class Team {
     public void saveTeam() {
         for (Pet p : pets) {
             if(p == null) continue;
-            PetRepository.newInstance(RoundRepository.getInstance().getId(), p.getName(), p.getAtk(), p.getHp(), p.getLv(), p.getExp(), p.getPos());
+            PetRepository curr = PetRepository.newInstance(RoundRepository.getInstance().getId(), p.getName(), p.getAtk(), p.getHp(), p.getLv(), p.getExp(), p.getPos());
+            if(p.getFruit() != null) FruitRepository.newInstance(curr.getId(), p.getFruit().getName());
         }
     }
 
