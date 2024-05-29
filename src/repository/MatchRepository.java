@@ -33,18 +33,13 @@ public class MatchRepository extends ModelRepository {
         return instance;
     }
 
-    public void insert() {
-        String query = "INSERT INTO match(user_id, team_name, win) VALUES (%d, %s, %d)";
-        con.execUpdate(String.format(query, user_id, team_name, win));
-    }
-
     public static void insert(int user_id, String team_name) {
-        String query = "INSERT INTO match(user_id, team_name, win) VALUES (%d, '%s', %d)";
+        String query = "INSERT INTO `match`(user_id, team_name, win) VALUES (%d, '%s', %d)";
         con.execUpdate(String.format(query, user_id, team_name, 0));
     }
 
     private static MatchRepository getLastInserted(int user_id, String team_name) {
-        String query = "SELECT * FROM match WHERE user_id = %d and team_name = '%s' ORDER BY id DESC LIMIT 1";
+        String query = "SELECT * FROM `match` WHERE user_id = %d and team_name = '%s' ORDER BY id DESC LIMIT 1";
         con.execQuery(String.format(query, user_id, team_name));
         try {
             if(!con.rs.next()) {
@@ -63,7 +58,7 @@ public class MatchRepository extends ModelRepository {
     }
 
     public void updateWin(int win) {
-        String query = "UPDATE match SET win = %d WHERE id = %d";
+        String query = "UPDATE `match` SET win = %d WHERE id = %d";
         con.execUpdate(String.format(query, win, id));
     }
 }

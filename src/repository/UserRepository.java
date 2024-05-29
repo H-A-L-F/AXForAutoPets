@@ -39,10 +39,10 @@ public class UserRepository extends ModelRepository {
     public void insert(String name, String password) {
         String query = "INSERT INTO User (name, password) values('%s', '%s')";
         con.execUpdate(String.format(query, name, password));
-        getLastInserted();
+        getLastInserted(name, password);
     }
 
-    private UserRepository getLastInserted() {
+    private UserRepository getLastInserted(String name, String password) {
         String query = "SELECT * FROM user WHERE name = '%s' and password = '%s' ORDER BY id DESC LIMIT 1";
         con.execQuery(String.format(query, name, password));
         try {
