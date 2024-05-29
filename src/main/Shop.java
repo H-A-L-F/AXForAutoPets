@@ -222,6 +222,7 @@ public class Shop {
 
     private void menuSell() {
         int opt = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
+        opt--;
         if(pteam.getPet(opt) == null) {
             System.out.println("You can only sell a valid pet");
             return;
