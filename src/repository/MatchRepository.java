@@ -15,12 +15,6 @@ public class MatchRepository extends ModelRepository {
         this.win = win;
     }
 
-    private MatchRepository(int user_id, String team_name) {
-        this.user_id = user_id;
-        this.team_name = team_name;
-        this.win = 0;
-    }
-
     public static MatchRepository getInstance() {
         return instance;
     }
