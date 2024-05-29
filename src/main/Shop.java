@@ -185,6 +185,10 @@ public class Shop {
     }
 
     private <T> void freezeShopItem(ArrayList<ShopItem<T>> shopItems, int idx) {
+        if(shopItems.get(idx).item == null) {
+            System.out.println("You can't freeze empty slot");
+            return;
+        }
         if(shopItems.get(idx).state == ShopState.NORMAL) {
             shopItems.get(idx).state = ShopState.FROZEN;
         } else {
