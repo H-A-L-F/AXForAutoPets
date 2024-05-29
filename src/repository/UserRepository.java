@@ -54,4 +54,8 @@ public class UserRepository extends ModelRepository {
         }
         return this;
     }
+
+    public int getId() {
+        return id;
+    }
 }

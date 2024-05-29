@@ -5,6 +5,7 @@ import constants.*;
 import models.Pet;
 import models.Team;
 import repository.MatchRepository;
+import repository.UserRepository;
 
 public class Arena {
     private Team pTeam;
@@ -45,7 +46,7 @@ public class Arena {
     }
 
     public void newGame() {
-        MatchRepository.getInstance(User.getInstance().getId(), pTeam.getName());
+        MatchRepository.getInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
         play();
     }
