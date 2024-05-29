@@ -4,7 +4,6 @@ import console_input.ConsoleInput;
 import constants.*;
 import models.Pet;
 import models.Team;
-import models.User;
 import repository.MatchRepository;
 
 public class Arena {

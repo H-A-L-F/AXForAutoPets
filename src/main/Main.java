@@ -4,7 +4,6 @@ import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
 import models.Team;
-import models.User;
 import repository.UserRepository;
 
 import java.sql.SQLException;
@@ -68,7 +67,7 @@ public class Main {
             int id = con.rs.getInt(1);
             String username = con.rs.getString(2);
             String userpass = con.rs.getString(3);
-            User.getInstance(id, name, userpass);
+            UserRepository.getInstance(id, username, userpass);
             System.out.println("Logged in as " + username);
             ci.enter();
             menuHome();
