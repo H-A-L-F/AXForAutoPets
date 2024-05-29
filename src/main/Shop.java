@@ -208,7 +208,10 @@ public class Shop {
         int target = in.getInt((x) -> x != opt && x >= Team.START_SIZE && x <= Team.END_SIZE, "Choose [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         Pet curr = pteam.getPet(opt - 1);
         Pet targetPet = pteam.getPet(target - 1);
-        if(curr.getPetListName() == targetPet.getPetListName()) pteam.mergePet(curr, target - 1);
+        if(curr.getPetListName() == targetPet.getPetListName()) {
+            pteam.mergePet(curr, target - 1);
+            pteam.removePet(opt - 1);
+        }
         else pteam.swapPet(opt - 1, target - 1);
     }
 

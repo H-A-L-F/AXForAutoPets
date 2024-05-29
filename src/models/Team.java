@@ -177,6 +177,10 @@ public class Team {
         pets[pos].onMerge();
     }
 
+    public void removePet(int pos) {
+        pets[pos] = null;
+    }
+
     public void mergeBoughtPet(Pet pet, int pos) {
         mergePet(pet, pos);
         pets[pos].onPurchased();
