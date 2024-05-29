@@ -80,8 +80,12 @@ public class Main {
     private void menuRegister() {
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
-        UserRepository.getInstance().insert(name, password);
-        System.out.println("Successfully registered");
+        if(!UserRepository.checkName(name)) {
+            System.out.println("Name already exists");
+        } else {
+            UserRepository.getInstance().insert(name, password);
+            System.out.println("Successfully registered");
+        }
         ci.enter();
     }
 

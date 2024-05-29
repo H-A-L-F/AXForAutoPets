@@ -1,5 +1,7 @@
 package repository;
 
+import java.sql.SQLException;
+
 public class UserRepository extends ModelRepository {
 
     private String name;
@@ -56,5 +58,16 @@ public class UserRepository extends ModelRepository {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public static boolean checkName(String name) {
+        String query = "SELECT * FROM user WHERE name = '%s'";
+        con.execQuery(String.format(query, name));
+        try {
+            return !con.rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
