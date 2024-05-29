@@ -59,9 +59,9 @@ public class Team {
         onFriendFaints = new ArrayList<>();
     }
 
-    public void getRandTeamFromDB() {
+    public void setRandTeamFromDB() {
         RoundRepository roundRepo = RoundRepository.getRandRoundRepository();
-        
+
     }
 
     public void printTeam() {

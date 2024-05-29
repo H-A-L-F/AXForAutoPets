@@ -1,6 +1,11 @@
 package repository;
 
+import constants.PetFactory;
+import constants.PetList;
 import models.Pet;
+import models.Team;
+
+import java.sql.SQLException;
 
 public class PetRepository extends ModelRepository {
 
@@ -33,14 +38,8 @@ public class PetRepository extends ModelRepository {
         con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
     }
 
-    private static PetRepository getLastInserted(int round_id, int pos) {
-        String query = "SELECT * FROM pet WHERE round_id = %d and pos = %d";
-        con.execQuery(String.format(query, round_id, pos));
+    private static PetRepository convertPetRepoFromRS() {
         try {
-            if(!con.rs.next()) {
-                System.out.println("Failed to get pet");
-                throw new Exception();
-            }
             int id = con.rs.getInt(1);
             int curr_round_id = con.rs.getInt(2);
             String name = con.rs.getString(3);
@@ -50,9 +49,49 @@ public class PetRepository extends ModelRepository {
             int exp = con.rs.getInt(7);
             int curr_pos = con.rs.getInt(8);
             return new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static PetRepository getPetRepoFromRS() {
+        try {
+            if(!con.rs.next()) {
+                System.out.println("Failed to get pet");
+                throw new Exception();
+            }
+            return convertPetRepoFromRS();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static PetRepository getLastInserted(int round_id, int pos) {
+        String query = "SELECT * FROM pet WHERE round_id = %d and pos = %d";
+        con.execQuery(String.format(query, round_id, pos));
+        return getPetRepoFromRS();
+    }
+
+    public static Pet[] getPetsForRound(int round_id) {
+        Pet[] pets = new Pet[Team.END_SIZE];
+        String query = "SELECT * FROM pet WHERE round_id = %d";
+        con.execQuery(String.format(query, round_id));
+        for(int i = 1; i <= Team.END_SIZE; i++) {
+            try {
+                if(con.rs.absolute(i)) {
+                    PetRepository petRepo = convertPetRepoFromRS();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return pets;
+    }
+
+    private static Pet PetRepoToPet(PetFactory factory, PetRepository petRepo) {
+        Pet pet = factory.getPet(PetList.valueOf(petRepo.name.toUpperCase()));
+        pet.setStats();
+        return pet;
     }
 }
