@@ -36,7 +36,7 @@ public class PetRepository extends ModelRepository {
     }
 
     private static void insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
-        String query = "INSERT INTO pet (round_id, name, atk, hp, lv, exp, pos) VALUES(%d, %s, %d, %d, %d, %d %d)";
+        String query = "INSERT INTO pet (round_id, name, atk, hp, lv, exp, pos) VALUES(%d, '%s', %d, %d, %d, %d, %d)";
         con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
     }
 

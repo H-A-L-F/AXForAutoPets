@@ -109,7 +109,7 @@ public class Arena {
     private void nextRound() {
         round++;
         RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
-        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
+//        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
         shop.nextRound(round);
     }
 
