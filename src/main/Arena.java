@@ -62,6 +62,7 @@ public class Arena {
         money = DEFAULT_MONEY;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
+        enmPetFactory = new PetFactory(this, enmTeam, pTeam);
         fruitFactory = new FruitFactory(this, pTeam, enmTeam);
         shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.pTeam);
     }
