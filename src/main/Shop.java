@@ -146,10 +146,7 @@ public class Shop {
         }
         ShopItem<Pet> pet = buyShopItem(pets, opt);
         if(target == null) pteam.boughtPet(pet.item, pos);
-        else {
-            if(pteam.getPet(pos).getLv() != Pet.MAX_LV) pteam.mergeBoughtPet(pet.item, pos);
-            else
-        }
+        else pteam.mergeBoughtPet(pet.item, pos);
     }
 
     private void menuBuyFood() {
