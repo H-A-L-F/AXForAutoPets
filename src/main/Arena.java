@@ -4,6 +4,8 @@ import console_input.ConsoleInput;
 import constants.*;
 import models.Pet;
 import models.Team;
+import models.User;
+import repository.MatchRepository;
 
 public class Arena {
     private Team pTeam;
@@ -20,20 +22,6 @@ public class Arena {
 
     private static final int DEFAULT_MONEY = 10;
 
-    private Arena() {
-        pTeam = new Team();
-        enmTeam = new Team();
-        round = 0;
-        win = 0;
-        life = 5;
-        money = DEFAULT_MONEY;
-
-        playerPetFactory = new PetFactory(this, pTeam, enmTeam);
-        fruitFactory = new FruitFactory(this, pTeam, enmTeam);
-        shop = new Shop(this, this.playerPetFactory, this.fruitFactory, this.pTeam);
-        in = ConsoleInput.getInstance();
-    }
-
     private Arena(Team pTeam) {
         this.pTeam = pTeam;
         enmTeam = new Team();
@@ -49,7 +37,6 @@ public class Arena {
     }
 
     public static Arena getInstance() {
-        if (instance == null) instance = new Arena();
         return instance;
     }
 
@@ -59,6 +46,7 @@ public class Arena {
     }
 
     public void newGame() {
+        MatchRepository.getInstance(User.getInstance().getId(), pTeam.getName());
         reset();
         play();
     }

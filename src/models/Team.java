@@ -203,6 +203,10 @@ public class Team {
         onFriendFaints.add(onFriendFaint);
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public int getTier(int idx) {
         return pets[idx].getTier();
     }

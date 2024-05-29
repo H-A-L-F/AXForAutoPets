@@ -22,6 +22,10 @@ public class User {
         return instance;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
