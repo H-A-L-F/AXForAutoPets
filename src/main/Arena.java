@@ -129,6 +129,8 @@ public class Arena {
             Pet ePet = enmTeam.getPet(Team.FRONT_INDEX);
             int pAtk = pTeam.getAtk(Team.FRONT_INDEX);
             int enmAtk = enmTeam.getAtk(Team.FRONT_INDEX);
+            System.out.printf("%s attacked %s for %d dmg\n", pPet.getName(), ePet.getName(), pAtk);
+            System.out.printf("%s attacked %s for %d dmg\n", ePet.getName(), pPet.getName(), pAtk);
             enmTeam.takeDamage(pAtk, Team.FRONT_INDEX);
             pTeam.takeDamage(enmAtk, Team.FRONT_INDEX);
             pTeam.doPet(
