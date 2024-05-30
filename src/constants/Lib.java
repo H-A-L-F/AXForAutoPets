@@ -63,20 +63,25 @@ public class Lib {
         else petPrinter.print(firstLn, secondLn, thirdLn, pet);
     }
 
+    private static void petPrintWrapperBattle(StringBuilder firstLn, StringBuilder secondLn, StringBuilder thirdLn, Pet pet) {
+        if (pet == null || pet.getStatus() == PetStatus.FAINT) printEmpty(firstLn, secondLn, thirdLn);
+        else petPrinter.print(firstLn, secondLn, thirdLn, pet);
+    }
+
     public static void printTeams(Team pteam, Team eTeam) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         StringBuilder thirdLn = new StringBuilder();
         for (int i = 0; i < Team.END_SIZE; i++) {
             Pet pet = pteam.getPet(i);
-            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+            petPrintWrapperBattle(firstLn, secondLn, thirdLn, pet);
         }
         String vs = "-> <- ";
         firstLn.append(vs);
         secondLn.append(String.format("%" + vs.length() + "s", ""));
         for (int i = Team.FRONT_INDEX; i >= 0; i--) {
             Pet pet = eTeam.getPet(i);
-            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+            petPrintWrapperBattle(firstLn, secondLn, thirdLn, pet);
         }
         System.out.println(firstLn);
         System.out.println(secondLn);
