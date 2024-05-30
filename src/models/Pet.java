@@ -37,7 +37,7 @@ public abstract class Pet extends Entity {
 
     protected void onFaint() {
         System.out.printf("%s fainted\n", getName());
-        fruit.onFaint(this);
+        if(fruit != null) fruit.onFaint(this);
         status = PetStatus.FAINT;
     }
 
