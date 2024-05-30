@@ -117,10 +117,6 @@ public class Arena {
         pTeam.arrangeBattleTeam();
         enmTeam.arrangeBattleTeam();
 
-        if(pTeam.getPet(Team.FRONT_INDEX) == null && enmTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.DRAW;
-        else if(pTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.LOSE;
-        else if(enmTeam.getPet(Team.FRONT_INDEX) == null) return BattleResult.WIN;
-
         Pet currP = pTeam.getPet(Team.FRONT_INDEX);
         Pet currEnm = enmTeam.getPet(Team.FRONT_INDEX);
 
@@ -147,8 +143,8 @@ public class Arena {
             if(currP.getStatus() == PetStatus.FAINT && currP.getPos() != Team.BACK_INDEX) currP = pTeam.getPet(currP.getPos() - 1);
             if(currEnm.getStatus() == PetStatus.FAINT && currEnm.getPos() != Team.BACK_INDEX) currEnm = pTeam.getPet(currEnm.getPos() - 1);
         }
-        if (currP.getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
-        else if (currEnm.getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
+        if (currP != null && currP.getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
+        else if (currEnm != null && currEnm.getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
     }
 
