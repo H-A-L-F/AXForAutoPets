@@ -34,11 +34,13 @@ public abstract class Pet extends Entity {
     // region<On...>
 
     protected void onFaint() {
+        System.out.printf("%s fainted\n", getName());
         fruit.onFaint(this);
         status = PetStatus.FAINT;
     }
 
     protected void onSell() {
+        System.out.printf("Sold %s for %d coins", getName(), getLv());
         Arena.getInstance().incMoney(getLv());
     }
 
