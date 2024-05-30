@@ -4,10 +4,7 @@ import models.Fruit;
 import models.Pet;
 import models.Team;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class Lib {
 
@@ -28,11 +25,14 @@ public class Lib {
         return sb.toString();
     }
 
-    public static void printSlots(Pet[] pets) {
+    public static void printSlots(HashMap<Integer, Pet> pets) {
         StringBuilder firstLn = new StringBuilder();
         StringBuilder secondLn = new StringBuilder();
         StringBuilder thirdLn = new StringBuilder();
-        for (Pet pet : pets) petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+        for(int i = Team.BACK_INDEX; i < Team.END_SIZE; i++) {
+            Pet pet = pets.get(i);
+            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+        }
         System.out.println(firstLn);
         System.out.println(secondLn);
         System.out.println(thirdLn);
@@ -74,14 +74,14 @@ public class Lib {
         StringBuilder thirdLn = new StringBuilder();
         for (int i = 0; i < Team.END_SIZE; i++) {
             Pet pet = pteam.getPet(i);
-            petPrintWrapperBattle(firstLn, secondLn, thirdLn, pet);
+            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
         }
         String vs = "-> <- ";
         firstLn.append(vs);
         secondLn.append(String.format("%" + vs.length() + "s", ""));
         for (int i = Team.FRONT_INDEX; i >= 0; i--) {
             Pet pet = eTeam.getPet(i);
-            petPrintWrapperBattle(firstLn, secondLn, thirdLn, pet);
+            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
         }
         System.out.println(firstLn);
         System.out.println(secondLn);
