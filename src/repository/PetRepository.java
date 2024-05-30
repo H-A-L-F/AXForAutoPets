@@ -76,18 +76,21 @@ public class PetRepository extends ModelRepository {
     }
 
     public static Pet[] getPetsForRound(PetFactory petF, FruitFactory fruF, int round_id) {
+        PetRepository[] petRepos = new PetRepository[Team.END_SIZE];
         Pet[] pets = new Pet[Team.END_SIZE];
-        String query = "SELECT * FROM pet WHERE round_id = %d";
-        con.execQuery(String.format(query, round_id));
-        for(int i = 1; i <= Team.END_SIZE; i++) {
+        String query = "SELECT * FROM pet WHERE round_id = %d LIMIT %d";
+        con.execQuery(String.format(query, round_id, Team.END_SIZE));
+        for(int i = 0; i < Team.END_SIZE; i++) {
             try {
-                if(con.rs.absolute(i)) {
-                    PetRepository petRepo = convertPetRepoFromRS();
-                    pets[i] = petRepoToPet(petF, fruF, petRepo);
-                }
+                if(!con.rs.next()) break;
+                petRepos[i] = convertPetRepoFromRS();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        for(int i = 0; i < Team.END_SIZE; i++) {
+            if(petRepos[i] == null) continue;
+            pets[i] = petRepoToPet(petF, fruF, petRepos[i]);
         }
         return pets;
     }
