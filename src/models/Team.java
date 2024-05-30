@@ -66,6 +66,7 @@ public class Team {
         Pet[] temp = PetRepository.getPetsForRound(petF, fruF, roundRepo.getId());
         for(int i = 0; i < END_SIZE; i++) {
             Pet curr = temp[i];
+            if(curr == null) continue;
             placePet(curr, curr.getPos());
         }
     }
