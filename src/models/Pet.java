@@ -74,7 +74,8 @@ public abstract class Pet extends Entity {
     // endregion
 
     public int damage(int damage) {
-        int dmg = fruit.onDamaged(damage);
+        int dmg = 0;
+        if(fruit!= null) dmg = fruit.onDamaged(damage);
         this.hp -= dmg;
         if(hp <= 0) onFaint();
         else onHurt();

@@ -36,7 +36,6 @@ public class FruitRepository extends ModelRepository{
             String name = con.rs.getString(3);
             return new FruitRepository(id, curr_pet_id, name);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

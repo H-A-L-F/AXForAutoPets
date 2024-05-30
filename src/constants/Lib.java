@@ -74,7 +74,7 @@ public class Lib {
         String vs = "-> <- ";
         firstLn.append(vs);
         secondLn.append(String.format("%" + vs.length() + "s", ""));
-        for (int i = Team.END_SIZE; i >= 0; i--) {
+        for (int i = Team.FRONT_INDEX; i >= 0; i--) {
             Pet pet = eTeam.getPet(i);
             petPrintWrapper(firstLn, secondLn, thirdLn, pet);
         }
