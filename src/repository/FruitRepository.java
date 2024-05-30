@@ -28,7 +28,7 @@ public class FruitRepository extends ModelRepository{
     private static FruitRepository getFruitRepoFromRS() {
         try {
             if(!con.rs.next()) {
-                System.out.println("Failed to get fruit");
+//                System.out.println("Failed to get fruit");
                 throw new Exception();
             }
             int id = con.rs.getInt(1);
@@ -36,6 +36,7 @@ public class FruitRepository extends ModelRepository{
             String name = con.rs.getString(3);
             return new FruitRepository(id, curr_pet_id, name);
         } catch (Exception e) {
+//            e.printStackTrace();
             return null;
         }
     }
