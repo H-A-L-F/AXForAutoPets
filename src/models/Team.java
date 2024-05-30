@@ -115,9 +115,12 @@ public class Team {
         doPet.doPet(getRandPet());
     }
 
-    public void doPet(GetPet getPet, DoPet doPet) {
-        Pet pet = getPet.getPet();
-        if(pet != null && pet.getStatus() != PetStatus.FAINT) doPet.doPet(pet);
+    public void doPet(Pet origin, GetPet getPet, DoPet doPet) {
+        Pet pet;
+        do {
+            pet = getPet.getPet();
+        } while(pet != null && pet != origin && pet.getStatus() != PetStatus.FAINT);
+        doPet.doPet(pet);
     }
 
     public void arrangeBattleTeam() {
