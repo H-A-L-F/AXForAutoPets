@@ -111,10 +111,6 @@ public class Team {
         }
     }
 
-    public void doRandom(DoPet doPet) {
-        doPet.doPet(getRandPet());
-    }
-
     public void doPet(Pet origin, GetPet getPet, DoPet doPet) {
         Pet pet;
         do {
@@ -135,7 +131,7 @@ public class Team {
         }
     }
 
-    private Pet getRandPet() {
+    public Pet getRandPet() {
         Pet res = null;
         while (res == null) {
             int idx = (int) (Math.random() * END_SIZE);
