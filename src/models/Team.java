@@ -12,11 +12,12 @@ import repository.RoundRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class Team {
     String name;
     private EventManager eventManager;
-    private Pet[] pets;
+    private HashMap<Integer, Pet> pets;
     private int slot;
 
     private ArrayList<OnBattleStart> onBattleStarts;
@@ -34,7 +35,7 @@ public class Team {
 
     public Team() {
         this.eventManager = new EventManager(this);
-        pets = new Pet[END_SIZE];
+        this.pets = new HashMap<>();
         slot = END_SIZE;
 
         onBattleStarts = new ArrayList<>();
@@ -49,7 +50,7 @@ public class Team {
     public Team(String name) {
         this.name = name;
         this.eventManager = new EventManager(this);
-        pets = new Pet[END_SIZE];
+        this.pets = new HashMap<>();
         slot = END_SIZE;
 
         onBattleStarts = new ArrayList<>();
@@ -59,6 +60,11 @@ public class Team {
         onFriendAttacks = new ArrayList<>();
         onFriendEatFruits = new ArrayList<>();
         onFriendFaints = new ArrayList<>();
+    }
+
+    private void put(Pet pet, int pos) {
+        pet.setPos(pos);
+        pets.put(pet.getPos(), pet);
     }
 
     public void setRandTeamFromDB(PetFactory petF, FruitFactory fruF, int round) {
@@ -72,8 +78,8 @@ public class Team {
     }
 
     public void placePet(Pet pet, int pos) {
-        pets[pos] = pet;
-        if(pets[pos] instanceof OnPlaced) ((OnPlaced) pets[pos]).onPlaced();
+        put(pet, pos);
+        if(pet instanceof OnPlaced) ((OnPlaced) pet).onPlaced();
     }
 
     public void printTeam() {
@@ -81,7 +87,8 @@ public class Team {
     }
 
     public void saveTeam() {
-        for (Pet p : pets) {
+        for(int i = Team.BACK_INDEX; i < Team.END_SIZE; i++) {
+            Pet p = pets.get(i);
             if(p == null) continue;
             PetRepository curr = PetRepository.newInstance(RoundRepository.getInstance().getId(), p.getName(), p.getAtk(), p.getHp(), p.getLv(), p.getExp(), p.getPos());
             if(p.getFruit() != null) FruitRepository.newInstance(curr.getId(), p.getFruit().getName());
@@ -93,21 +100,22 @@ public class Team {
     }
 
     public void feedPetAt(Fruit fruit, int idx) {
-        pets[idx].eatFruit(fruit);
+        pets.get(idx).eatFruit(fruit);
     }
 
     public int getAtk(int idx) {
-        return pets[idx].attack();
+        return pets.get(idx).attack();
     }
 
     public int takeDamage(int damage, int idx) {
-        return pets[idx].damage(damage);
+        return pets.get(idx).damage(damage);
     }
 
     public void doAll(DoPet doPet) {
         for(int i = BACK_INDEX; i < END_SIZE; i++) {
-            if(pets[i] == null) continue;
-            doPet.doPet(pets[i]);
+            Pet p = pets.get(i);
+            if(p == null) continue;
+            doPet.doPet(p);
         }
     }
 
@@ -121,11 +129,13 @@ public class Team {
 
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
-            if(pets[i] != null) continue;
+            Pet p = pets.get(i);
+            if(p != null && p.getStatus() == PetStatus.FAINT) pets.remove(p.getPos());
+            if(p != null && p.getStatus() == PetStatus.NORMAL) continue;
             for(int j = i - 1; j >= 0; j--) {
-                if(pets[j] == null) continue;
-                pets[i] = pets[j];
-                pets[j] = null;
+                Pet q = pets.get(j);
+                if(q == null || q.getStatus() == PetStatus.FAINT) continue;
+                put(q, i);
                 break;
             }
         }
@@ -135,7 +145,7 @@ public class Team {
         Pet res = null;
         while (res == null) {
             int idx = (int) (Math.random() * END_SIZE);
-            res = pets[idx];
+            res = pets.get(idx);
         }
         return res;
     }
@@ -144,65 +154,62 @@ public class Team {
         int idx = -1;
         do {
             idx = (int) (Math.random() * END_SIZE);
-        } while(pets[idx] == null);
+        } while(pets.get(idx) == null);
         return idx;
     }
 
     public void summonPet(Pet pet, int pos) {
+        //TODO
         if(slot == 0) {
             failSpawn(pet);
             return;
         }
-        if(pets[pos] == null) {
-            pets[pos] = pet;
+        if(pets.get(pos) == null) {
+            put(pet, pos);
             return;
         }
-        for(int i = FRONT_INDEX; i > pos; i--) {
-            pets[i] = pets[i-1];
-        }
-        pets[pos] = pet;
+        put(pet, pos);
     }
 
     public void boughtPet(Pet pet, int pos) {
-        pet.setPos(pos);
-        pets[pos] = pet;
-        pets[pos].onPurchased();
-        if(pets[pos] instanceof OnPlaced) ((OnPlaced) pets[pos]).onPlaced();
+        put(pet, pos);
+        pet.onPurchased();
+        if(pet instanceof OnPlaced) ((OnPlaced) pet).onPlaced();
     }
 
     public void mergePet(Pet pet, int pos) {
-        int atk = Math.max(pets[pos].getAtk(), pet.getAtk());
-        int hp = Math.max(pets[pos].getHp(), pet.getHp());
-        pets[pos].setStats(atk, hp);
-        pets[pos].onMerge();
+        int atk = Math.max(pet.getAtk(), pet.getAtk());
+        int hp = Math.max(pet.getHp(), pet.getHp());
+        pet.setStats(atk, hp);
+        pet.onMerge();
     }
 
     public void removePet(int pos) {
-        pets[pos] = null;
+        pets.remove(pos);
     }
 
     public void mergeBoughtPet(Pet pet, int pos) {
         mergePet(pet, pos);
-        pets[pos].onPurchased();
+        pet.onPurchased();
     }
 
     public void swapPet(int idx1, int idx2) {
-        Pet temp = pets[idx1];
-        pets[idx1] = pets[idx2];
-        pets[idx2] = temp;
+        Pet temp = pets.get(idx1);
+        put(pets.get(idx2), idx1);
+        put(temp, idx2);
     }
 
     public void sellPet(int idx) {
-        pets[idx].onSell();
-        pets[idx] = null;
+        pets.get(idx).onSell();
+        pets.remove(idx);
     }
 
     public Pet getMostAttribute(ComparePet comparePet) {
         Pet res = null;
         for (int i = BACK_INDEX; i < FRONT_INDEX; i++) {
-            if(pets[i] == null) continue;
-            if(res == null) res = pets[i];
-            res = comparePet.comparePet(res, pets[i]);
+            if(pets.get(i) == null) continue;
+            if(res == null) res = pets.get(i);
+            res = comparePet.comparePet(res, pets.get(i));
         }
         return res;
     }
@@ -240,11 +247,11 @@ public class Team {
     }
 
     public int getTier(int idx) {
-        return pets[idx].getTier();
+        return pets.get(idx).getTier();
     }
 
     public Pet getPet(int idx) {
-        return pets[idx];
+        return pets.get(idx);
     }
 
     private void failSpawn(Pet pet) {
