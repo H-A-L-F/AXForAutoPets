@@ -108,7 +108,7 @@ public class Arena {
 
     private void nextRound() {
         round++;
-        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
+//        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
         enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
         shop.nextRound(round);
     }
@@ -124,26 +124,14 @@ public class Arena {
             pTeam.arrangeBattleTeam();
             enmTeam.arrangeBattleTeam();
             Lib.printTeams(pTeam, enmTeam);
-            int pAtk = pTeam.getAtk(Team.FRONT_INDEX);
-            int enmAtk = enmTeam.getAtk(Team.FRONT_INDEX);
-            System.out.printf("%s attacked %s for %d dmg\n", currP.getName(), currEnm.getName(), pAtk);
-            System.out.printf("%s attacked %s for %d dmg\n", currEnm.getName(), currP.getName(), pAtk);
-            Pet petP = currP;
-            Pet petE = currEnm;
-            enmTeam.takeDamage(pAtk, Team.FRONT_INDEX);
-            pTeam.doPet(
-                    null,
-                    () -> petP,
-                    Pet::onAfterAttack
-            );
-            pTeam.takeDamage(enmAtk, Team.FRONT_INDEX);
-            enmTeam.doPet(
-                    null,
-                    () -> petE,
-                    Pet::onAfterAttack
-            );
+            System.out.printf("%s attacked %s for %d dmg\n", currP.getName(), currEnm.getName(), currP.getAtk());
+            System.out.printf("%s attacked %s for %d dmg\n", currEnm.getName(), currP.getName(), currEnm.getAtk());
+            currEnm.damage(currP.getAtk());
+            if(currP.getStatus() == PetStatus.NORMAL) currP.onAfterAttack();
+            currP.damage(currEnm.getAtk());
+            if(currEnm.getStatus() == PetStatus.NORMAL) currEnm.onAfterAttack();
             if(currP.getStatus() == PetStatus.FAINT && currP.getPos() != Team.BACK_INDEX) currP = pTeam.getPet(currP.getPos() - 1);
-            if(currEnm.getStatus() == PetStatus.FAINT && currEnm.getPos() != Team.BACK_INDEX) currEnm = pTeam.getPet(currEnm.getPos() - 1);
+            if(currEnm.getStatus() == PetStatus.FAINT && currEnm.getPos() != Team.BACK_INDEX) currEnm = enmTeam.getPet(currEnm.getPos() - 1);
         }
         if (currP != null && currP.getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
         else if (currEnm != null && currEnm.getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;

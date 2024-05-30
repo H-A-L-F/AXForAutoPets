@@ -115,7 +115,7 @@ public class Team {
         Pet pet;
         do {
             pet = getPet.getPet();
-        } while(pet == null|| pet == origin || pet.getStatus() == PetStatus.FAINT);
+        } while(pet == null|| pet == origin);
         doPet.doPet(pet);
     }
 
