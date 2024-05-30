@@ -187,6 +187,7 @@ public class PetFactory {
                 for(int i = 0; i < 2; i++) {
                     int pos = getPos() - i - 1;
                     pTeam.doPet(
+                            this,
                             () -> pTeam.getPet(pos),
                             pet -> pet.buff(getLv(), getLv())
                     );
@@ -320,11 +321,27 @@ public class PetFactory {
                 super.onFaint();
                 int dmg = (int) ((double) getAtk() * 0.5) * getLv();
                 if (getPos() == Team.FRONT_INDEX) {
-                    pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
-                    eTeam.doPet(() -> eTeam.getPet(Team.FRONT_INDEX), pet -> pet.damage(dmg));
+                    pTeam.doPet(
+                            this,
+                            () -> pTeam.getPet(getPos() - 1),
+                            pet -> pet.damage(dmg)
+                    );
+                    eTeam.doPet(
+                            this,
+                            () -> eTeam.getPet(Team.FRONT_INDEX),
+                            pet -> pet.damage(dmg)
+                    );
                 } else {
-                    pTeam.doPet(() -> pTeam.getPet(getPos() + 1), pet -> pet.damage(dmg));
-                    pTeam.doPet(() -> pTeam.getPet(getPos() - 1), pet -> pet.damage(dmg));
+                    pTeam.doPet(
+                            this,
+                            () -> pTeam.getPet(getPos() + 1),
+                            pet -> pet.damage(dmg)
+                    );
+                    pTeam.doPet(
+                            this,
+                            () -> pTeam.getPet(getPos() - 1),
+                            pet -> pet.damage(dmg)
+                    );
                 }
             }
         };
@@ -337,6 +354,7 @@ public class PetFactory {
                 for (int i = 0; i < getLv(); i++) {
                     int dmg = 4;
                     eTeam.doPet(
+                            this,
                             () -> eTeam.getMostAttribute((x, y) -> x.getHp() <= y.getHp() ? x : y),
                             pet -> pet.damage(dmg)
                     );
@@ -357,6 +375,7 @@ public class PetFactory {
                 for(int i = 0; i < getLv(); i++) {
                     int pos = getPos() + i + 1;
                     pTeam.doPet(
+                            this,
                             () -> pTeam.getPet(pos),
                             pet -> pet.buff(1, 1)
                     );
@@ -378,6 +397,7 @@ public class PetFactory {
                 int dmg = 1;
                 for(int i = 0; i < getLv(); i++) {
                     pTeam.doPet(
+                            this,
                             () -> pTeam.getPet(getPos() - 1),
                             pet -> pet.damage(dmg)
                     );
@@ -394,6 +414,7 @@ public class PetFactory {
                 int atk = getLv();
                 int hp = 2 * getLv();
                 pTeam.doPet(
+                        this,
                         () -> pTeam.getPet(getPos() - 1),
                         pet -> pet.buff(atk, hp)
                 );
