@@ -132,11 +132,13 @@ public class Arena {
             Pet petE = currEnm;
             enmTeam.takeDamage(pAtk, Team.FRONT_INDEX);
             pTeam.doPet(
+                    null,
                     () -> petP,
                     Pet::onAfterAttack
             );
             pTeam.takeDamage(enmAtk, Team.FRONT_INDEX);
             enmTeam.doPet(
+                    null,
                     () -> petE,
                     Pet::onAfterAttack
             );
