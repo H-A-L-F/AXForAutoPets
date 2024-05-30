@@ -76,6 +76,7 @@ public abstract class Pet extends Entity {
     public int damage(int damage) {
         int dmg = 0;
         if(fruit!= null) dmg = fruit.onDamaged(damage);
+        else dmg = damage;
         this.hp -= dmg;
         if(hp <= 0) onFaint();
         else onHurt();
