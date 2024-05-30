@@ -6,7 +6,7 @@ public class Connect {
     private final String USERNAME = "root";
     private final String PASSWORD = "";
     private final String DATABASE = "auto_pets";
-    private final String HOST = "127.0.0.1:3306";
+    private final String HOST = "10.22.68.105:3306";
     private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 
     public ResultSet rs;
