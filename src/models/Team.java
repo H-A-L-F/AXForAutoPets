@@ -136,6 +136,7 @@ public class Team {
                 Pet q = pets.get(j);
                 if(q == null || q.getStatus() == PetStatus.FAINT) continue;
                 put(q, i);
+                pets.remove(j);
                 break;
             }
         }
