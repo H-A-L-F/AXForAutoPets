@@ -94,6 +94,7 @@ public abstract class Pet extends Entity {
     }
 
     public void buff(int atk, int hp) {
+        System.out.printf("%s is buffed for %d | %d\n", getName(), atk, hp);
         this.atk += atk;
         this.hp += hp;
     }
