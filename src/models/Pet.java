@@ -12,12 +12,12 @@ public abstract class Pet extends Entity {
     private int hp;
     private int lv;
     private int exp;
+    private int currExpLimitIdx;
     private int pos;
     private PetStatus status;
     private Fruit fruit;
 
-    private static int EXP_LV1 = 2;
-    private static int EXP_LV2 = 3;
+    private final int[] EXP_LIMITS = {2, 3};
     public static int MAX_LV = 3;
 
     public Pet(PetList name, int tier, int atk, int hp) {
@@ -26,9 +26,11 @@ public abstract class Pet extends Entity {
         this.atk = atk;
         this.hp = hp;
         this.lv = 1;
+        this.currExpLimitIdx = 0;
         this.exp = 0;
         this.pos = 0;
         this.status = PetStatus.NORMAL;
+
     }
 
     // region<On...>
@@ -48,12 +50,13 @@ public abstract class Pet extends Entity {
         exp++;
         atk++;
         hp++;
-        if((lv == 1 && exp == EXP_LV1) || (lv == 2 && exp == EXP_LV2)) onLevelUp();
+        if(exp == EXP_LIMITS[currExpLimitIdx]) onLevelUp();
     }
 
     protected void onLevelUp() {
         lv++;
         exp = 0;
+        currExpLimitIdx++;
     }
 
     protected void onPurchased() {
@@ -143,6 +146,10 @@ public abstract class Pet extends Entity {
 
     public int getExp() {
         return exp;
+    }
+
+    public int getExpLimit() {
+        return EXP_LIMITS[currExpLimitIdx];
     }
 
     public Fruit getFruit() {
