@@ -62,6 +62,21 @@ public class Team {
         onFriendFaints = new ArrayList<>();
     }
 
+    public Team(Team t) {
+        this.name = t.name;
+        this.eventManager = t.eventManager;
+        this.pets = t.pets;
+        this.slot = t.slot;
+
+        this.onBattleStarts = t.onBattleStarts;
+        this.onSummons = t.onSummons;
+        this.onTurnStarts = t.onTurnStarts;
+        this.onTurnEnds = t.onTurnEnds;
+        this.onFriendAttacks = t.onFriendAttacks;
+        this.onFriendEatFruits = t.onFriendEatFruits;
+        this.onFriendFaints = t.onFriendFaints;
+    }
+
     private void put(Pet pet, int pos) {
         pet.setPos(pos);
         pets.put(pet.getPos(), pet);

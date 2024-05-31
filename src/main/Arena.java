@@ -71,7 +71,9 @@ public class Arena {
         while (life > 0) {
             nextRound();
             shop();
+            Team temp = new Team(pTeam);
             lastBattleResult = battle();
+            pTeam = temp;
             switch (lastBattleResult) {
                 case WIN:
                     win();
