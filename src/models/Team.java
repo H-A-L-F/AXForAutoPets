@@ -11,12 +11,13 @@ import repository.PetRepository;
 import repository.RoundRepository;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class Team {
     String name;
     private EventManager eventManager;
+    private HashMap<Pet, PetStats> petStats;
+    private HashMap<Integer, Pet> battlePets;
     private HashMap<Integer, Pet> pets;
     private int slot;
 
@@ -35,6 +36,8 @@ public class Team {
 
     public Team() {
         this.eventManager = new EventManager(this);
+        this.petStats = new HashMap<>();
+        this.battlePets = new HashMap<>();
         this.pets = new HashMap<>();
         slot = END_SIZE;
 
@@ -50,6 +53,8 @@ public class Team {
     public Team(String name) {
         this.name = name;
         this.eventManager = new EventManager(this);
+        this.petStats = new HashMap<>();
+        this.battlePets = new HashMap<>();
         this.pets = new HashMap<>();
         slot = END_SIZE;
 
@@ -65,6 +70,8 @@ public class Team {
     public Team(Team t) {
         this.name = t.name;
         this.eventManager = t.eventManager;
+        this.petStats = t.petStats;
+        this.battlePets = t.battlePets;
         this.pets = t.pets;
         this.slot = t.slot;
 
@@ -80,6 +87,15 @@ public class Team {
     private void put(Pet pet, int pos) {
         pet.setPos(pos);
         pets.put(pet.getPos(), pet);
+    }
+
+    private void putBattlePet(Pet pet, int pos) {
+        pet.setPos(pos);
+        battlePets.put(pet.getPos(), pet);
+    }
+
+    private void putStats(Pet pet) {
+        petStats.put(pet, new PetStats(pet.getAtk(), pet.getHp(), pet.getPos()));
     }
 
     public void setRandTeamFromDB(PetFactory petF, FruitFactory fruF, int round) {
@@ -99,6 +115,21 @@ public class Team {
 
     public void printTeam() {
         Lib.printSlots(pets);
+    }
+
+    public void initBattleTeam() {
+        petStats.clear();
+        battlePets.clear();
+        for(int i = BACK_INDEX; i < END_SIZE; i++) {
+            Pet p = pets.get(i);
+            if(p == null) continue;
+            putStats(p);
+            putBattlePet(p, i);
+        }
+    }
+
+    public void resetPets() {
+        
     }
 
     public void saveTeam() {
@@ -144,14 +175,14 @@ public class Team {
 
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
-            Pet p = pets.get(i);
-            if(p != null && p.getStatus() == PetStatus.FAINT) pets.remove(p.getPos());
+            Pet p = battlePets.get(i);
+            if(p != null && p.getStatus() == PetStatus.FAINT) battlePets.remove(p.getPos());
             if(p != null && p.getStatus() == PetStatus.NORMAL) continue;
             for(int j = i - 1; j >= 0; j--) {
-                Pet q = pets.get(j);
+                Pet q = battlePets.get(j);
                 if(q == null || q.getStatus() == PetStatus.FAINT) continue;
-                put(q, i);
-                pets.remove(j);
+                putBattlePet(q, i);
+                battlePets.remove(j);
                 break;
             }
         }
@@ -276,5 +307,15 @@ public class Team {
 
     public int getSlot() {
         return slot;
+    }
+}
+
+class PetStats {
+    public int atk, hp, pos;
+
+    public PetStats(int atk, int hp, int pos) {
+        this.atk = atk;
+        this.hp = hp;
+        this.pos = pos;
     }
 }

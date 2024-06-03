@@ -33,6 +33,19 @@ public abstract class Pet extends Entity {
 
     }
 
+    public Pet(Pet p) {
+        super(p.getTier());
+        this.name = p.name;
+        this.atk = p.atk;
+        this.hp = p.hp;
+        this.lv = p.lv;
+        this.exp = p.exp;
+        this.currExpLimitIdx = p.currExpLimitIdx;
+        this.pos = p.pos;
+        this.status = p.status;
+        this.fruit = p.fruit;
+    }
+
     // region<On...>
 
     protected void onFaint() {
