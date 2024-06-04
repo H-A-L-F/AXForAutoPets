@@ -98,6 +98,12 @@ public class Team {
         petStats.put(pet, new PetStats(pet.getAtk(), pet.getHp(), pet.getPos()));
     }
 
+    private void resetStats(Pet pet) {
+        PetStats s = petStats.get(pet);
+        pet.setStatsWPos(s.atk, s.hp, s.pos);
+        pet.setStatus(PetStatus.NORMAL);
+    }
+
     public void setRandTeamFromDB(PetFactory petF, FruitFactory fruF, int round) {
         RoundRepository roundRepo = RoundRepository.getRandRoundRepository(round);
         Pet[] temp = PetRepository.getPetsForRound(petF, fruF, roundRepo.getId());
@@ -129,7 +135,11 @@ public class Team {
     }
 
     public void resetPets() {
-        
+        for(int i = BACK_INDEX; i < END_SIZE; i++) {
+            Pet p = pets.get(i);
+            if(p == null) continue;
+            resetStats(p);
+        }
     }
 
     public void saveTeam() {

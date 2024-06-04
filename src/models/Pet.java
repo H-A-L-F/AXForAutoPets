@@ -121,6 +121,12 @@ public abstract class Pet extends Entity {
         this.hp = hp;
     }
 
+    public void setStatsWPos(int atk, int hp, int pos) {
+        this.atk = atk;
+        this.hp = hp;
+        this.pos = pos;
+    }
+
     public void setStats(int lv, int atk, int hp) {
         this.lv = lv;
         this.atk = atk;
@@ -137,6 +143,10 @@ public abstract class Pet extends Entity {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public void setStatus(PetStatus petStatus) {
+        this.status = petStatus;
     }
 
     @Override
