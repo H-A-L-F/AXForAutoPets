@@ -73,14 +73,14 @@ public class Lib {
         StringBuilder secondLn = new StringBuilder();
         StringBuilder thirdLn = new StringBuilder();
         for (int i = 0; i < Team.END_SIZE; i++) {
-            Pet pet = pteam.getPet(i);
+            Pet pet = pteam.getBattlePet(i);
             petPrintWrapper(firstLn, secondLn, thirdLn, pet);
         }
         String vs = "-> <- ";
         firstLn.append(vs);
         secondLn.append(String.format("%" + vs.length() + "s", ""));
         for (int i = Team.FRONT_INDEX; i >= 0; i--) {
-            Pet pet = eTeam.getPet(i);
+            Pet pet = eTeam.getBattlePet(i);
             petPrintWrapper(firstLn, secondLn, thirdLn, pet);
         }
         System.out.println(firstLn);

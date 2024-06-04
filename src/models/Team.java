@@ -311,6 +311,10 @@ public class Team {
         return pets.get(idx);
     }
 
+    public Pet getBattlePet(int idx) {
+        return battlePets.get(idx);
+    }
+
     private void failSpawn(Pet pet) {
         System.out.println("Failed to spawn pet");
     }
