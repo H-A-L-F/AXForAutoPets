@@ -119,6 +119,10 @@ public class Arena {
     private BattleResult battle() {
         pTeam.arrangeBattleTeam();
         enmTeam.arrangeBattleTeam();
+        System.out.printf("Team %s vs Team %s\n", pTeam.getName(), enmTeam.getName());
+        Lib.printTeams(pTeam, enmTeam);
+        pTeam.onBattleStart();
+        enmTeam.onBattleStart();
 
         Pet currP = pTeam.getBattlePet(Team.FRONT_INDEX);
         Pet currEnm = enmTeam.getBattlePet(Team.FRONT_INDEX);

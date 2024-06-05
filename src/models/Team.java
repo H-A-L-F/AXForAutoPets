@@ -84,6 +84,16 @@ public class Team {
         this.onFriendFaints = t.onFriendFaints;
     }
 
+    //region<On...>
+
+    public void onBattleStart() {
+        for (OnBattleStart o : onBattleStarts) {
+            o.onBattleStart();
+        }
+    }
+
+    //endregion
+
     private void put(Pet pet, int pos) {
         pet.setPos(pos);
         pets.put(pet.getPos(), pet);
