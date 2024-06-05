@@ -72,6 +72,7 @@ public class Arena {
             nextRound();
             shop();
             pTeam.initBattleTeam();
+            enmTeam.initBattleTeam();
             lastBattleResult = battle();
             pTeam.resetPets();
             switch (lastBattleResult) {
