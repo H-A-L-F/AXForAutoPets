@@ -108,6 +108,15 @@ public class Team {
         petStats.put(pet, new PetStats(pet.getAtk(), pet.getHp(), pet.getPos()));
     }
 
+    public Pet getBattlePet() {
+        arrangeBattleTeam();
+        for (int i = FRONT_INDEX; i >= 0; i++) {
+            Pet p = battlePets.get(i);
+            if(p != null) return p;
+        }
+        return null;
+    }
+
     private void resetStats(Pet pet) {
         PetStats s = petStats.get(pet);
         pet.setStatsWPos(s.atk, s.hp, s.pos);
@@ -217,17 +226,28 @@ public class Team {
         return res;
     }
 
-    public void summonPet(Pet pet, int pos) {
-        //TODO
-        if(slot == 0) {
-            failSpawn(pet);
-            return;
+    public boolean summonPet(Pet pet, int pos) {
+        arrangeBattleTeam();
+        for(int i = BACK_INDEX; i < pos; i++) {
+            if(battlePets.get(i) != null) {
+                System.out.printf("Team full failed to summon %s.\n", pet.getName());
+                return false;
+            }
+            for(int j = i + 1; j <= pos; j++) {
+                if(battlePets.get(j) == null) continue;
+                putBattlePet(battlePets.get(j), i);
+                battlePets.remove(j);
+                break;
+            }
         }
-        if(pets.get(pos) == null) {
-            put(pet, pos);
-            return;
+        if(battlePets.get(pos) == null) {
+            putBattlePet(pet, pos);
+            arrangeBattleTeam();
+            return true;
+        } else {
+            System.out.printf("Team full failed to summon %s.\n", pet.getName());
+            return false;
         }
-        put(pet, pos);
     }
 
     public void boughtPet(Pet pet, int pos) {

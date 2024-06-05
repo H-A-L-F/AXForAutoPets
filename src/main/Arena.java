@@ -126,8 +126,8 @@ public class Arena {
         pTeam.arrangeBattleTeam();
         enmTeam.arrangeBattleTeam();
 
-        Pet currP = pTeam.getBattlePet(Team.FRONT_INDEX);
-        Pet currEnm = enmTeam.getBattlePet(Team.FRONT_INDEX);
+        Pet currP = pTeam.getBattlePet();
+        Pet currEnm = enmTeam.getBattlePet();
 
         while ((currP != null && currP.getStatus() == PetStatus.NORMAL) && (currEnm != null && currEnm.getStatus() == PetStatus.NORMAL)) {
             pTeam.arrangeBattleTeam();
@@ -139,8 +139,8 @@ public class Arena {
             if(currP.getStatus() == PetStatus.NORMAL) currP.onAfterAttack();
             currP.damage(currEnm.getAtk());
             if(currEnm.getStatus() == PetStatus.NORMAL) currEnm.onAfterAttack();
-            if(currP.getStatus() == PetStatus.FAINT && currP.getPos() != Team.BACK_INDEX) currP = pTeam.getBattlePet(currP.getPos() - 1);
-            if(currEnm.getStatus() == PetStatus.FAINT && currEnm.getPos() != Team.BACK_INDEX) currEnm = enmTeam.getBattlePet(currEnm.getPos() - 1);
+            if(currP.getStatus() == PetStatus.FAINT) currP = pTeam.getBattlePet();
+            if(currEnm.getStatus() == PetStatus.FAINT) currEnm = enmTeam.getBattlePet();
         }
         if (currP != null && currP.getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
         else if (currEnm != null && currEnm.getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;

@@ -66,7 +66,7 @@ public class PetFactory {
                 super.onFaint();
                 Pet temp = getZombieCricket();
                 temp.setStats(getLv(), getLv());
-                pTeam.summonPet(temp, getPos());
+                if(pTeam.summonPet(temp, getPos())) System.out.printf("Cricket summoned %s\n", temp.getName());
             }
         };
     }
