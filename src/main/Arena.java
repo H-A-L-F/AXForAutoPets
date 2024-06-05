@@ -123,6 +123,8 @@ public class Arena {
         Lib.printTeams(pTeam, enmTeam);
         pTeam.onBattleStart();
         enmTeam.onBattleStart();
+        pTeam.arrangeBattleTeam();
+        enmTeam.arrangeBattleTeam();
 
         Pet currP = pTeam.getBattlePet(Team.FRONT_INDEX);
         Pet currEnm = enmTeam.getBattlePet(Team.FRONT_INDEX);
