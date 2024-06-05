@@ -76,8 +76,15 @@ public class PetFactory {
             @Override
             public void onBattleStart() {
                 for (int i = 0; i < getLv(); i++) {
-                    int idx = eTeam.getRandIdx();
-                    eTeam.getBattlePet(idx).damage(1);
+                    int dmg = 1;
+                    eTeam.doPet(
+                            this,
+                            eTeam::getRandPet,
+                            pet -> {
+                                pet.damage(1);
+                                System.out.printf("Mosquito damaged %s for %d!\n", pet.getName(), dmg);
+                            }
+                    );
                 }
             }
 

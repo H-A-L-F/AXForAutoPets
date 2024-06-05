@@ -217,14 +217,6 @@ public class Team {
         return res;
     }
 
-    public int getRandIdx() {
-        int idx = -1;
-        do {
-            idx = (int) (Math.random() * END_SIZE);
-        } while(pets.get(idx) == null);
-        return idx;
-    }
-
     public void summonPet(Pet pet, int pos) {
         //TODO
         if(slot == 0) {
