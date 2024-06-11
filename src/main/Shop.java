@@ -86,9 +86,14 @@ public class Shop {
     private void menuShop() {
         boolean run = true;
         int opt = 0;
+        boolean firstFlag = true;
         while (run) {
             arena.printStats();
             pteam.printTeam();
+            if(firstFlag) {
+                firstFlag = false;
+                pteam.onTurnStart();
+            }
             printShop();
             optShop();
             opt = in.getIntInRange(1, 6, ">> ");
@@ -113,6 +118,7 @@ public class Shop {
                 case 6:
 //                    pteam.saveTeam();
                     run = false;
+                    pteam.onTurnEnd();
                     break;
             }
             Lib.clear();

@@ -92,6 +92,18 @@ public class Team {
         }
     }
 
+    public void onTurnStart() {
+        for (OnTurnStart o : onTurnStarts) {
+            o.onTurnStart();
+        }
+    }
+
+    public void onTurnEnd() {
+        for (OnTurnEnd o : onTurnEnds) {
+            o.onTurnEnd();
+        }
+    }
+
     //endregion
 
     private void put(Pet pet, int pos) {
@@ -258,6 +270,7 @@ public class Team {
     }
 
     public void mergePet(Pet pet, int pos) {
+        Pet target = pets.get(pos);
         int atk = Math.max(pet.getAtk(), pet.getAtk());
         int hp = Math.max(pet.getHp(), pet.getHp());
         pet.setStats(atk, hp);
