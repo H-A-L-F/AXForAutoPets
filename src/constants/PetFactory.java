@@ -39,6 +39,7 @@ public class PetFactory {
             public void onSell() {
                 super.onSell();
                 arena.incMoney(getLv());
+                System.out.printf("Selling %s gave %d extra gold\n", getName(), getLv());
             }
         };
     }
@@ -52,7 +53,11 @@ public class PetFactory {
                     pTeam.doPet(
                             this,
                             pTeam::getRandPet,
-                            pet -> pet.buff(getLv() - 1, getLv() - 1)
+                            pet -> {
+                                int buff = getLv() - 1;
+                                pet.buff(buff, buff);
+                                System.out.printf("%s buffed %s for %dn\n",getName(), pet.getName(), buff);
+                            }
                     );
                 }
             }
@@ -104,7 +109,10 @@ public class PetFactory {
                     pTeam.doPet(
                             this,
                             pTeam::getRandPet,
-                            pet -> pet.buff(getLv(), 0)
+                            pet -> {
+                                pet.buff(getLv(), 0);
+                                System.out.printf("%s buffed %s atk for %d\n", getName(), pet.getName(), getLv());
+                            }
                     );
                 }
             }
@@ -120,7 +128,10 @@ public class PetFactory {
                     pTeam.doPet(
                             this,
                             pTeam::getRandPet,
-                            pet -> pet.buff(0, 1)
+                            pet -> {
+                                pet.buff(0, 1);
+                                System.out.printf("%s buffed %s hp for 1\n", getName(), pet.getName());
+                            }
                     );
                 }
             }
@@ -133,6 +144,7 @@ public class PetFactory {
             public void onSell() {
                 super.onSell();
                 arena.getShop().buffShop(0, getLv());
+                System.out.printf("%s buffed shop pets hp for %d\n", getName(), getLv());
             }
         };
     }
@@ -142,6 +154,7 @@ public class PetFactory {
             @Override
             public void onSummon(Pet pet) {
                 pet.buff(getLv(), 0);
+                System.out.printf("%s buffed %s atk for %d\n", getName(), pet.getName(), getLv());
             }
 
             @Override
@@ -156,7 +169,10 @@ public class PetFactory {
             @Override
             public void onSell() {
                 super.onSell();
-                arena.getShop().addFruit(FruitFactory.getBreadCrumbs());
+                for(int i = 0; i < getLv(); i++) {
+                    arena.getShop().addFruit(FruitFactory.getBreadCrumbs());
+                }
+                System.out.printf("Sold pigeon created %d breadcrumbs in shop\n", getLv());
             }
         };
     }

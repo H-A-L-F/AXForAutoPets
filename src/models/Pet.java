@@ -55,7 +55,7 @@ public abstract class Pet extends Entity {
     }
 
     protected void onSell() {
-        System.out.printf("Sold %s for %d coins", getName(), getLv());
+        System.out.printf("Sold %s for %d coins\n", getName(), getLv());
         Arena.getInstance().incMoney(getLv());
     }
 
