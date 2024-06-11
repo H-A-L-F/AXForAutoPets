@@ -242,6 +242,7 @@ public class Team {
         }
         if(battlePets.get(pos) == null) {
             putBattlePet(pet, pos);
+            onSummons.forEach(o -> o.onSummon(pet));
             arrangeBattleTeam();
             return true;
         } else {
