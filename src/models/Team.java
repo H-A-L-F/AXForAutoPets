@@ -111,6 +111,12 @@ public class Team {
         if(pet.getStatus() == PetStatus.NORMAL) pet.onAfterAttack();
     }
 
+    private void onFriendEatFruit(Pet pet, Fruit fruit) {
+        for (OnFriendEatFruit o : onFriendEatFruits) {
+            o.onEatFruit(pet, fruit);
+        }
+    }
+
     //endregion
 
     private void put(Pet pet, int pos) {
@@ -194,7 +200,9 @@ public class Team {
     }
 
     public void feedPetAt(Fruit fruit, int idx) {
-        pets.get(idx).eatFruit(fruit);
+        Pet p = pets.get(idx);
+        p.eatFruit(fruit);
+        onFriendEatFruit(p, fruit);
     }
 
     public int getAtk(int idx) {
