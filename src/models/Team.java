@@ -108,6 +108,7 @@ public class Team {
         for (OnFriendAttack o : onFriendAttacks) {
             o.onFriendAttack(pet);
         }
+        if(pet.getStatus() == PetStatus.NORMAL) pet.onAfterAttack();
     }
 
     //endregion
