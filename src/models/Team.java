@@ -104,6 +104,12 @@ public class Team {
         }
     }
 
+    public void onAttack(Pet pet) {
+        for (OnFriendAttack o : onFriendAttacks) {
+            o.onFriendAttack(pet);
+        }
+    }
+
     //endregion
 
     private void put(Pet pet, int pos) {

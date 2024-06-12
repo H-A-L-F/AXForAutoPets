@@ -136,8 +136,10 @@ public class Arena {
             System.out.printf("%s attacked %s for %d dmg\n", currP.getName(), currEnm.getName(), currP.getAtk());
             System.out.printf("%s attacked %s for %d dmg\n", currEnm.getName(), currP.getName(), currEnm.getAtk());
             currEnm.damage(currP.getAtk());
+            pTeam.onAttack(currP);
             if(currP.getStatus() == PetStatus.NORMAL) currP.onAfterAttack();
             currP.damage(currEnm.getAtk());
+            enmTeam.onAttack(currEnm);
             if(currEnm.getStatus() == PetStatus.NORMAL) currEnm.onAfterAttack();
             if(currP.getStatus() == PetStatus.FAINT) currP = pTeam.getBattlePet();
             if(currEnm.getStatus() == PetStatus.FAINT) currEnm = enmTeam.getBattlePet();
