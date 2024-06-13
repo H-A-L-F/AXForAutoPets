@@ -17,7 +17,7 @@ public class Team {
     String name;
     private EventManager eventManager;
     private HashMap<Pet, PetStats> petStats;
-    private HashMap<Integer, Pet> battlePets;
+    private PetHashMap battlePets;
     private HashMap<Integer, Pet> pets;
     private int slot;
 
@@ -37,7 +37,7 @@ public class Team {
     public Team() {
         this.eventManager = new EventManager(this);
         this.petStats = new HashMap<>();
-        this.battlePets = new HashMap<>();
+        this.battlePets = new PetHashMap(onFriendFaint);
         this.pets = new HashMap<>();
         slot = END_SIZE;
 
@@ -54,7 +54,7 @@ public class Team {
         this.name = name;
         this.eventManager = new EventManager(this);
         this.petStats = new HashMap<>();
-        this.battlePets = new HashMap<>();
+        this.battlePets = new PetHashMap(onFriendFaint);
         this.pets = new HashMap<>();
         slot = END_SIZE;
 
@@ -116,6 +116,10 @@ public class Team {
             o.onEatFruit(pet, fruit);
         }
     }
+
+    private RunnablePet onFriendFaint = (Pet pet) -> {
+        onFriendFaints.forEach(o -> o.onFriendFaint(pet));
+    };
 
     //endregion
 
