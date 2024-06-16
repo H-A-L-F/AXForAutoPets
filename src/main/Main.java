@@ -7,6 +7,7 @@ import models.Team;
 import repository.UserRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
     private final ConsoleInput ci;
@@ -131,7 +132,11 @@ public class Main {
     }
 
     private void menuLeaderboard() {
-
+        ArrayList<UserRepository> users = UserRepository.getTopWin(10);
+        for(int i = 0; i < users.size(); i++) {
+            UserRepository u = users.get(i);
+            System.out.printf("%d. [%s | %d]\n", i + 1, u.getName(), u.getWins());
+        }
     }
 
     private void menuHistory() {

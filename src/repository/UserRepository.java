@@ -1,15 +1,21 @@
 package repository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserRepository extends ModelRepository {
 
     private String name;
     private String password;
+    private int wins;
 
     private static UserRepository instance;
 
-    private UserRepository() {
+    private UserRepository(int id, String name, String password, int wins) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.wins = wins;
     }
 
     private UserRepository(int id, String name, String password) {
@@ -36,6 +42,25 @@ public class UserRepository extends ModelRepository {
     public static UserRepository getInstance(String name, String password) {
         if (instance == null) instance = new UserRepository(name, password);
         return instance;
+    }
+
+    public static ArrayList<UserRepository> getTopWin(int limit) {
+        String query = "SELECT * FROM `user` ORDER BY wins DESC LIMIT %d";
+        ArrayList<UserRepository> res = new ArrayList<>();
+        con.execQuery(String.format(query, limit));
+        try {
+            while(con.rs.next()) {
+                int id = con.rs.getInt(1);
+                String username = con.rs.getString(2);
+                String userpass = con.rs.getString(3);
+                int wins = con.rs.getInt(4);
+                res.add(new UserRepository(id, username, userpass, wins));
+            }
+            return res;
+        } catch (SQLException e) {
+            System.out.println("Leaderboard failed");
+            throw new RuntimeException(e);
+        }
     }
 
     public void insert(String name, String password) {
@@ -69,5 +94,13 @@ public class UserRepository extends ModelRepository {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getWins() {
+        return wins;
     }
 }
