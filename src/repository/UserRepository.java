@@ -11,6 +11,9 @@ public class UserRepository extends ModelRepository {
 
     private static UserRepository instance;
 
+    private UserRepository() {
+    }
+
     private UserRepository(int id, String name, String password, int wins) {
         this.id = id;
         this.name = name;
@@ -83,6 +86,10 @@ public class UserRepository extends ModelRepository {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public static void logout() {
+        instance = null;
     }
 
     public static boolean checkName(String name) {

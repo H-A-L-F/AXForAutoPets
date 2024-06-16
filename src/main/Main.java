@@ -103,7 +103,7 @@ public class Main {
 
         while (run) {
             optHome();
-            opt = ci.getIntInRange(1, 3, ">> ");
+            opt = ci.getIntInRange(1, 4, ">> ");
             Lib.clear();
 
             switch (opt) {
@@ -144,7 +144,7 @@ public class Main {
     }
 
     private void menuLogout() {
-
+        UserRepository.logout();
     }
 
     public static void main(String[] args) {
