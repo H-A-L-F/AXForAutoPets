@@ -92,7 +92,8 @@ public class Main {
     private void optHome() {
         System.out.println("1. Arena");
         System.out.println("2. Leaderboard");
-        System.out.println("3. Logout");
+        System.out.println("3. History");
+        System.out.println("4. Logout");
     }
 
     private void menuHome() {
@@ -112,6 +113,9 @@ public class Main {
                     menuLeaderboard();
                     break;
                 case 3:
+                    menuHistory();
+                    break;
+                case 4:
                     menuLogout();
                     run = false;
                     break;
@@ -127,6 +131,10 @@ public class Main {
     }
 
     private void menuLeaderboard() {
+
+    }
+
+    private void menuHistory() {
 
     }
 
