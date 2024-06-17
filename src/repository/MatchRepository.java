@@ -1,5 +1,7 @@
 package repository;
 
+import java.sql.ResultSet;
+
 public class MatchRepository extends ModelRepository {
 
     private int user_id;
@@ -21,29 +23,26 @@ public class MatchRepository extends ModelRepository {
 
     public static MatchRepository newInstance(int user_id, String team_name) {
         if (instance == null) {
-            insert(user_id, team_name);
-            instance = getLastInserted(user_id, team_name);
+            instance = getLastInserted(insert(user_id, team_name));
         }
         return instance;
     }
 
-    public static void insert(int user_id, String team_name) {
+    public static ResultSet insert(int user_id, String team_name) {
         String query = "INSERT INTO `match`(user_id, team_name, win) VALUES (%d, '%s', %d)";
-        con.execUpdate(String.format(query, user_id, team_name, 0));
+        return con.execUpdate(String.format(query, user_id, team_name, 0));
     }
 
-    private static MatchRepository getLastInserted(int user_id, String team_name) {
-        String query = "SELECT * FROM `match` WHERE user_id = %d and team_name = '%s' ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, user_id, team_name));
+    private static MatchRepository getLastInserted(ResultSet rs) {
         try {
-            if(!con.rs.next()) {
+            if(!rs.next()) {
                 System.out.println("Failed to get match!");
                 throw new Exception();
             }
-            int id = con.rs.getInt(1);
-            int curr_user_id = con.rs.getInt(2);
-            String curr_team_name = con.rs.getString(3);
-            int win = con.rs.getInt(4);
+            int id = rs.getInt(1);
+            int curr_user_id = rs.getInt(2);
+            String curr_team_name = rs.getString(3);
+            int win = rs.getInt(4);
             return new MatchRepository(id, curr_user_id, curr_team_name, win);
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,8 @@ import models.Fruit;
 import models.Pet;
 import models.Team;
 
+import javax.xml.transform.Result;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PetRepository extends ModelRepository {
@@ -31,13 +33,12 @@ public class PetRepository extends ModelRepository {
     }
 
     public static PetRepository newInstance(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
-        insert(round_id, name, atk, hp, lv, exp, pos);
-        return getLastInserted(round_id, pos);
+        return getLastInserted(insert(round_id, name, atk, hp, lv, exp, pos));
     }
 
-    private static void insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
+    private static ResultSet insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
         String query = "INSERT INTO pet (round_id, name, atk, hp, lv, exp, pos) VALUES(%d, '%s', %d, %d, %d, %d, %d)";
-        con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
+        return con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
     }
 
     private static PetRepository convertPetRepoFromRS() {
@@ -50,6 +51,22 @@ public class PetRepository extends ModelRepository {
             int lv = con.rs.getInt(6);
             int exp = con.rs.getInt(7);
             int curr_pos = con.rs.getInt(8);
+            return new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static PetRepository convertPetRepoFromRS(ResultSet rs) {
+        try {
+            int id = rs.getInt(1);
+            int curr_round_id = rs.getInt(2);
+            String name = rs.getString(3);
+            int atk = rs.getInt(4);
+            int hp = rs.getInt(5);
+            int lv = rs.getInt(6);
+            int exp = rs.getInt(7);
+            int curr_pos = rs.getInt(8);
             return new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -69,10 +86,21 @@ public class PetRepository extends ModelRepository {
         }
     }
 
-    private static PetRepository getLastInserted(int round_id, int pos) {
-        String query = "SELECT * FROM pet WHERE round_id = %d and pos = %d";
-        con.execQuery(String.format(query, round_id, pos));
-        return getPetRepoFromRS();
+    private static PetRepository getPetRepoFromRS(ResultSet rs) {
+        try {
+            if(!rs.next()) {
+                System.out.println("Failed to get pet");
+                throw new Exception();
+            }
+            return convertPetRepoFromRS(rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static PetRepository getLastInserted(ResultSet rs) {
+        return getPetRepoFromRS(rs);
     }
 
     public static Pet[] getPetsForRound(PetFactory petF, FruitFactory fruF, int round_id) {

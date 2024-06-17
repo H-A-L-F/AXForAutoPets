@@ -4,6 +4,8 @@ import constants.FruitFactory;
 import constants.FruitList;
 import models.Fruit;
 
+import java.sql.ResultSet;
+
 public class FruitRepository extends ModelRepository{
 
     private int pet_id;
@@ -16,13 +18,12 @@ public class FruitRepository extends ModelRepository{
     }
 
     public static FruitRepository newInstance(int pet_id, String name) {
-        insert(pet_id, name);
-        return getLastInserted(pet_id);
+        return getLastInserted(insert(pet_id, name));
     }
 
-    private static void insert(int pet_id, String name) {
+    private static ResultSet insert(int pet_id, String name) {
         String query = "INSERT INTO fruit (pet_id, name) VALUES (%d, '%s')";
-        con.execUpdate(String.format(query, pet_id, name));
+        return con.execUpdate(String.format(query, pet_id, name));
     }
 
     private static FruitRepository getFruitRepoFromRS() {
@@ -41,10 +42,20 @@ public class FruitRepository extends ModelRepository{
         }
     }
 
-    private static FruitRepository getLastInserted(int pet_id) {
-        String query = "SELECT * FROM fruit WHERE pet_id = %d ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, pet_id));
-        return getFruitRepoFromRS();
+    private static FruitRepository getLastInserted(ResultSet rs) {
+        try {
+            if(!rs.next()) {
+                System.out.println("Failed to get fruit");
+                throw new Exception();
+            }
+            int id = rs.getInt(1);
+            int curr_pet_id = rs.getInt(2);
+            String name = rs.getString(3);
+            return new FruitRepository(id, curr_pet_id, name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static Fruit getFruit(FruitFactory fruitFactory, int pet_id) {

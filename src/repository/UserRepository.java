@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -71,21 +72,18 @@ public class UserRepository extends ModelRepository {
         con.execUpdate(String.format(query, wins, id));
     }
 
-    public void insert(String name, String password) {
+    public UserRepository insert(String name, String password) {
         String query = "INSERT INTO User (name, password) values('%s', '%s')";
-        con.execUpdate(String.format(query, name, password));
-        getLastInserted(name, password);
+        return getLastInserted(con.execUpdate(String.format(query, name, password)));
     }
 
-    private UserRepository getLastInserted(String name, String password) {
-        String query = "SELECT * FROM user WHERE name = '%s' and password = '%s' ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, name, password));
+    private UserRepository getLastInserted(ResultSet rs) {
         try {
-            if(!con.rs.next()) {
+            if(!rs.next()) {
                 System.out.println("Failed to get last inserted user");
-                this.id = con.rs.getInt(1);
-                this.name = con.rs.getString(2);
-                this.password = con.rs.getString(3);
+                this.id = rs.getInt(1);
+                this.name = rs.getString(2);
+                this.password = rs.getString(3);
             }
         } catch (Exception e) {
             e.printStackTrace();

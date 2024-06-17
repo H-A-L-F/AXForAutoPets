@@ -1,5 +1,7 @@
 package repository;
 
+import java.sql.ResultSet;
+
 public class RoundRepository extends ModelRepository {
 
     private int match_id;
@@ -23,14 +25,13 @@ public class RoundRepository extends ModelRepository {
     }
 
     public static RoundRepository newInstance(int match_id, int round) {
-        insert(match_id, round);
-        instance = getLastInserted(match_id, round);
+        instance = getLastInserted(insert(match_id, round));
         return instance;
     }
 
-    private static void insert(int match_id, int round) {
+    private static ResultSet insert(int match_id, int round) {
         String query = "INSERT INTO round (match_id, round) VALUES(%d, %d)";
-        con.execUpdate(String.format(query, match_id, round));
+        return con.execUpdate(String.format(query, match_id, round));
     }
 
     private static RoundRepository getRoundRepoFromRS() {
@@ -49,10 +50,24 @@ public class RoundRepository extends ModelRepository {
         }
     }
 
-    private static RoundRepository getLastInserted(int match_id, int round) {
-        String query = "SELECT * FROM round WHERE match_id = %d and round = %d ORDER BY id DESC LIMIT 1";
-        con.execQuery(String.format(query, match_id, round));
-        return getRoundRepoFromRS();
+    private static RoundRepository getRoundRepoFromRS(ResultSet rs) {
+        try {
+            if (!rs.next()) {
+                System.out.println("Failed to get round");
+                throw new Exception();
+            }
+            int id = rs.getInt(1);
+            int curr_match_id = rs.getInt(2);
+            int curr_round = rs.getInt(3);
+            return new RoundRepository(id, curr_match_id, curr_round);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static RoundRepository getLastInserted(ResultSet rs) {
+        return getRoundRepoFromRS(rs);
     }
 
     public static RoundRepository getRandRoundRepository(int round) {
