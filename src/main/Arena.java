@@ -51,6 +51,7 @@ public class Arena {
 //        MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
         play();
+        updateWins();
     }
 
     private void reset() {
@@ -90,6 +91,10 @@ public class Arena {
         }
     }
 
+    private void updateWins() {
+        UserRepository.getInstance().updateWins(win);
+    }
+
     private void win() {
         win++;
         System.out.println("Your team won!");
@@ -112,7 +117,7 @@ public class Arena {
     private void nextRound() {
         round++;
 //        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
-        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
+//        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
         shop.nextRound(round);
     }
 

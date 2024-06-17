@@ -143,7 +143,8 @@ public class Main {
     }
 
     private void menuHistory() {
-
+        System.out.println("===History===");
+        
     }
 
     private void menuLogout() {

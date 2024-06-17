@@ -66,6 +66,11 @@ public class UserRepository extends ModelRepository {
         }
     }
 
+    public void updateWins(int wins) {
+        String query = "UPDATE `user` SET wins = wins + %d WHERE id = %d";
+        con.execUpdate(String.format(query, wins, id));
+    }
+
     public void insert(String name, String password) {
         String query = "INSERT INTO User (name, password) values('%s', '%s')";
         con.execUpdate(String.format(query, name, password));
