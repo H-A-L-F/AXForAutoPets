@@ -18,23 +18,25 @@ public class FruitRepository extends ModelRepository{
     }
 
     public static FruitRepository newInstance(int pet_id, String name) {
-        return getLastInserted(insert(pet_id, name));
+        long id = insert(pet_id, name);
+        ResultSet rs = getRsFromId(id);
+        return getFruitRepoFromRS(rs);
     }
 
-    private static ResultSet insert(int pet_id, String name) {
+    private static long insert(int pet_id, String name) {
         String query = "INSERT INTO fruit (pet_id, name) VALUES (%d, '%s')";
         return con.execUpdate(String.format(query, pet_id, name));
     }
 
-    private static FruitRepository getFruitRepoFromRS() {
+    private static FruitRepository getFruitRepoFromRS(ResultSet rs) {
         try {
-            if(!con.rs.next()) {
+            if(!rs.next()) {
 //                System.out.println("Failed to get fruit");
                 throw new Exception();
             }
-            int id = con.rs.getInt(1);
-            int curr_pet_id = con.rs.getInt(2);
-            String name = con.rs.getString(3);
+            int id = rs.getInt(1);
+            int curr_pet_id = rs.getInt(2);
+            String name = rs.getString(3);
             return new FruitRepository(id, curr_pet_id, name);
         } catch (Exception e) {
 //            e.printStackTrace();
@@ -61,7 +63,7 @@ public class FruitRepository extends ModelRepository{
     public static Fruit getFruit(FruitFactory fruitFactory, int pet_id) {
         String query = "SELECT * FROM fruit WHERE pet_id = %d";
         con.execQuery(String.format(query, pet_id));
-        FruitRepository fruitRepo = getFruitRepoFromRS();
+        FruitRepository fruitRepo = getFruitRepoFromRS(con.rs);
         if(fruitRepo == null) return null;
         return fruitFactory.getFruit(FruitList.valueOf(fruitRepo.name.toUpperCase()));
     }

@@ -6,6 +6,7 @@ import constants.Lib;
 import models.Team;
 import repository.UserRepository;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -57,7 +58,15 @@ public class Main {
         String query = "SELECT * FROM User WHERE name = '%s' and password = '%s'";
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
-        con.execQuery(String.format(query, name, password));
+        long id = con.execQuery(String.format(query, name, password));
+        if (id == -1) {
+            System.out.println("Invalid username or password");
+            System.out.println("Login Failed");
+            ci.enter();
+            return;
+        }
+//        String query2 = "SELECT * FROM `user` WHERE id = " + id;
+//        con.execQuery(query2);
         try {
             if(!con.rs.next()) {
                 System.out.println("Invalid username or password");
@@ -65,10 +74,10 @@ public class Main {
                 ci.enter();
                 return;
             }
-            int id = con.rs.getInt(1);
+            int user_id = con.rs.getInt(1);
             String username = con.rs.getString(2);
             String userpass = con.rs.getString(3);
-            UserRepository.getInstance(id, username, userpass);
+            UserRepository.getInstance(user_id, username, userpass);
             System.out.println("Logged in as " + username);
             ci.enter();
             menuHome();

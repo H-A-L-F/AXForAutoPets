@@ -72,23 +72,26 @@ public class UserRepository extends ModelRepository {
         con.execUpdate(String.format(query, wins, id));
     }
 
-    public UserRepository insert(String name, String password) {
+    public long insert(String name, String password) {
         String query = "INSERT INTO User (name, password) values('%s', '%s')";
-        return getLastInserted(con.execUpdate(String.format(query, name, password)));
+        return con.execUpdate(String.format(query, name, password));
     }
 
-    private UserRepository getLastInserted(ResultSet rs) {
-        try {
+    private UserRepository getUserRepoFromRs(ResultSet rs) {
+        try{
             if(!rs.next()) {
                 System.out.println("Failed to get last inserted user");
-                this.id = rs.getInt(1);
-                this.name = rs.getString(2);
-                this.password = rs.getString(3);
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            this.id = rs.getInt(1);
+            this.name = rs.getString(2);
+            this.password = rs.getString(3);
+            this.wins = rs.getInt(4);
+            return new UserRepository(id, name, password, wins);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return null;
         }
-        return this;
     }
 
     public static void logout() {

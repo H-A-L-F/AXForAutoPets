@@ -23,17 +23,19 @@ public class MatchRepository extends ModelRepository {
 
     public static MatchRepository newInstance(int user_id, String team_name) {
         if (instance == null) {
-            instance = getLastInserted(insert(user_id, team_name));
+            long id = insert(user_id, team_name);
+            ResultSet rs = getRsFromId(id);
+            return getMatchFromRs(rs);
         }
         return instance;
     }
 
-    public static ResultSet insert(int user_id, String team_name) {
+    public static long insert(int user_id, String team_name) {
         String query = "INSERT INTO `match`(user_id, team_name, win) VALUES (%d, '%s', %d)";
-        return con.execUpdate(String.format(query, user_id, team_name, 0));
+        return con.execQuery(String.format(query, user_id, team_name, 0));
     }
 
-    private static MatchRepository getLastInserted(ResultSet rs) {
+    public static MatchRepository getMatchFromRs(ResultSet rs) {
         try {
             if(!rs.next()) {
                 System.out.println("Failed to get match!");

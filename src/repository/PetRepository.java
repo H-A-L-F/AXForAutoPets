@@ -33,10 +33,12 @@ public class PetRepository extends ModelRepository {
     }
 
     public static PetRepository newInstance(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
-        return getLastInserted(insert(round_id, name, atk, hp, lv, exp, pos));
+        long id = insert(round_id, name, atk, hp, lv, exp, pos);
+        ResultSet rs = getRsFromId(id);
+        return convertPetRepoFromRS(rs);
     }
 
-    private static ResultSet insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
+    private static long insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
         String query = "INSERT INTO pet (round_id, name, atk, hp, lv, exp, pos) VALUES(%d, '%s', %d, %d, %d, %d, %d)";
         return con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
     }
