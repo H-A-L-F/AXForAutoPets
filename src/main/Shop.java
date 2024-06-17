@@ -116,7 +116,7 @@ public class Shop {
                     menuSell();
                     break;
                 case 6:
-//                    pteam.saveTeam();
+                    pteam.saveTeam();
                     run = false;
                     pteam.onTurnEnd();
                     break;

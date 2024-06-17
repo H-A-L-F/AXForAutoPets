@@ -48,7 +48,7 @@ public class Arena {
     }
 
     public void newGame() {
-//        MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
+        MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
         play();
         updateWins();
@@ -116,7 +116,7 @@ public class Arena {
 
     private void nextRound() {
         round++;
-//        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
+        RoundRepository.newInstance(MatchRepository.getInstance().getId(), round);
 //        enmTeam.setRandTeamFromDB(enmPetFactory, fruitFactory, round);
         shop.nextRound(round);
     }
