@@ -51,13 +51,13 @@ public class UserRepository extends ModelRepository {
     public static ArrayList<UserRepository> getTopWin(int limit) {
         String query = "SELECT * FROM `user` ORDER BY wins DESC LIMIT %d";
         ArrayList<UserRepository> res = new ArrayList<>();
-        con.execQuery(String.format(query, limit));
+        ResultSet rs = con.execQueryWithRes(String.format(query, limit));
         try {
-            while(con.rs.next()) {
-                int id = con.rs.getInt(1);
-                String username = con.rs.getString(2);
-                String userpass = con.rs.getString(3);
-                int wins = con.rs.getInt(4);
+            while(rs.next()) {
+                int id = rs.getInt(1);
+                String username = rs.getString(2);
+                String userpass = rs.getString(3);
+                int wins = rs.getInt(4);
                 res.add(new UserRepository(id, username, userpass, wins));
             }
             return res;
@@ -69,12 +69,12 @@ public class UserRepository extends ModelRepository {
 
     public void updateWins(int wins) {
         String query = "UPDATE `user` SET wins = wins + %d WHERE id = %d";
-        con.execUpdate(String.format(query, wins, id));
+        con.execQueryWithKey(String.format(query, wins, id));
     }
 
     public long insert(String name, String password) {
         String query = "INSERT INTO User (name, password) values('%s', '%s')";
-        return con.execUpdate(String.format(query, name, password));
+        return con.execQueryWithKey(String.format(query, name, password));
     }
 
     private UserRepository getUserRepoFromRs(ResultSet rs) {
@@ -100,9 +100,9 @@ public class UserRepository extends ModelRepository {
 
     public static boolean checkName(String name) {
         String query = "SELECT * FROM user WHERE name = '%s'";
-        con.execQuery(String.format(query, name));
+        ResultSet rs = con.execQueryWithRes(String.format(query, name));
         try {
-            return !con.rs.next();
+            return !rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

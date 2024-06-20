@@ -6,7 +6,8 @@ public class Connect {
     private final String USERNAME = "root";
     private final String PASSWORD = "";
     private final String DATABASE = "auto_pets";
-    private final String HOST = "localhost";
+    private final String HOST = "10.22.68.105:3306";
+//    private final String HOST = "localhost";
     private final String CONNECTION = String.format("jdbc:mysql://%s/%s", HOST, DATABASE);
 
     public ResultSet rs;
@@ -34,7 +35,7 @@ public class Connect {
         return instance;
     }
 
-    public long execQuery(String query) {
+    public long execQueryWithKey(String query) {
         try {
             ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             rs = ps.executeQuery();
@@ -47,16 +48,14 @@ public class Connect {
         }
     }
 
-    public long execUpdate(String query) {
+    public ResultSet execQueryWithRes(String query) {
         try {
-            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            rs = ps.executeQuery();
+            rs = ps.executeQuery(query);
             rsmd = rs.getMetaData();
-            if(!rs.next()) return -1;
-            return rs.getLong(1);
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return null;
         }
     }
 }

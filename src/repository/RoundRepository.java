@@ -33,7 +33,7 @@ public class RoundRepository extends ModelRepository {
 
     private static long insert(int match_id, int round) {
         String query = "INSERT INTO round (match_id, round) VALUES(%d, %d)";
-        return con.execUpdate(String.format(query, match_id, round));
+        return con.execQueryWithKey(String.format(query, match_id, round));
     }
 
     private static RoundRepository getRoundRepoFromRS(ResultSet rs) {
@@ -58,7 +58,7 @@ public class RoundRepository extends ModelRepository {
 
     public static RoundRepository getRandRoundRepository(int round) {
         String query = "SELECT * FROM round WHERE round = %d ORDER BY RAND() LIMIT 1";
-        con.execQuery(String.format(query, round));
-        return getRoundRepoFromRS(con.rs);
+        ResultSet rs = con.execQueryWithRes(String.format(query, round));
+        return getRoundRepoFromRS(rs);
     }
 }

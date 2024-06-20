@@ -32,7 +32,7 @@ public class MatchRepository extends ModelRepository {
 
     public static long insert(int user_id, String team_name) {
         String query = "INSERT INTO `match`(user_id, team_name, win) VALUES (%d, '%s', %d)";
-        return con.execQuery(String.format(query, user_id, team_name, 0));
+        return con.execQueryWithKey(String.format(query, user_id, team_name, 0));
     }
 
     public static MatchRepository getMatchFromRs(ResultSet rs) {
@@ -54,6 +54,6 @@ public class MatchRepository extends ModelRepository {
 
     public void updateWin(int win) {
         String query = "UPDATE `match` SET win = %d WHERE id = %d";
-        con.execUpdate(String.format(query, win, id));
+        ResultSet rs = con.execQueryWithRes(String.format(query, win, id));
     }
 }

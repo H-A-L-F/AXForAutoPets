@@ -40,23 +40,7 @@ public class PetRepository extends ModelRepository {
 
     private static long insert(int round_id, String name, int atk, int hp, int lv, int exp, int pos) {
         String query = "INSERT INTO pet (round_id, name, atk, hp, lv, exp, pos) VALUES(%d, '%s', %d, %d, %d, %d, %d)";
-        return con.execUpdate(String.format(query, round_id, name, atk, hp, lv, exp, pos));
-    }
-
-    private static PetRepository convertPetRepoFromRS() {
-        try {
-            int id = con.rs.getInt(1);
-            int curr_round_id = con.rs.getInt(2);
-            String name = con.rs.getString(3);
-            int atk = con.rs.getInt(4);
-            int hp = con.rs.getInt(5);
-            int lv = con.rs.getInt(6);
-            int exp = con.rs.getInt(7);
-            int curr_pos = con.rs.getInt(8);
-            return new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return con.execQueryWithKey(String.format(query, round_id, name, atk, hp, lv, exp, pos));
     }
 
     private static PetRepository convertPetRepoFromRS(ResultSet rs) {
@@ -72,19 +56,6 @@ public class PetRepository extends ModelRepository {
             return new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    private static PetRepository getPetRepoFromRS() {
-        try {
-            if(!con.rs.next()) {
-                System.out.println("Failed to get pet");
-                throw new Exception();
-            }
-            return convertPetRepoFromRS();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
@@ -109,11 +80,11 @@ public class PetRepository extends ModelRepository {
         PetRepository[] petRepos = new PetRepository[Team.END_SIZE];
         Pet[] pets = new Pet[Team.END_SIZE];
         String query = "SELECT * FROM pet WHERE round_id = %d LIMIT %d";
-        con.execQuery(String.format(query, round_id, Team.END_SIZE));
+        ResultSet rs = con.execQueryWithRes(String.format(query, round_id, Team.END_SIZE));
         for(int i = 0; i < Team.END_SIZE; i++) {
             try {
-                if(!con.rs.next()) break;
-                petRepos[i] = convertPetRepoFromRS();
+                if(!rs.next()) break;
+                petRepos[i] = convertPetRepoFromRS(rs);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

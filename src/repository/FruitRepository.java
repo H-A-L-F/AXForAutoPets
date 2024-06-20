@@ -25,7 +25,7 @@ public class FruitRepository extends ModelRepository{
 
     private static long insert(int pet_id, String name) {
         String query = "INSERT INTO fruit (pet_id, name) VALUES (%d, '%s')";
-        return con.execUpdate(String.format(query, pet_id, name));
+        return con.execQueryWithKey(String.format(query, pet_id, name));
     }
 
     private static FruitRepository getFruitRepoFromRS(ResultSet rs) {
@@ -62,8 +62,8 @@ public class FruitRepository extends ModelRepository{
 
     public static Fruit getFruit(FruitFactory fruitFactory, int pet_id) {
         String query = "SELECT * FROM fruit WHERE pet_id = %d";
-        con.execQuery(String.format(query, pet_id));
-        FruitRepository fruitRepo = getFruitRepoFromRS(con.rs);
+        ResultSet rs = con.execQueryWithRes(String.format(query, pet_id));
+        FruitRepository fruitRepo = getFruitRepoFromRS(rs);
         if(fruitRepo == null) return null;
         return fruitFactory.getFruit(FruitList.valueOf(fruitRepo.name.toUpperCase()));
     }
