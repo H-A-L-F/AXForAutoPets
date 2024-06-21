@@ -58,15 +58,7 @@ public class Main {
         String query = "SELECT * FROM User WHERE name = '%s' and password = '%s'";
         String name = ci.getStringInRange(5, 20, "Name [5 - 20]: ");
         String password = ci.getStringInRange(5, 20, "Password [5 - 20]: ");
-        long id = con.execQuery(String.format(query, name, password));
-        if (id == -1) {
-            System.out.println("Invalid username or password");
-            System.out.println("Login Failed");
-            ci.enter();
-            return;
-        }
-//        String query2 = "SELECT * FROM `user` WHERE id = " + id;
-//        con.execQuery(query2);
+        ResultSet rs = con.execQueryWithRes(String.format(query, name, password));
         try {
             if(!con.rs.next()) {
                 System.out.println("Invalid username or password");

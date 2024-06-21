@@ -15,7 +15,7 @@ public abstract class ModelRepository {
 
     public static ResultSet getRsFromId(long id) {
         String query = "SELECT * FROM `%s` WHERE id = " + id;
-        con.execQuery(query);
-        return con.rs;
+        ResultSet rs = con.execQueryWithRes(query);
+        return rs;
     }
 }

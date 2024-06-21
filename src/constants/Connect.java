@@ -50,7 +50,7 @@ public class Connect {
 
     public ResultSet execQueryWithRes(String query) {
         try {
-            rs = ps.executeQuery(query);
+            rs = st.executeQuery(query);
             rsmd = rs.getMetaData();
             return rs;
         } catch (SQLException e) {
