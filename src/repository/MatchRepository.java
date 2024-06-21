@@ -1,6 +1,7 @@
 package repository;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class MatchRepository extends ModelRepository {
 
@@ -50,6 +51,10 @@ public class MatchRepository extends ModelRepository {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static ArrayList<MatchRepository> getMatchesForUser(int user_id) {
+        
     }
 
     public void updateWin(int win) {
