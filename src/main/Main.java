@@ -5,6 +5,7 @@ import constants.Connect;
 import constants.Lib;
 import models.Team;
 import repository.MatchRepository;
+import repository.RoundRepository;
 import repository.UserRepository;
 
 import java.sql.Array;
@@ -146,17 +147,38 @@ public class Main {
     }
 
     private void menuHistory() {
-        System.out.println("===History===");
         ArrayList<MatchRepository> matches = MatchRepository.getMatchesForUser(UserRepository.getInstance().getId());
-        for (int i = 0; i < matches.size(); i++) {
-            MatchRepository m = matches.get(i);
-            System.out.printf("%d. %s | wins: %d\n", i + 1, m.getTeamName(), m.getWin());
-        }
-        ci.enter();
+        menuViewHistory(matches);
+        System.out.println("-1. Exit");
+        System.out.println("no. View Match Detail");
+        int opt = ci.getIntInRange(-1, matches.size(), ">> ");
+        if(opt == -1) return;
+        MatchRepository match = matches.get(opt);
+        menuMatchDetail(match);
     }
 
     private void menuLogout() {
         UserRepository.logout();
+    }
+
+    private void menuViewHistory(ArrayList<MatchRepository> matches) {
+        System.out.println("=== History ===");
+        for (int i = 0; i < matches.size(); i++) {
+            MatchRepository m = matches.get(i);
+            System.out.printf("%d. %s | wins: %d\n", i + 1, m.getTeamName(), m.getWin());
+        }
+    }
+
+    private void menuMatchDetail(MatchRepository match) {
+        ArrayList<RoundRepository> rounds = RoundRepository.getRoundsForMatch(match.getId());
+        menuViewRounds(rounds);
+    }
+
+    private void menuViewRounds(ArrayList<RoundRepository> rounds) {
+        System.out.println("=== Match Detail ===");
+        for (int i = 0; i < rounds.size(); i++) {
+            System.out.println("Round " + (i + 1));
+        }
     }
 
     public static void main(String[] args) {

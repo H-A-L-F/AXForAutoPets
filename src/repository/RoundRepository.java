@@ -1,6 +1,7 @@
 package repository;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class RoundRepository extends ModelRepository {
 
@@ -48,6 +49,21 @@ public class RoundRepository extends ModelRepository {
             return new RoundRepository(id, curr_match_id, curr_round);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<RoundRepository> getRoundsForMatch(int match_id) {
+        String query = "SELECT * FROM round WHERE match_id = %d ORDER BY round ASC";
+        ResultSet rs = con.execQueryWithRes(String.format(query, match_id));
+        ArrayList<RoundRepository> res = new ArrayList<RoundRepository>();
+        try {
+            while(rs.next()) {
+                res.add(new RoundRepository(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+            }
+            return res;
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }
