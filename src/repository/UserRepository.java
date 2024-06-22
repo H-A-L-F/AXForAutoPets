@@ -8,18 +8,10 @@ public class UserRepository extends ModelRepository {
 
     private String name;
     private String password;
-    private int wins;
 
     private static UserRepository instance;
 
     private UserRepository() {
-    }
-
-    private UserRepository(int id, String name, String password, int wins) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.wins = wins;
     }
 
     private UserRepository(int id, String name, String password) {
@@ -57,8 +49,7 @@ public class UserRepository extends ModelRepository {
                 int id = rs.getInt(1);
                 String username = rs.getString(2);
                 String userpass = rs.getString(3);
-                int wins = rs.getInt(4);
-                res.add(new UserRepository(id, username, userpass, wins));
+                res.add(new UserRepository(id, username, userpass));
             }
             return res;
         } catch (SQLException e) {
@@ -86,8 +77,7 @@ public class UserRepository extends ModelRepository {
             this.id = rs.getInt(1);
             this.name = rs.getString(2);
             this.password = rs.getString(3);
-            this.wins = rs.getInt(4);
-            return new UserRepository(id, name, password, wins);
+            return new UserRepository(id, name, password);
         } catch(Exception ex) {
             ex.printStackTrace();
             return null;
@@ -113,7 +103,4 @@ public class UserRepository extends ModelRepository {
         return name;
     }
 
-    public int getWins() {
-        return wins;
-    }
 }
