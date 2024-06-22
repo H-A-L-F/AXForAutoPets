@@ -4,8 +4,10 @@ import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
 import models.Team;
+import repository.MatchRepository;
 import repository.UserRepository;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -145,7 +147,12 @@ public class Main {
 
     private void menuHistory() {
         System.out.println("===History===");
-        
+        ArrayList<MatchRepository> matches = MatchRepository.getMatchesForUser(UserRepository.getInstance().getId());
+        for (int i = 0; i < matches.size(); i++) {
+            MatchRepository m = matches.get(i);
+            System.out.printf("%d. %s | wins: %d\n", i + 1, m.getTeamName(), m.getWin());
+        }
+        ci.enter();
     }
 
     private void menuLogout() {

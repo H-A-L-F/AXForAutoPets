@@ -54,11 +54,30 @@ public class MatchRepository extends ModelRepository {
     }
 
     public static ArrayList<MatchRepository> getMatchesForUser(int user_id) {
-        
+        String query = "SELECT * FROM `match` WHERE user_id = %d";
+        ResultSet rs = con.execQueryWithRes(String.format(query, user_id));
+        ArrayList<MatchRepository> res = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                res.add(new MatchRepository(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4)));
+            }
+            return res;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public void updateWin(int win) {
         String query = "UPDATE `match` SET win = %d WHERE id = %d";
         ResultSet rs = con.execQueryWithRes(String.format(query, win, id));
+    }
+
+    public String getTeamName() {
+        return team_name;
+    }
+
+    public int getWin() {
+        return win;
     }
 }
