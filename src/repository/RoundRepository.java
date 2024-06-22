@@ -6,17 +6,13 @@ import java.util.ArrayList;
 public class RoundRepository extends ModelRepository {
 
     private int match_id;
+    private int enm_round_id;
     private int round;
 
     private static RoundRepository instance;
 
-    private RoundRepository(int id, int match_id, int round) {
+    private RoundRepository(int id, int match_id, int enm_round_id, int round) {
         this.id = id;
-        this.match_id = match_id;
-        this.round = round;
-    }
-
-    private RoundRepository(int match_id, int round) {
         this.match_id = match_id;
         this.round = round;
     }
@@ -25,16 +21,16 @@ public class RoundRepository extends ModelRepository {
         return instance;
     }
 
-    public static RoundRepository newInstance(int match_id, int round) {
-        long id = insert(match_id, round);
+    public static RoundRepository newInstance(int match_id, int enm_round_id, int round) {
+        long id = insert(match_id, enm_round_id, round);
         ResultSet rs = getRsFromId(id);
         instance = getRoundRepoFromRS(rs);
         return instance;
     }
 
-    private static long insert(int match_id, int round) {
-        String query = "INSERT INTO round (match_id, round) VALUES(%d, %d)";
-        return con.execQueryWithKey(String.format(query, match_id, round));
+    private static long insert(int match_id, int enm_round_id, int round) {
+        String query = "INSERT INTO round (match_id, enm_round_id, round) VALUES(%d, %d, %d)";
+        return con.execQueryWithKey(String.format(query, match_id, enm_round_id, round));
     }
 
     private static RoundRepository getRoundRepoFromRS(ResultSet rs) {
@@ -45,8 +41,9 @@ public class RoundRepository extends ModelRepository {
             }
             int id = rs.getInt(1);
             int curr_match_id = rs.getInt(2);
-            int curr_round = rs.getInt(3);
-            return new RoundRepository(id, curr_match_id, curr_round);
+            int curr_enm_round_id = rs.getInt(3);
+            int curr_round = rs.getInt(4);
+            return new RoundRepository(id, curr_match_id, curr_enm_round_id, curr_round);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -59,7 +56,7 @@ public class RoundRepository extends ModelRepository {
         ArrayList<RoundRepository> res = new ArrayList<RoundRepository>();
         try {
             while(rs.next()) {
-                res.add(new RoundRepository(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+                res.add(new RoundRepository(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4)));
             }
             return res;
         } catch (Exception ex) {
