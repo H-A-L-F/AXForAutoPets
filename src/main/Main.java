@@ -3,6 +3,7 @@ package main;
 import console_input.ConsoleInput;
 import constants.Connect;
 import constants.Lib;
+import constants.PetFactory;
 import models.Team;
 import repository.MatchRepository;
 import repository.RoundRepository;
@@ -167,6 +168,8 @@ public class Main {
             MatchRepository m = matches.get(i);
             System.out.printf("%d. %s | wins: %d\n", i + 1, m.getTeamName(), m.getWin());
         }
+        System.out.println("===============");
+        System.out.println();
     }
 
     private void menuMatchDetail(MatchRepository match) {

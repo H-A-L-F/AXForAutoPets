@@ -154,6 +154,10 @@ public class Team {
 
     public void setRandTeamFromDB(PetFactory petF, FruitFactory fruF, int round) {
         RoundRepository roundRepo = RoundRepository.getRandRoundRepository(round);
+        setTeamFromRound(petF, fruF, roundRepo);
+    }
+
+    public void setTeamFromRound(PetFactory petF, FruitFactory fruF, RoundRepository roundRepo) {
         Pet[] temp = PetRepository.getPetsForRound(petF, fruF, roundRepo.getId());
         for(int i = 0; i < END_SIZE; i++) {
             Pet curr = temp[i];
