@@ -99,6 +99,21 @@ public class UserRepository extends ModelRepository {
         }
     }
 
+    public int getWins() {
+        String query = "SELECT sum(m.win) FROM `user` u join `match` m on u.id = match.user_id WHERE u.id = %d";
+        ResultSet rs = con.execQueryWithRes(String.format(query, id));
+        try {
+            if(!rs.next()) {
+                System.out.println("Fail to get wins for userid: " + id);
+                return -1;
+            }
+            return rs.getInt(1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return -1;
+        }
+    }
+
     public String getName() {
         return name;
     }
