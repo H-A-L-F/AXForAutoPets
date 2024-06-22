@@ -14,6 +14,7 @@ public class RoundRepository extends ModelRepository {
     private RoundRepository(int id, int match_id, int enm_round_id, int round) {
         this.id = id;
         this.match_id = match_id;
+        this.enm_round_id = enm_round_id;
         this.round = round;
     }
 
