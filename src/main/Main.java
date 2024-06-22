@@ -174,13 +174,22 @@ public class Main {
 
     private void menuMatchDetail(MatchRepository match) {
         ArrayList<RoundRepository> rounds = RoundRepository.getRoundsForMatch(match.getId());
-        menuViewRounds(rounds);
+        menuViewRounds(rounds, match);
+        System.out.println("-1. Exit");
+        System.out.println("no. View Round Replay");
+        int opt = ci.getIntInRange(-1, rounds.size(), ">> ");
+        if(opt == -1) return;
+        RoundRepository round = rounds.get(opt);
+        Arena arena = Arena.newInstance(new Team(match.getTeamName()));
+        //TODO
     }
 
-    private void menuViewRounds(ArrayList<RoundRepository> rounds) {
+    private void menuViewRounds(ArrayList<RoundRepository> rounds, MatchRepository match) {
         System.out.println("=== Match Detail ===");
         for (int i = 0; i < rounds.size(); i++) {
             System.out.println("Round " + (i + 1));
+            Arena arena = Arena.newInstance(new Team(match.getTeamName()));
+            //TODO
         }
     }
 

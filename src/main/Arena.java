@@ -47,6 +47,11 @@ public class Arena {
         return instance;
     }
 
+    public static Arena newInstance(Team pTeam) {
+        instance = new Arena(pTeam);
+        return instance;
+    }
+
     public void newGame() {
         MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
