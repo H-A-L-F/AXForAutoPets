@@ -188,8 +188,10 @@ public class Main {
         System.out.println("=== Match Detail ===");
         for (int i = 0; i < rounds.size(); i++) {
             System.out.println("Round " + (i + 1));
+            RoundRepository pr = rounds.get(i);
+            RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
             Arena arena = Arena.newInstance(new Team(match.getTeamName()));
-            //TODO
+            arena.viewRound(pr, er);
         }
     }
 

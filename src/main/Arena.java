@@ -52,6 +52,12 @@ public class Arena {
         return instance;
     }
 
+    public void viewRound(RoundRepository playerR, RoundRepository enmR) {
+        pTeam.setTeamFromRound(playerPetFactory, fruitFactory, playerR);
+        enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmR);
+        Lib.printTeams(pTeam, enmTeam);
+    }
+
     public void newGame() {
         MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
