@@ -38,10 +38,16 @@ public class Connect {
     public long execQueryWithKey(String query) {
         try {
             ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            rs = ps.executeQuery();
-            rsmd = rs.getMetaData();
-            if(!rs.next()) return -1;
-            return rs.getLong(1);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                return -1;
+            }
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getLong(1);
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

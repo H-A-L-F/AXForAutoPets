@@ -5,7 +5,6 @@ import constants.Connect;
 import java.sql.ResultSet;
 
 public abstract class ModelRepository {
-    protected static String name;
     protected int id;
     protected static Connect con = Connect.getInstance();
 
@@ -13,9 +12,9 @@ public abstract class ModelRepository {
         return id;
     }
 
-    public static ResultSet getRsFromId(long id) {
+    public static ResultSet getRsFromId(long id, String table) {
         String query = "SELECT * FROM `%s` WHERE id = " + id;
-        ResultSet rs = con.execQueryWithRes(query);
+        ResultSet rs = con.execQueryWithRes(String.format(query, table));
         return rs;
     }
 }

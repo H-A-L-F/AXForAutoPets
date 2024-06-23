@@ -19,7 +19,7 @@ public class FruitRepository extends ModelRepository{
 
     public static FruitRepository newInstance(int pet_id, String name) {
         long id = insert(pet_id, name);
-        ResultSet rs = getRsFromId(id);
+        ResultSet rs = getRsFromId(id, "fruit");
         return getFruitRepoFromRS(rs);
     }
 

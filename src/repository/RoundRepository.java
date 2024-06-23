@@ -24,13 +24,13 @@ public class RoundRepository extends ModelRepository {
 
     public static RoundRepository newInstance(int match_id, int enm_round_id, int round) {
         long id = insert(match_id, enm_round_id, round);
-        ResultSet rs = getRsFromId(id);
+        ResultSet rs = getRsFromId(id, "round");
         instance = getRoundRepoFromRS(rs);
         return instance;
     }
 
     public static RoundRepository getRoundRepoById(int id) {
-        ResultSet rs = getRsFromId(id);
+        ResultSet rs = getRsFromId(id, "round");
         return getRoundRepoFromRS(rs);
     }
 

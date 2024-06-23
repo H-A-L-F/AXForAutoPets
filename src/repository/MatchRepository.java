@@ -25,8 +25,9 @@ public class MatchRepository extends ModelRepository {
     public static MatchRepository newInstance(int user_id, String team_name) {
         if (instance == null) {
             long id = insert(user_id, team_name);
-            ResultSet rs = getRsFromId(id);
-            return getMatchFromRs(rs);
+            ResultSet rs = getRsFromId(id, "match");
+            instance = getMatchFromRs(rs);
+            return instance;
         }
         return instance;
     }
