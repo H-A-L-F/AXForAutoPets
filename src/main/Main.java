@@ -179,9 +179,10 @@ public class Main {
         System.out.println("no. View Round Replay");
         int opt = ci.getIntInRange(-1, rounds.size(), ">> ");
         if(opt == -1) return;
-        RoundRepository round = rounds.get(opt);
+        RoundRepository pr = rounds.get(opt);
+        RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
         Arena arena = Arena.newInstance(new Team(match.getTeamName()));
-        //TODO
+        arena.replayRound(pr, er);
     }
 
     private void menuViewRounds(ArrayList<RoundRepository> rounds, MatchRepository match) {

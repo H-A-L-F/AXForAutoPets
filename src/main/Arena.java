@@ -58,6 +58,33 @@ public class Arena {
         Lib.printTeams(pTeam, enmTeam);
     }
 
+    public void replayRound(RoundRepository playerR, RoundRepository enmR) {
+        pTeam.setTeamFromRound(playerPetFactory, fruitFactory, playerR);
+        enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmR);
+        while (life > 0) {
+            battleSystem();
+        }
+    }
+
+    private void battleSystem() {
+        pTeam.initBattleTeam();
+        enmTeam.initBattleTeam();
+        lastBattleResult = battle();
+        pTeam.resetPets();
+        switch (lastBattleResult) {
+            case WIN:
+                win();
+                break;
+            case LOSE:
+                lose();
+                break;
+            case DRAW:
+                draw();
+                break;
+        }
+        in.enter();
+    }
+
     public void newGame() {
         MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
@@ -83,22 +110,7 @@ public class Arena {
         while (life > 0) {
             nextRound();
             shop();
-            pTeam.initBattleTeam();
-            enmTeam.initBattleTeam();
-            lastBattleResult = battle();
-            pTeam.resetPets();
-            switch (lastBattleResult) {
-                case WIN:
-                    win();
-                    break;
-                case LOSE:
-                    lose();
-                    break;
-                case DRAW:
-                    draw();
-                    break;
-            }
-            in.enter();
+            battleSystem();
         }
     }
 
