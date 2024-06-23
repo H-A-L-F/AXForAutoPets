@@ -45,6 +45,10 @@ public class PetRepository extends ModelRepository {
 
     private static PetRepository convertPetRepoFromRS(ResultSet rs) {
         try {
+            if(!rs.next()) {
+                System.out.println("Failed to get pet");
+                return null;
+            }
             int id = rs.getInt(1);
             int curr_round_id = rs.getInt(2);
             String name = rs.getString(3);
