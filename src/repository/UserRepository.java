@@ -41,7 +41,7 @@ public class UserRepository extends ModelRepository {
     }
 
     public static ArrayList<UserRepository> getTopWin(int limit) {
-        String query = "SELECT * FROM `user` ORDER BY wins DESC LIMIT %d";
+        String query = "SELECT sum(m.win) FROM `user` u join `match` m on u.id = m.user_id ORDER BY sum(m.win) DESC LIMIT %d";
         ArrayList<UserRepository> res = new ArrayList<>();
         ResultSet rs = con.execQueryWithRes(String.format(query, limit));
         try {
@@ -100,7 +100,7 @@ public class UserRepository extends ModelRepository {
     }
 
     public int getWins() {
-        String query = "SELECT sum(m.win) FROM `user` u join `match` m on u.id = match.user_id WHERE u.id = %d";
+        String query = "SELECT sum(m.win) FROM `user` u join `match` m on u.id = m.user_id WHERE u.id = %d";
         ResultSet rs = con.execQueryWithRes(String.format(query, id));
         try {
             if(!rs.next()) {
