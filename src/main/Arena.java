@@ -88,7 +88,7 @@ public class Arena {
     }
 
     public void newGame() {
-        MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
+        if(DevelopmentState.state.contains(DevelopmentState.INSERT_MATCH)) MatchRepository.newInstance(UserRepository.getInstance().getId(), pTeam.getName());
         reset();
         play();
         updateWins();
@@ -146,9 +146,14 @@ public class Arena {
 
     private void nextRound() {
         round++;
-//        RoundRepository enmRoundRepo = RoundRepository.getRandRoundRepository(round);
-        RoundRepository.newInstance(MatchRepository.getInstance().getId(), -1, round);
-//        enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmRoundRepo);
+        RoundRepository enmRoundRepo = null;
+        int enmRoundId = -1;
+        if(DevelopmentState.state.contains(DevelopmentState.GET_ENM_ROUND)) {
+            enmRoundRepo = RoundRepository.getRandRoundRepository(round);
+            enmRoundId = enmRoundRepo.getEnmRoundId();
+        }
+        if(DevelopmentState.state.contains(DevelopmentState.INSERT_ROUND)) RoundRepository.newInstance(MatchRepository.getInstance().getId(), enmRoundId, round);
+        if(DevelopmentState.state.contains(DevelopmentState.GET_ENM_ROUND)) enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmRoundRepo);
         shop.nextRound(round);
     }
 
