@@ -298,8 +298,8 @@ public class Team {
         int hp = Math.max(pet.getHp(), target.getHp());
         int exp = Math.max(pet.getExp(), target.getExp());
         int lv = Math.max(pet.getLv(), target.getLv());
-        pet.setStats(atk, hp, lv, exp, pos);
-        pet.onMerge();
+        target.setStats(atk, hp, lv, exp, pos);
+        target.onMerge();
     }
 
     public void removePet(int pos) {
