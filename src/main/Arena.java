@@ -13,6 +13,7 @@ public class Arena {
     private Team enmTeam;
     private int round, win, life;
     private int money;
+    private boolean isQuit;
     private BattleResult lastBattleResult;
     private static Arena instance;
 
@@ -30,6 +31,7 @@ public class Arena {
         win = 0;
         life = 5;
         money = DEFAULT_MONEY;
+        isQuit = false;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
         enmPetFactory = new PetFactory(this, enmTeam, pTeam);
@@ -107,15 +109,20 @@ public class Arena {
     }
 
     private void play() {
-        while (life > 0) {
+        while (life > 0 && win < 10) {
             nextRound();
             shop();
+            if(isQuit) break;
             battleSystem();
         }
     }
 
+    public void quit() {
+        isQuit = true;
+    }
+
     private void updateWins() {
-        UserRepository.getInstance().updateWins(win);
+        MatchRepository.getInstance().updateWin(win);
     }
 
     private void win() {

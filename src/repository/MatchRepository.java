@@ -71,7 +71,7 @@ public class MatchRepository extends ModelRepository {
 
     public void updateWin(int win) {
         String query = "UPDATE `match` SET win = %d WHERE id = %d";
-        ResultSet rs = con.execQueryWithRes(String.format(query, win, id));
+        con.execQueryWithKey(String.format(query, win, id));
     }
 
     public String getTeamName() {

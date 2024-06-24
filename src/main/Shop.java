@@ -80,7 +80,8 @@ public class Shop {
         System.out.println("3. Roll");
         System.out.println("4. Arrange");
         System.out.println("5. Sell");
-        System.out.println("6. Exit");
+        System.out.println("6. Battle");
+        System.out.println("7. Exit");
     }
 
     private void menuShop() {
@@ -96,7 +97,7 @@ public class Shop {
             }
             printShop();
             optShop();
-            opt = in.getIntInRange(1, 6, ">> ");
+            opt = in.getIntInRange(1, 7, ">> ");
             Lib.clear();
 
             switch (opt) {
@@ -120,6 +121,9 @@ public class Shop {
                     run = false;
                     pteam.onTurnEnd();
                     break;
+                case 7:
+                    arena.quit();
+                    run = false;
             }
             Lib.clear();
         }
