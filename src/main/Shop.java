@@ -138,7 +138,7 @@ public class Shop {
     }
 
     private void menuBuyPet() {
-        int opt = in.getInt((x) -> pets.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 - " + shopStat.getPET_SLOT() + "]: ");
+        int opt = in.getInt((x) -> pets.get(x - 1).item != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 - " + shopStat.getPET_SLOT() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Slot [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         opt--;
         pos--;
@@ -156,7 +156,7 @@ public class Shop {
     }
 
     private void menuBuyFood() {
-        int opt = in.getInt((x) -> fruits.get(x) != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 - " + fruits.size() + "]: ");
+        int opt = in.getInt((x) -> fruits.get(x - 1).item != null && x >= 1 && x <= shopStat.getPET_SLOT(), "Choose [1 - " + fruits.size() + "]: ");
         int pos = in.getIntInRange(Team.START_SIZE, Team.END_SIZE, "Feed [" + Team.START_SIZE +" - "+ Team.END_SIZE + "]: ");
         opt--;
         pos--;
