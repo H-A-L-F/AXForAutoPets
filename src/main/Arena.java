@@ -114,6 +114,7 @@ public class Arena {
             shop();
             if(isQuit) break;
             battleSystem();
+            battleEnd();
         }
     }
 
@@ -186,6 +187,10 @@ public class Arena {
         if (currP != null && currP.getStatus() == PetStatus.NORMAL) return BattleResult.WIN;
         else if (currEnm != null && currEnm.getStatus() == PetStatus.NORMAL) return BattleResult.LOSE;
         else return BattleResult.DRAW;
+    }
+
+    private void battleEnd() {
+        pTeam.onBattleEnd();
     }
 
     public void printStats() {

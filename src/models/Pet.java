@@ -90,6 +90,10 @@ public abstract class Pet extends Entity {
     protected void onEatFruit() {
     }
 
+    public void onBattleEnd() {
+        if(fruit != null) fruit.onBattleEnd(this);
+    }
+
     // endregion
 
     public int damage(int damage) {
@@ -111,6 +115,10 @@ public abstract class Pet extends Entity {
     public void setFruit(Fruit fruit) {
         if(this.fruit != null) this.fruit.onReplaced(this);
         this.fruit = fruit;
+    }
+
+    public void removeFruit(Fruit fruit) {
+        this.fruit = null;
     }
 
     public int attack() {

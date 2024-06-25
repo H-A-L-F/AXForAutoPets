@@ -121,6 +121,13 @@ public class Team {
         onFriendFaints.forEach(o -> o.onFriendFaint(pet));
     };
 
+    public void onBattleEnd() {
+        for (int i = BACK_INDEX; i < END_SIZE; i++) {
+            Pet p = pets.get(i);
+            p.onBattleEnd();
+        }
+    }
+
     //endregion
 
     private void put(Pet pet, int pos) {

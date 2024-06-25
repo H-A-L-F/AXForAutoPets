@@ -91,13 +91,32 @@ public class FruitFactory {
         };
     }
 
+    public static Fruit getCupcake() {
+        return new Fruit(FruitList.CUPCAKE, 2) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.setFruit(this);
+                pet.buff(3, 3);
+                System.out.printf("%s eats %s, getting %d atk & %d hp until end of battle\n", pet.getName(), getName(), 3, 3);
+            }
+
+            @Override
+            public void onBattleEnd(Pet pet) {
+                super.onBattleEnd(pet);
+                pet.buff(-3, -3);
+                pet.removeFruit(this);
+            }
+        };
+    }
+
     public Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
             case HONEY -> getHoney();
 
             case MEAT_BONE -> getMeatBone();
-//            case CUPCAKE -> getCupcake();
+            case CUPCAKE -> getCupcake();
 
 //            case SALAD_BOWL -> getSaladBowl();
 //            case GARLIC -> getGarlic();

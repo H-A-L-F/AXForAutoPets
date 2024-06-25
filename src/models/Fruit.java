@@ -26,6 +26,9 @@ public class Fruit extends Entity{
         return dmg;
     }
 
+    public void onBattleEnd(Pet pet) {
+    }
+
     @Override
     public String getName() {
         return this.name.toString();
