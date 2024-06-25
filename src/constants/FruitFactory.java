@@ -126,6 +126,23 @@ public class FruitFactory {
         };
     }
 
+    public Fruit getGarlic() {
+        return new Fruit(FruitList.GARLIC, 3) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.setFruit(this);
+                System.out.printf("%s eats %s, now it has the %s perk taking 3 less dmg\n", pet.getName(), getName(), getName());
+            }
+
+            @Override
+            public int onDamaged(int dmg) {
+                int res = dmg - 3;
+                return Math.max(res, 0);
+            }
+        };
+    }
+
     public Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
