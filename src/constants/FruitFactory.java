@@ -67,7 +67,7 @@ public class FruitFactory {
         };
     }
 
-    public static Fruit getMeatBone() {
+    public Fruit getMeatBone() {
         return new Fruit(FruitList.MEAT_BONE, 2) {
             @Override
             public void onEaten(Pet pet) {
@@ -91,7 +91,7 @@ public class FruitFactory {
         };
     }
 
-    public static Fruit getCupcake() {
+    public Fruit getCupcake() {
         return new Fruit(FruitList.CUPCAKE, 2) {
             @Override
             public void onEaten(Pet pet) {
@@ -110,6 +110,22 @@ public class FruitFactory {
         };
     }
 
+    public Fruit getSaladBowl() {
+        return new Fruit(FruitList.SALAD_BOWL, 3) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pTeam.doPets(
+                        () -> pTeam.getRandPets(2),
+                        (p) -> {
+                            p.buff(1, 1);
+                            System.out.printf("%s eats %s, getting %d atk & %d hp\n", p.getName(), getName(), 1, 1);
+                        }
+                );
+            }
+        };
+    }
+
     public Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
@@ -118,8 +134,9 @@ public class FruitFactory {
             case MEAT_BONE -> getMeatBone();
             case CUPCAKE -> getCupcake();
 
-//            case SALAD_BOWL -> getSaladBowl();
+            case SALAD_BOWL -> getSaladBowl();
 //            case GARLIC -> getGarlic();
+
 //            case CANNED_FOOD -> getCannedFood();
 //            case PEAR -> getPear();
 //            case CHILI -> getChili();

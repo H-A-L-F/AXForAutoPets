@@ -244,6 +244,12 @@ public class Team {
         doPet.doPet(pet);
     }
 
+    public void doPets(GetPets getPets, DoPet doPet) {
+        ArrayList<Pet> pets;
+        pets = getPets.getPets();
+        pets.forEach(doPet::doPet);
+    }
+
     public void arrangeBattleTeam() {
         for (int i = FRONT_INDEX; i >= 0; i--) {
             Pet p = battlePets.get(i);
@@ -264,6 +270,15 @@ public class Team {
         while (res == null) {
             int idx = (int) (Math.random() * END_SIZE);
             res = pets.get(idx);
+        }
+        return res;
+    }
+
+    public ArrayList<Pet> getRandPets(int n) {
+        ArrayList<Pet> res = new ArrayList<>();
+        while(res.size() < n) {
+            Pet p = getRandPet();
+            if(!res.contains(p)) res.add(p);
         }
         return res;
     }
