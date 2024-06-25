@@ -62,6 +62,7 @@ public class FruitFactory {
             @Override
             public void onEaten(Pet pet) {
                 super.onEaten(pet);
+                pet.setFruit(this);
                 pet.buff(3, 0);
             }
 
