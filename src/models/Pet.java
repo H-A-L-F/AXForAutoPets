@@ -1,5 +1,6 @@
 package models;
 
+import console_input.ConsoleInput;
 import constants.PetList;
 import constants.PetStatus;
 import interfaces.EventListener;
@@ -104,6 +105,7 @@ public abstract class Pet extends Entity {
     public void eatFruit(Fruit fruit) {
         onEatFruit();
         this.fruit.onEaten(this);
+        ConsoleInput.getInstance().enter();
     }
 
     public void setFruit(Fruit fruit) {

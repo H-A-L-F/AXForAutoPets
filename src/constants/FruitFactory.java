@@ -22,6 +22,7 @@ public class FruitFactory {
             public void onEaten(Pet pet) {
                 super.onEaten(pet);
                 pet.buff(1, 1);
+                System.out.printf("%s eats %s, getting %d atk & %d hp\n", pet.getName(), getName(), 1, 1);
             }
         };
     }
@@ -32,6 +33,7 @@ public class FruitFactory {
             public void onEaten(Pet pet) {
                 super.onEaten(pet);
                 pet.setFruit(this);
+                System.out.printf("%s eats %s, now it has the honey perk\n", pet.getName(), getName());
             }
 
             @Override
@@ -49,6 +51,7 @@ public class FruitFactory {
             public void onEaten(Pet pet) {
                 super.onEaten(pet);
                 pet.buff(1, 0);
+                System.out.printf("%s eats %s, getting %d atk\n", pet.getName(), getName(), 1);
             }
         };
     }
@@ -59,6 +62,7 @@ public class FruitFactory {
             public void onEaten(Pet pet) {
                 super.onEaten(pet);
                 pet.buff(pet.getLv(), pet.getLv());
+                System.out.printf("%s eats %s, getting %d atk & %d hp\n", pet.getName(), getName(), pet.getLv(), pet.getLv());
             }
         };
     }
@@ -70,6 +74,7 @@ public class FruitFactory {
                 super.onEaten(pet);
                 pet.setFruit(this);
                 pet.buff(3, 0);
+                System.out.printf("%s eats %s, now it has the %s perk\n", pet.getName(), getName(), getName());
             }
 
             @Override
