@@ -70,6 +70,12 @@ public class FruitFactory {
                 super.onReplaced(pet);
                 pet.buff(-3, 0);
             }
+
+            @Override
+            public void onAttack(Pet pet) {
+                super.onAttack(pet);
+                System.out.println(pet.getName() + " attacks with +3 dmg from meatbone.");
+            }
         };
     }
 
