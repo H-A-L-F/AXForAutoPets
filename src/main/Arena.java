@@ -174,8 +174,8 @@ public class Arena {
             pTeam.arrangeBattleTeam();
             enmTeam.arrangeBattleTeam();
             Lib.printTeams(pTeam, enmTeam);
-            System.out.printf("%s attacked %s for %d dmg\n", currP.getName(), currEnm.getName(), currP.getAtk());
-            System.out.printf("%s attacked %s for %d dmg\n", currEnm.getName(), currP.getName(), currEnm.getAtk());
+            currP.onAttack(currEnm);
+            currEnm.onAttack(currP);
             currEnm.damage(currP.getAtk());
             pTeam.onAttack(currP);
             currP.damage(currEnm.getAtk());

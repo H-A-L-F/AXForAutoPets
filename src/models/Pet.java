@@ -78,6 +78,11 @@ public abstract class Pet extends Entity {
     protected void onHurt() {
     }
 
+    public void onAttack(Pet enm) {
+        System.out.printf("%s attacked %s for %d dmg\n", name, enm.getName(), atk);
+        if(fruit != null) fruit.onAttack(this);
+    }
+
     public void onAfterAttack() {
     }
 
