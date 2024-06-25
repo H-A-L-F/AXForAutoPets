@@ -29,6 +29,12 @@ public class FruitFactory {
     public Fruit getHoney() {
         return new Fruit(FruitList.HONEY, 1) {
             @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.setFruit(this);
+            }
+
+            @Override
             public void onFaint(Pet pet) {
                 super.onFaint(pet);
                 Pet temp = PetFactory.getBee();
