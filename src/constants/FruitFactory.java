@@ -152,7 +152,7 @@ public class FruitFactory {
             case CUPCAKE -> getCupcake();
 
             case SALAD_BOWL -> getSaladBowl();
-//            case GARLIC -> getGarlic();
+            case GARLIC -> getGarlic();
 
 //            case CANNED_FOOD -> getCannedFood();
 //            case PEAR -> getPear();
