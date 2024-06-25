@@ -156,9 +156,11 @@ public class FruitFactory {
 
 //            case CANNED_FOOD -> getCannedFood();
 //            case PEAR -> getPear();
+
 //            case CHILI -> getChili();
 //            case CHOCOLATE -> getChocolate();
 //            case SUSHI -> getSushi();
+
 //            case MELON -> getMelon();
 //            case MUSHROOM -> getMushroom();
 //            case PIZZA -> getPizza();
