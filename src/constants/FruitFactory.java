@@ -57,13 +57,30 @@ public class FruitFactory {
         };
     }
 
+    public static Fruit getMeatBone() {
+        return new Fruit(FruitList.MEAT_BONE, 2) {
+            @Override
+            public void onEaten(Pet pet) {
+                super.onEaten(pet);
+                pet.buff(3, 0);
+            }
+
+            @Override
+            public void onReplaced(Pet pet) {
+                super.onReplaced(pet);
+                pet.buff(-3, 0);
+            }
+        };
+    }
+
     public Fruit getFruit(FruitList name) {
         return switch (name) {
             case APPLE -> getApple();
             case HONEY -> getHoney();
 
+            case MEAT_BONE -> getMeatBone();
 //            case CUPCAKE -> getCupcake();
-//            case MEAT_BONE -> getMeatBone();
+
 //            case SALAD_BOWL -> getSaladBowl();
 //            case GARLIC -> getGarlic();
 //            case CANNED_FOOD -> getCannedFood();

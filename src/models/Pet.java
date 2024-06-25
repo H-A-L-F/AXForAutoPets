@@ -103,6 +103,7 @@ public abstract class Pet extends Entity {
 
     public void eatFruit(Fruit fruit) {
         onEatFruit();
+        if(this.fruit != null) this.fruit.onReplaced(this);
         this.fruit = fruit;
         this.fruit.onEaten(this);
     }
