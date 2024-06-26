@@ -149,14 +149,16 @@ public class Main {
 
     private void menuHistory() {
         ArrayList<MatchRepository> matches = MatchRepository.getMatchesForUser(UserRepository.getInstance().getId());
-        menuViewHistory(matches);
-        System.out.println("-1. Exit");
-        System.out.println("no. View Match Detail");
-        int opt = ci.getIntInRange(-1, matches.size(), ">> ");
-        if(opt == -1) return;
-        opt--;
-        MatchRepository match = matches.get(opt);
-        menuMatchDetail(match);
+        while (true) {
+            menuViewHistory(matches);
+            System.out.println("-1. Exit");
+            System.out.println("no. View Match Detail");
+            int opt = ci.getIntInRange(-1, matches.size(), ">> ");
+            if(opt == -1) return;
+            opt--;
+            MatchRepository match = matches.get(opt);
+            menuMatchDetail(match);
+        }
     }
 
     private void menuLogout() {
@@ -175,16 +177,18 @@ public class Main {
 
     private void menuMatchDetail(MatchRepository match) {
         ArrayList<RoundRepository> rounds = RoundRepository.getRoundsForMatch(match.getId());
-        menuViewRounds(rounds, match);
-        System.out.println("-1. Exit");
-        System.out.println("no. View Round Replay");
-        int opt = ci.getIntInRange(-1, rounds.size(), ">> ");
-        if(opt == -1) return;
-        opt--;
-        RoundRepository pr = rounds.get(opt);
-        RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
-        Arena arena = Arena.newInstance(new Team(match.getTeamName()));
-        arena.replayRound(pr, er);
+        while (true) {
+            menuViewRounds(rounds, match);
+            System.out.println("-1. Exit");
+            System.out.println("no. View Round Replay");
+            int opt = ci.getIntInRange(-1, rounds.size(), ">> ");
+            if(opt == -1) return;
+            opt--;
+            RoundRepository pr = rounds.get(opt);
+            RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
+            Arena arena = Arena.newInstance(new Team(match.getTeamName()));
+            arena.replayRound(pr, er);
+        }
     }
 
     private void menuViewRounds(ArrayList<RoundRepository> rounds, MatchRepository match) {
