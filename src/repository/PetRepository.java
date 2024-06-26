@@ -10,6 +10,7 @@ import models.Team;
 import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PetRepository extends ModelRepository {
 
@@ -81,23 +82,36 @@ public class PetRepository extends ModelRepository {
     }
 
     public static Pet[] getPetsForRound(PetFactory petF, FruitFactory fruF, int round_id) {
-        PetRepository[] petRepos = new PetRepository[Team.END_SIZE];
         Pet[] pets = new Pet[Team.END_SIZE];
         String query = "SELECT * FROM pet WHERE round_id = %d LIMIT %d";
         ResultSet rs = con.execQueryWithRes(String.format(query, round_id, Team.END_SIZE));
-        for(int i = 0; i < Team.END_SIZE; i++) {
-            try {
-                if(!rs.next()) break;
-                petRepos[i] = convertPetRepoFromRS(rs);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        for(int i = 0; i < Team.END_SIZE; i++) {
-            if(petRepos[i] == null) continue;
-            pets[i] = petRepoToPet(petF, fruF, petRepos[i]);
+        ArrayList<PetRepository> temp_pets = getPetReposFromRs(rs);
+        if(temp_pets == null) return null;
+        for(PetRepository p : temp_pets) {
+            pets[p.pos] = petRepoToPet(petF, fruF, p);
         }
         return pets;
+    }
+
+    private static ArrayList<PetRepository> getPetReposFromRs(ResultSet rs) {
+        ArrayList<PetRepository> res = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                int id = rs.getInt(1);
+                int curr_round_id = rs.getInt(2);
+                String name = rs.getString(3);
+                int atk = rs.getInt(4);
+                int hp = rs.getInt(5);
+                int lv = rs.getInt(6);
+                int exp = rs.getInt(7);
+                int curr_pos = rs.getInt(8);
+                res.add(new PetRepository(id, curr_round_id, name, atk, hp, lv, exp, curr_pos));
+            }
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private static Pet petRepoToPet(PetFactory petF, FruitFactory fruF, PetRepository petRepo) {
