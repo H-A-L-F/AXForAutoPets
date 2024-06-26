@@ -151,7 +151,7 @@ public class Arena {
         int enmRoundId = -1;
         if(DevelopmentState.state.contains(DevelopmentState.GET_ENM_ROUND)) {
             enmRoundRepo = RoundRepository.getRandRoundRepository(round);
-            enmRoundId = enmRoundRepo.getEnmRoundId();
+            enmRoundId = enmRoundRepo.getId();
         }
         if(DevelopmentState.state.contains(DevelopmentState.INSERT_ROUND)) RoundRepository.newInstance(MatchRepository.getInstance().getId(), enmRoundId, round);
         if(DevelopmentState.state.contains(DevelopmentState.GET_ENM_ROUND)) enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmRoundRepo);

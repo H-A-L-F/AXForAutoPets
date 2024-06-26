@@ -154,6 +154,7 @@ public class Main {
         System.out.println("no. View Match Detail");
         int opt = ci.getIntInRange(-1, matches.size(), ">> ");
         if(opt == -1) return;
+        opt--;
         MatchRepository match = matches.get(opt);
         menuMatchDetail(match);
     }
@@ -179,6 +180,7 @@ public class Main {
         System.out.println("no. View Round Replay");
         int opt = ci.getIntInRange(-1, rounds.size(), ">> ");
         if(opt == -1) return;
+        opt--;
         RoundRepository pr = rounds.get(opt);
         RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
         Arena arena = Arena.newInstance(new Team(match.getTeamName()));
