@@ -124,7 +124,7 @@ public class Team {
     public void onBattleEnd() {
         for (int i = BACK_INDEX; i < END_SIZE; i++) {
             Pet p = pets.get(i);
-            p.onBattleEnd();
+            if(p != null) p.onBattleEnd();
         }
     }
 
