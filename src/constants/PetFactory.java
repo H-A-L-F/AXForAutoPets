@@ -187,6 +187,7 @@ public class PetFactory {
                 for (int i = 0; i < getLv(); i++) {
                     eTeam.summonPet(getDirtyRat(), Team.FRONT_INDEX);
                 }
+                System.out.println("%s died, Dirty Rat is summoned on the enemy team");
             }
         };
     }
@@ -197,7 +198,10 @@ public class PetFactory {
             public void onFaint() {
                 super.onFaint();
                 int dmg = 2 * getLv();
-                pTeam.doAll((pet) -> pet.damage(dmg));
+                pTeam.doAll((pet) -> {
+                    pet.damage(dmg);
+                    System.out.printf("%s damaged %s for %d\n", getName(), pet.getName(), dmg);
+                });
             }
         };
     }
@@ -212,7 +216,10 @@ public class PetFactory {
                     pTeam.doPet(
                             this,
                             () -> pTeam.getBattlePet(pos),
-                            pet -> pet.buff(getLv(), getLv())
+                            pet -> {
+                                pet.buff(getLv(), getLv());
+                                System.out.printf("%s buffed %s for %d atk and %d hp\n", getName(), pet.getName(), getLv(), getLv());
+                            }
                     );
                 }
             }
@@ -228,6 +235,7 @@ public class PetFactory {
                 Pet temp = getPet(3);
                 temp.setStats(1, stat, stat);
                 pTeam.summonPet(temp, getPos());
+                System.out.printf("%s fainted and summoned %s\n", getName(), temp.getName());
             }
         };
     }
@@ -237,6 +245,7 @@ public class PetFactory {
             @Override
             public void onTurnStart() {
                 arena.getShop().addFruit(FruitFactory.getWormApple(this));
+                System.out.printf("%s added worm apple to shop\n", getName());
             }
 
             @Override
@@ -251,6 +260,7 @@ public class PetFactory {
             @Override
             public void onTurnStart() {
                 arena.incMoney(getLv());
+                System.out.printf("%s added %d coin\n", getName(), getLv());
             }
 
             @Override
@@ -266,6 +276,7 @@ public class PetFactory {
             public void onHurt() {
                 super.onHurt();
                 buff(4, 0);
+                System.out.printf("%s buffed for %d atk", getName(), 4);
             }
         };
     }
@@ -274,7 +285,10 @@ public class PetFactory {
         return new Snail() {
             @Override
             public void onTurnEnd() {
-                if (arena.getLastBattleResult() == BattleResult.LOSE) pTeam.doAll(pet -> pet.buff(0, getLv()));
+                if (arena.getLastBattleResult() == BattleResult.LOSE) pTeam.doAll(pet -> {
+                    pet.buff(0, getLv());
+                    System.out.printf("%s buffed %s for %d hp\n", getName(), pet.getName(), getLv());
+                });
             }
 
             @Override
@@ -294,6 +308,7 @@ public class PetFactory {
                 });
                 int hp = (int) (((double) temp.getHp() * 0.5) * getLv());
                 setHp(hp);
+                System.out.printf("%s got %d hp", getName(), hp);
             }
 
             @Override
@@ -307,7 +322,10 @@ public class PetFactory {
         return new Kangaroo() {
             @Override
             public void onFriendAttack(Pet pet) {
-                if(pet.getPos() == getPos() + 1) buff(getLv(), getLv());
+                if(pet.getPos() == getPos() + 1) {
+                    buff(getLv(), getLv());
+                    System.out.printf("%s buffed for %d atk and hp", getName(), getLv());
+                }
             }
 
             @Override
