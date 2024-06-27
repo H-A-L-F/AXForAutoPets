@@ -138,30 +138,25 @@ public enum PetList {
 
     public static PetList getRandPetByTier(int tier) {
         switch (tier) {
-            case 1 -> {
+            case 1:
                 return VALUES1.get(RANDOM.nextInt(SIZE1));
-            }
-            case 2 -> {
+            case 2:
                 List<PetList> combinedList2 = Lib.combineLists(VALUES1, VALUES2);
                 return combinedList2.get(RANDOM.nextInt(combinedList2.size()));
-            }
-            case 3 -> {
+            case 3:
                 List<PetList> combinedList3 = Lib.combineLists(VALUES1, VALUES2, VALUES3);
                 return combinedList3.get(RANDOM.nextInt(combinedList3.size()));
-            }
-            case 4 -> {
+            case 4:
                 List<PetList> combinedList4 = Lib.combineLists(VALUES1, VALUES2, VALUES3, VALUES4);
                 return combinedList4.get(RANDOM.nextInt(combinedList4.size()));
-            }
-            case 5 -> {
+            case 5:
                 List<PetList> combinedList5 = Lib.combineLists(VALUES1, VALUES2, VALUES3, VALUES4, VALUES5);
                 return combinedList5.get(RANDOM.nextInt(combinedList5.size()));
-            }
-            case 6 -> {
+            case 6:
                 List<PetList> combinedList6 = Lib.combineLists(VALUES1, VALUES2, VALUES3, VALUES4, VALUES5, VALUES6);
                 return combinedList6.get(RANDOM.nextInt(combinedList6.size()));
-            }
-            default -> throw new IllegalArgumentException("Invalid tier: " + tier);
+            default:
+                throw new IllegalArgumentException("Invalid tier: " + tier);
         }
     }
 
