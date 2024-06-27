@@ -395,7 +395,7 @@ public class Team {
     }
 
     public Pet getBattlePet(int idx) {
-        return battlePets.get(idx);
+        return idx >= END_SIZE ? null : pets.get(idx);
     }
 
     private void failSpawn(Pet pet) {

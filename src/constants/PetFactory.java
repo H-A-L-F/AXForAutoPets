@@ -418,7 +418,10 @@ public class PetFactory {
                     pTeam.doPet(
                             this,
                             () -> pTeam.getBattlePet(pos),
-                            pet -> pet.buff(1, 1)
+                            pet -> {
+                                if(pet == null) return;
+                                pet.buff(1, 1);
+                            }
                     );
                 }
             }
