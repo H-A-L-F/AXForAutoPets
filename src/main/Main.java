@@ -5,6 +5,7 @@ import constants.Connect;
 import constants.Lib;
 import constants.PetFactory;
 import models.Team;
+import models.UserWinModel;
 import repository.MatchRepository;
 import repository.RoundRepository;
 import repository.UserRepository;
@@ -138,10 +139,10 @@ public class Main {
 
     private void menuLeaderboard() {
         System.out.println("===Leaderboard===");
-        ArrayList<UserRepository> users = UserRepository.getTopWin(10);
+        ArrayList<UserWinModel> users = UserRepository.getTopWin(10);
         for(int i = 0; i < users.size(); i++) {
-            UserRepository u = users.get(i);
-            System.out.printf("%d. [%s | %d]\n", i + 1, u.getName(), u.getWins());
+            UserWinModel u = users.get(i);
+            System.out.printf("%d. [%s | %d]\n", i + 1, u.name, u.win);
         }
         System.out.println(1);
         ci.enter();

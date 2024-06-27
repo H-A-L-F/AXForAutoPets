@@ -1,5 +1,7 @@
 package repository;
 
+import models.UserWinModel;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,16 +42,21 @@ public class UserRepository extends ModelRepository {
         return instance;
     }
 
-    public static ArrayList<UserRepository> getTopWin(int limit) {
-        String query = "SELECT sum(m.win) FROM `user` u join `match` m on u.id = m.user_id ORDER BY sum(m.win) DESC LIMIT %d";
-        ArrayList<UserRepository> res = new ArrayList<>();
+    public static ArrayList<UserWinModel> getTopWin(int limit) {
+        String query = "SELECT u.id, u.name, SUM(m.win) AS total_wins " +
+                "FROM `user` u " +
+                "JOIN `match` m ON u.id = m.user_id " +
+                "GROUP BY u.id, u.name " +
+                "ORDER BY total_wins DESC " +
+                "LIMIT %d";
+        ArrayList<UserWinModel> res = new ArrayList<>();
         ResultSet rs = con.execQueryWithRes(String.format(query, limit));
         try {
             while(rs.next()) {
                 int id = rs.getInt(1);
                 String username = rs.getString(2);
-                String userpass = rs.getString(3);
-                res.add(new UserRepository(id, username, userpass));
+                int win = rs.getInt(3);
+                res.add(new UserWinModel(id, username, win));
             }
             return res;
         } catch (SQLException e) {
