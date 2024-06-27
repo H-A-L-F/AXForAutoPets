@@ -326,7 +326,8 @@ public class Shop {
 
     public void buffShop(int atk, int hp) {
         for(int i = 0; i < shopStat.getPET_SLOT(); i++) {
-            pets.get(i).item.buff(atk, hp);
+            Pet p = pets.get(i).item;
+            if(p != null) p.buff(atk, hp);
         }
     }
 
