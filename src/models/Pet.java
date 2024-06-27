@@ -18,7 +18,7 @@ public abstract class Pet extends Entity {
     private PetStatus status;
     private Fruit fruit;
 
-    private final int[] EXP_LIMITS = {2, 3};
+    private final int[] EXP_LIMITS = {2, 3, 0};
     public static int MAX_LV = 3;
 
     public Pet(PetList name, int tier, int atk, int hp) {
