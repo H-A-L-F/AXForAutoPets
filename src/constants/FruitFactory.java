@@ -144,32 +144,50 @@ public class FruitFactory {
     }
 
     public Fruit getFruit(FruitList name) {
-        return switch (name) {
-            case APPLE -> getApple();
-            case HONEY -> getHoney();
+        switch (name) {
+            case APPLE:
+                return getApple();
+            case HONEY:
+                return getHoney();
 
-            case MEAT_BONE -> getMeatBone();
-            case CUPCAKE -> getCupcake();
+            case MEAT_BONE:
+                return getMeatBone();
+            case CUPCAKE:
+                return getCupcake();
 
-            case SALAD_BOWL -> getSaladBowl();
-            case GARLIC -> getGarlic();
+            case SALAD_BOWL:
+                return getSaladBowl();
+            case GARLIC:
+                return getGarlic();
 
-//            case CANNED_FOOD -> getCannedFood();
-//            case PEAR -> getPear();
+//        case CANNED_FOOD:
+//            return getCannedFood();
+//        case PEAR:
+//            return getPear();
 
-//            case CHILI -> getChili();
-//            case CHOCOLATE -> getChocolate();
-//            case SUSHI -> getSushi();
+//        case CHILI:
+//            return getChili();
+//        case CHOCOLATE:
+//            return getChocolate();
+//        case SUSHI:
+//            return getSushi();
 
-//            case MELON -> getMelon();
-//            case MUSHROOM -> getMushroom();
-//            case PIZZA -> getPizza();
-//            case STEAK -> getSteak();
+//        case MELON:
+//            return getMelon();
+//        case MUSHROOM:
+//            return getMushroom();
+//        case PIZZA:
+//            return getPizza();
+//        case STEAK:
+//            return getSteak();
 
-            case BREAD_CRUMBS -> getBreadCrumbs();
-//            case WORM_APPLE -> getWormApple();
-            default -> null;
-        };
+            case BREAD_CRUMBS:
+                return getBreadCrumbs();
+//        case WORM_APPLE:
+//            return getWormApple();
+            default:
+                return null;
+        }
     }
 
     public Fruit getFruit(int tier) {

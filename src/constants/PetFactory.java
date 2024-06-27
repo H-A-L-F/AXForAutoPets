@@ -544,81 +544,148 @@ public class PetFactory {
     // endregion
 
     public Pet getPet(PetList name) {
-        return switch (name) {
-            case ANT -> getAnt();
-            case BEAVER -> getBeaver();
-            case CRICKET -> getCricket();
-            case DUCK -> getDuck();
-            case FISH -> getFish();
-            case HORSE -> getHorse();
-            case MOSQUITO -> getMosquito();
-            case OTTER -> getOtter();
-            case PIG -> getPig();
-            case PIGEON -> getPigeon();
+        switch (name) {
+            case ANT:
+                return getAnt();
+            case BEAVER:
+                return getBeaver();
+            case CRICKET:
+                return getCricket();
+            case DUCK:
+                return getDuck();
+            case FISH:
+                return getFish();
+            case HORSE:
+                return getHorse();
+            case MOSQUITO:
+                return getMosquito();
+            case OTTER:
+                return getOtter();
+            case PIG:
+                return getPig();
+            case PIGEON:
+                return getPigeon();
 
-            case RAT -> getRat();
-            case HEDGEHOG -> getHedgehog();
-            case FLAMINGO -> getFlamingo();
-            case SPIDER -> getSpider();
-            case WORM -> getWorm();
-            case SWAN -> getSwan();
-            case PEACOCK -> getPeacock();
-            case SNAIL -> getSnail();
-            case CRAB -> getCrab();
-            case KANGAROO -> getKangaroo();
+            case RAT:
+                return getRat();
+            case HEDGEHOG:
+                return getHedgehog();
+            case FLAMINGO:
+                return getFlamingo();
+            case SPIDER:
+                return getSpider();
+            case WORM:
+                return getWorm();
+            case SWAN:
+                return getSwan();
+            case PEACOCK:
+                return getPeacock();
+            case SNAIL:
+                return getSnail();
+            case CRAB:
+                return getCrab();
+            case KANGAROO:
+                return getKangaroo();
 
-            case DOLPHIN -> getDolphin();
-            case RABBIT -> getRabbit();
-            case DOG -> getDog();
-            case DODO -> getDodo();
-            case ELEPHANT -> getElephant();
-            case SHEEP -> getSheep();
-            case BADGER -> getBadger();
-            case CAMEL -> getCamel();
-            case OX -> getOx();
-            case GIRAFFE -> getGiraffe();
+            case DOLPHIN:
+                return getDolphin();
+            case RABBIT:
+                return getRabbit();
+            case DOG:
+                return getDog();
+            case DODO:
+                return getDodo();
+            case ELEPHANT:
+                return getElephant();
+            case SHEEP:
+                return getSheep();
+            case BADGER:
+                return getBadger();
+            case CAMEL:
+                return getCamel();
+            case OX:
+                return getOx();
+            case GIRAFFE:
+                return getGiraffe();
 
-//            case BLOWFISH -> getBlowfish();
-//            case SKUNK -> getSkunk();
-//            case TURTLE -> getTurtle();
-//            case SQUIRREL -> getSquirrel();
-//            case DEER -> getDeer();
-//            case BISON -> getBison();
-//            case WHALE -> getWhale();
-//            case PENGUIN -> getPenguin();
-//            case HIPPO -> getHippo();
-//            case PARROT -> getParrot();
+//        case BLOWFISH:
+//            return getBlowfish();
+//        case SKUNK:
+//            return getSkunk();
+//        case TURTLE:
+//            return getTurtle();
+//        case SQUIRREL:
+//            return getSquirrel();
+//        case DEER:
+//            return getDeer();
+//        case BISON:
+//            return getBison();
+//        case WHALE:
+//            return getWhale();
+//        case PENGUIN:
+//            return getPenguin();
+//        case HIPPO:
+//            return getHippo();
+//        case PARROT:
+//            return getParrot();
 
-//            case SCORPION -> getScorpion();
-//            case RHINO -> getRhino();
-//            case SEAL -> getSeal();
-//            case ARMADILLO -> getArmadillo();
-//            case COW -> getCow();
-//            case MONKEY -> getMonkey();
-//            case SHARK -> getShark();
-//            case TURKEY -> getTurkey();
-//            case CROCODILE -> getCrocodile();
-//            case ROOSTER -> getRooster();
+//        case SCORPION:
+//            return getScorpion();
+//        case RHINO:
+//            return getRhino();
+//        case SEAL:
+//            return getSeal();
+//        case ARMADILLO:
+//            return getArmadillo();
+//        case COW:
+//            return getCow();
+//        case MONKEY:
+//            return getMonkey();
+//        case SHARK:
+//            return getShark();
+//        case TURKEY:
+//            return getTurkey();
+//        case CROCODILE:
+//            return getCrocodile();
+//        case ROOSTER:
+//            return getRooster();
 
-//            case DRAGON -> getDragon();
-//            case LEOPARD -> getLeopard();
-//            case MAMMOTH -> getMammoth();
-//            case GORILLA -> getGorilla();
-//            case BOAR -> getBoar();
-//            case TIGER -> getTiger();
-//            case SNAKE -> getSnake();
-//            case FLY -> getFly();
-//            case CAT -> getCat();
-//            case WOLVERINE -> getWolverine();
+//        case DRAGON:
+//            return getDragon();
+//        case LEOPARD:
+//            return getLeopard();
+//        case MAMMOTH:
+//            return getMammoth();
+//        case GORILLA:
+//            return getGorilla();
+//        case BOAR:
+//            return getBoar();
+//        case TIGER:
+//            return getTiger();
+//        case SNAKE:
+//            return getSnake();
+//        case FLY:
+//            return getFly();
+//        case CAT:
+//            return getCat();
+//        case WOLVERINE:
+//            return getWolverine();
 
-//            case BUS -> getBus();
-//            case CHICK -> getChick();
-            case RAM -> getRam();
-            case BEE -> getBee();
-            case ZOMBIE_CRICKET -> getZombieCricket();
-            case DIRTY_RAT -> getDirtyRat();
-            default -> null;
-        };
+//        case BUS:
+//            return getBus();
+//        case CHICK:
+//            return getChick();
+            case RAM:
+                return getRam();
+            case BEE:
+                return getBee();
+            case ZOMBIE_CRICKET:
+                return getZombieCricket();
+            case DIRTY_RAT:
+                return getDirtyRat();
+            default:
+                return null;
+        }
     }
 
     public Pet getPet(int tier) {
