@@ -6,6 +6,8 @@ public class ConsoleInput {
     private Scanner scanner;
     private static ConsoleInput instance;
 
+    private static final int FAIL_NUMBER = -999;
+
     private ConsoleInput() {
         scanner = new Scanner(System.in);
     }
@@ -15,12 +17,22 @@ public class ConsoleInput {
         return instance;
     }
 
+    private int handledGetInt() {
+        try {
+            int res = scanner.nextInt();
+            scanner.nextLine();
+            return res;
+        } catch (Exception ex) {
+            scanner.nextLine();
+            return FAIL_NUMBER;
+        }
+    }
+
     public int getInt(ValidatorInt validator, String str) {
-        int res = -1;
+        int res = FAIL_NUMBER;
         do {
             System.out.printf(str);
-            res = scanner.nextInt();
-            scanner.nextLine();
+            res = handledGetInt();
         } while (!validator.validateInt(res));
         return res;
     }
@@ -29,8 +41,7 @@ public class ConsoleInput {
         int res = min - 1;
         do {
             System.out.printf(str);
-            res = scanner.nextInt();
-            scanner.nextLine();
+            res = handledGetInt();
         } while (res < min || res > max);
         return res;
     }
