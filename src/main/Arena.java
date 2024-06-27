@@ -97,8 +97,8 @@ public class Arena {
     }
 
     private void reset() {
-        pTeam = new Team();
-        enmTeam = new Team();
+        pTeam = new Team(pTeam.getName());
+        enmTeam = new Team(enmTeam.getName());
         round = 0;
         win = 0;
         life = 5;
