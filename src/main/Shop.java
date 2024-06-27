@@ -250,7 +250,8 @@ public class Shop {
     ShopPrint petPrinter = new ShopPrint() {
         @Override
         public <T extends Entity> void print(ShopItem<T> obj, StringBuilder firstLn, StringBuilder secondLn, char open, char close) {
-            if(!(obj.item instanceof Pet pet)) return;
+            if(!(obj.item instanceof Pet)) return;
+            Pet pet = (Pet) obj.item;
             String first = String.format("%c %-5s %c", open, Lib.center(pet.getName(), 5), close);
             String second = String.format("%d | %d", pet.getAtk(), pet.getHp());
             int len = first.length() - 4;
