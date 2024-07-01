@@ -114,9 +114,10 @@ public class Main {
         int opt = -1;
 
         while (run) {
+            Lib.clear();
+            title();
             optHome();
             opt = ci.getIntInRange(1, 4, ">> ");
-            Lib.clear();
 
             switch (opt) {
                 case 1:
