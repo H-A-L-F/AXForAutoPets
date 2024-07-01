@@ -7,9 +7,11 @@ import constants.PetStatus;
 import interfaces.*;
 import main.EventManager;
 import repository.FruitRepository;
+import repository.MatchRepository;
 import repository.PetRepository;
 import repository.RoundRepository;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -165,6 +167,9 @@ public class Team {
     }
 
     public void setTeamFromRound(PetFactory petF, FruitFactory fruF, RoundRepository roundRepo) {
+        ResultSet rs = MatchRepository.getRsFromId(roundRepo.getMatch_id(), "match");
+        MatchRepository match = MatchRepository.getMatchFromRs(rs);
+        name = match.getTeamName();
         Pet[] temp = PetRepository.getPetsForRound(petF, fruF, roundRepo.getId());
         for(int i = 0; i < END_SIZE; i++) {
             Pet curr = temp[i];

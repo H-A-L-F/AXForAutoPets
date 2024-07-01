@@ -84,4 +84,8 @@ public class RoundRepository extends ModelRepository {
     public int getEnmRoundId() {
         return enm_round_id;
     }
+
+    public int getMatch_id() {
+        return match_id;
+    }
 }
