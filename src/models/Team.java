@@ -360,31 +360,73 @@ public class Team {
     }
 
     public void addOnBattleStart(OnBattleStart onBattleStart) {
+        if (onBattleStarts.contains(onBattleStart)) return;
         onBattleStarts.add(onBattleStart);
     }
 
+    public void removeOnBattleStart(OnBattleStart onBattleStart) {
+        if (!onBattleStarts.contains(onBattleStart)) return;
+        onBattleStarts.remove(onBattleStart);
+    }
+
     public void addOnSummon(OnSummon onSummon) {
+        if (onSummons.contains(onSummon)) return;
         onSummons.add(onSummon);
     }
 
+    public void removeOnSummon(OnSummon onSummon) {
+        if (!onSummons.contains(onSummon)) return;
+        onSummons.remove(onSummon);
+    }
+
     public void addOnTurnStart(OnTurnStart onTurnStart) {
+        if (onTurnStarts.contains(onTurnStart)) return;
         onTurnStarts.add(onTurnStart);
     }
 
+    public void removeOnTurnStart(OnTurnStart onTurnStart) {
+        if (!onTurnStarts.contains(onTurnStart)) return;
+        onTurnStarts.remove(onTurnStart);
+    }
+
     public void addOnTurnEnd(OnTurnEnd onTurnEnd) {
+        if (onTurnEnds.contains(onTurnEnd)) return;
         onTurnEnds.add(onTurnEnd);
     }
 
+    public void removeOnTurnEnd(OnTurnEnd onTurnEnd) {
+        if (!onTurnEnds.contains(onTurnEnd)) return;
+        onTurnEnds.remove(onTurnEnd);
+    }
+
     public void addOnFriendAttack(OnFriendAttack onFriendAttack) {
+        if (onFriendAttacks.contains(onFriendAttack)) return;
         onFriendAttacks.add(onFriendAttack);
     }
 
+    public void removeOnFriendAttack(OnFriendAttack onFriendAttack) {
+        if (!onFriendAttacks.contains(onFriendAttack)) return;
+        onFriendAttacks.remove(onFriendAttack);
+    }
+
     public void addOnFriendEatFruit(OnFriendEatFruit onFriendEatFruit) {
+        if (onFriendEatFruits.contains(onFriendEatFruit)) return;
         onFriendEatFruits.add(onFriendEatFruit);
     }
 
+    public void removeOnFriendEatFruit(OnFriendEatFruit onFriendEatFruit) {
+        if (!onFriendEatFruits.contains(onFriendEatFruit)) return;
+        onFriendEatFruits.remove(onFriendEatFruit);
+    }
+
     public void addOnFriendFaint(OnFriendFaint onFriendFaint) {
+        if (onFriendFaints.contains(onFriendFaint)) return;
         onFriendFaints.add(onFriendFaint);
+    }
+
+    public void removeOnFriendFaint(OnFriendFaint onFriendFaint) {
+        if (!onFriendFaints.contains(onFriendFaint)) return;
+        onFriendFaints.remove(onFriendFaint);
     }
 
     public String getName() {

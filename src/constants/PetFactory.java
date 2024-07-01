@@ -97,6 +97,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnBattleStart(this);
             }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnBattleStart(this);
+            }
         };
     }
 
@@ -160,6 +166,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnSummon(this);
+            }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnSummon(this);
             }
         };
     }
@@ -252,6 +264,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnTurnStart(this);
             }
+
+            @Override
+            protected void onSell() {
+                super.onSell();
+                pTeam.removeOnTurnStart(this);
+            }
         };
     }
 
@@ -266,6 +284,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnTurnStart(this);
+            }
+
+            @Override
+            protected void onSell() {
+                super.onSell();
+                pTeam.removeOnTurnStart(this);
             }
         };
     }
@@ -295,6 +319,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnTurnEnd(this);
             }
+
+            @Override
+            protected void onSell() {
+                super.onSell();
+                pTeam.removeOnTurnEnd(this);
+            }
         };
     }
 
@@ -315,6 +345,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnBattleStart(this);
             }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnBattleStart(this);
+            }
         };
     }
 
@@ -331,6 +367,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnFriendAttack(this);
+            }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnFriendAttack(this);
             }
         };
     }
@@ -351,6 +393,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnBattleStart(this);
+            }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnBattleStart(this);
             }
         };
     }
@@ -406,6 +454,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnBattleStart(this);
             }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnBattleStart(this);
+            }
         };
     }
 
@@ -429,6 +483,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnTurnEnd(this);
+            }
+
+            @Override
+            protected void onSell() {
+                super.onSell();
+                pTeam.removeOnTurnEnd(this);
             }
         };
     }
@@ -477,6 +537,12 @@ public class PetFactory {
             public void onPlaced() {
                 pTeam.addOnFriendEatFruit(this);
             }
+
+            @Override
+            protected void onSell() {
+                super.onSell();
+                pTeam.removeOnFriendEatFruit(this);
+            }
         };
     }
 
@@ -491,6 +557,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnFriendFaint(this);
+            }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnFriendFaint(this);
             }
         };
     }
@@ -507,6 +579,12 @@ public class PetFactory {
             @Override
             public void onPlaced() {
                 pTeam.addOnSummon(this);
+            }
+
+            @Override
+            protected void onFaint() {
+                super.onFaint();
+                pTeam.removeOnSummon(this);
             }
         };
     }
