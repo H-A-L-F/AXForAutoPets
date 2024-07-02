@@ -37,6 +37,11 @@ public class UserRepository extends ModelRepository {
         return instance;
     }
 
+    public static UserRepository newInstance(int id, String name, String password) {
+        instance = new UserRepository(id, name, password);
+        return instance;
+    }
+
     public static UserRepository getInstance(String name, String password) {
         if (instance == null) instance = new UserRepository(name, password);
         return instance;

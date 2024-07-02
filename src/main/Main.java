@@ -46,6 +46,7 @@ public class Main {
         int opt = -1;
 
         while (run) {
+            Lib.clear();
             title();
             optAuth();
             opt = ci.getIntInRange(1, 3, ">> ");
@@ -77,10 +78,10 @@ public class Main {
                 ci.enter();
                 return;
             }
-            int user_id = con.rs.getInt(1);
-            String username = con.rs.getString(2);
-            String userpass = con.rs.getString(3);
-            UserRepository.getInstance(user_id, username, userpass);
+            int user_id = rs.getInt(1);
+            String username = rs.getString(2);
+            String userpass = rs.getString(3);
+            UserRepository.newInstance(user_id, username, userpass);
             System.out.println("Logged in as " + username);
             ci.enter();
             menuHome();
