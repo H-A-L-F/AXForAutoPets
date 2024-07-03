@@ -149,8 +149,7 @@ public class Shop {
         Pet curr = pets.get(opt).item;
         Pet target = pteam.getPet(pos);
         if(target != null && (target.getPetListName() != curr.getPetListName() || target.getLv() == Pet.MAX_LV)) {
-            System.out.println("That spot is filled!");
-            System.out.println("You can only merge pet with the same type!");
+            System.out.println("Fail to buy pet, make sure the spot is empty or the target pet is not max level.");
             in.enter();
             return;
         }
@@ -224,6 +223,10 @@ public class Shop {
         Pet curr = pteam.getPet(opt - 1);
         Pet targetPet = pteam.getPet(target - 1);
         if(curr.getPetListName() == targetPet.getPetListName()) {
+            if(targetPet.getLv() == Pet.MAX_LV) {
+                System.out.println("Can't merge pet!");
+                System.out.println("The target pet is max level!");
+            }
             pteam.mergePet(curr, target - 1);
             pteam.removePet(opt - 1);
         }

@@ -103,6 +103,7 @@ public class Arena {
         win = 0;
         life = 5;
         money = DEFAULT_MONEY;
+        isQuit = false;
 
         playerPetFactory = new PetFactory(this, pTeam, enmTeam);
         enmPetFactory = new PetFactory(this, enmTeam, pTeam);
