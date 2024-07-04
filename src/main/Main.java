@@ -153,7 +153,6 @@ public class Main {
             UserWinModel u = users.get(i);
             System.out.printf("%d. [%s | %d]\n", i + 1, u.name, u.win);
         }
-        System.out.println(1);
         ci.enter();
     }
 
