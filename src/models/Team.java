@@ -441,6 +441,10 @@ public class Team {
         return pets.get(idx);
     }
 
+    public HashMap<Integer, Pet> getPets() {
+        return pets;
+    }
+
     public Pet getBattlePet(int idx) {
         return idx >= END_SIZE ? null : battlePets.get(idx);
     }

@@ -57,11 +57,7 @@ public class Arena {
     public void viewRound(RoundRepository playerR, RoundRepository enmR) {
         pTeam.setTeamFromRound(playerPetFactory, fruitFactory, playerR);
         enmTeam.setTeamFromRound(enmPetFactory, fruitFactory, enmR);
-        pTeam.initBattleTeam();
-        pTeam.arrangeBattleTeam();
-        enmTeam.initBattleTeam();
-        enmTeam.arrangeBattleTeam();
-        Lib.printTeams(pTeam, enmTeam);
+        Lib.printTeams(pTeam.getPets(), enmTeam.getPets());
     }
 
     public void replayRound(RoundRepository playerR, RoundRepository enmR) {

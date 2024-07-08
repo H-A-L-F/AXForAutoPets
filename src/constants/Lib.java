@@ -88,6 +88,25 @@ public class Lib {
 //        System.out.println(thirdLn);
     }
 
+    public static void printTeams(HashMap<Integer, Pet> pTeam, HashMap<Integer, Pet> eTeam) {
+        StringBuilder firstLn = new StringBuilder();
+        StringBuilder secondLn = new StringBuilder();
+        StringBuilder thirdLn = new StringBuilder();
+        for (int i = 0; i < Team.END_SIZE; i++) {
+            Pet pet = pTeam.get(i);
+            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+        }
+        String vs = "-> <- ";
+        firstLn.append(vs);
+        secondLn.append(String.format("%" + vs.length() + "s", ""));
+        for (int i = Team.FRONT_INDEX; i >= 0; i--) {
+            Pet pet = eTeam.get(i);
+            petPrintWrapper(firstLn, secondLn, thirdLn, pet);
+        }
+        System.out.println(firstLn);
+        System.out.println(secondLn);
+    }
+
     public static void printDivider() {
         System.out.println("------------------------------");
     }
