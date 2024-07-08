@@ -166,6 +166,7 @@ public class Main {
             if(opt == -1) return;
             opt--;
             MatchRepository match = matches.get(opt);
+            Lib.clear();
             menuMatchDetail(match);
         }
     }
@@ -175,6 +176,7 @@ public class Main {
     }
 
     private void menuViewHistory(ArrayList<MatchRepository> matches) {
+        Lib.clear();
         System.out.println("=== History ===");
         for (int i = 0; i < matches.size(); i++) {
             MatchRepository m = matches.get(i);
@@ -196,6 +198,7 @@ public class Main {
             RoundRepository pr = rounds.get(opt);
             RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
             Arena arena = Arena.newInstance(new Team(match.getTeamName()));
+            Lib.clear();
             arena.replayRound(pr, er);
         }
     }
@@ -207,6 +210,7 @@ public class Main {
             RoundRepository pr = rounds.get(i);
             RoundRepository er = RoundRepository.getRoundRepoById(pr.getEnmRoundId());
             Arena arena = Arena.newInstance(new Team(match.getTeamName()));
+            Lib.clear();
             arena.viewRound(pr, er);
         }
     }
