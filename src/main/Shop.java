@@ -1,10 +1,7 @@
 package main;
 
 import console_input.ConsoleInput;
-import constants.FruitFactory;
-import constants.Lib;
-import constants.PetFactory;
-import constants.ShopStat;
+import constants.*;
 import models.Entity;
 import models.Fruit;
 import models.Pet;
@@ -315,9 +312,12 @@ public class Shop {
     }
 
     private void generatePetShop() {
+        int tier = shopStat.getTIER();
+        if(DevelopmentState.state.contains(DevelopmentState.CAP_SHOP_TIER))
+            tier = Math.min(tier, 3);
         for (int i = 0; i < shopStat.getPET_SLOT(); i++) {
             if(pets.get(i).state == ShopState.FROZEN) continue;
-            pets.set(i, new ShopItem<>(petFactory.getPet(shopStat.getTIER())));
+            pets.set(i, new ShopItem<>(petFactory.getPet(tier)));
         }
     }
 
