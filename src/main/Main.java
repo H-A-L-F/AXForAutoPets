@@ -143,7 +143,7 @@ public class Main {
 
     private void menuArena() {
         String name = ci.getStringInRange(5, 20, "Team Name [5 - 20]: ");
-        Arena.getInstance(new Team(name)).newGame();
+        Arena.newInstance(new Team(name)).newGame();
     }
 
     private void menuLeaderboard() {
